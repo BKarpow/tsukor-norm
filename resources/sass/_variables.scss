@@ -1,0 +1,25 @@
+// Body
+$body-bg: #f8fafc;
+
+// Typography
+$font-family-sans-serif: "MacPawFixelDisplayRegular", sans-serif;
+$font-size-base: 1rem;
+$line-height-base: 1.7;
+
+//Color Scheme
+$dark-bg: #453c67;
+$blue-bg: #6d67e4;
+$grey-blue-bg: #46c2cb;
+$yellow-bg: #f2f7a1;
+
+:root {
+    --dark-bg: #453c67;
+    --blue-bg: #6d67e4;
+    --grey-blue-bg: #46c2cb;
+    --yellow-bg: #f2f7a1;
+    --green-bg: #79bd8f;
+    --red-bg: #ff6138;
+}
+
+// Table
+$tb-border-radius: 1rem;

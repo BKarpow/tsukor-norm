@@ -1,0 +1,12 @@
+// Fonts
+// @import url("https://fonts.bunny.net/css?family=Nunito");
+/* Webfont: MacPawFixelDisplay-Regular */
+@font-face {
+    font-family: "MacPawFixelDisplayRegular";
+    src: url("../fonts/MacPawFixelDisplay-Regular.woff2") format("woff2"),
+        /* Modern Browsers */ url("../fonts/MacPawFixelDisplay-Regular.otf")
+            format("opentype"); /* Safari, Android, iOS */
+    font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+}

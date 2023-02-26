@@ -1,0 +1,27 @@
+{
+  "resources/fonts/MacPawFixelDisplay-Regular.woff2": {
+    "file": "assets/MacPawFixelDisplay-Regular-25a87879.woff2",
+    "src": "resources/fonts/MacPawFixelDisplay-Regular.woff2"
+  },
+  "resources/fonts/MacPawFixelDisplay-Regular.otf": {
+    "file": "assets/MacPawFixelDisplay-Regular-d9dd402c.otf",
+    "src": "resources/fonts/MacPawFixelDisplay-Regular.otf"
+  },
+  "resources/js/app.css": {
+    "file": "assets/app-1d321a47.css",
+    "src": "resources/js/app.css"
+  },
+  "resources/sass/app.scss": {
+    "file": "assets/app-58c92523.css",
+    "src": "resources/sass/app.scss",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-2bc1b8f5.js",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "css": [
+      "assets/app-1d321a47.css"
+    ]
+  }
+}
