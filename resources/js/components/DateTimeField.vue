@@ -1,26 +1,37 @@
 <template>
-    <v-date-picker v-model="date" mode="dateTime" is-dark is24hr>
-        <template v-slot="{ inputValue, inputEvents }">
-            <input
-                class="px-2 py-1 border rounded focus:outline-none focus:border-blue-300"
-                :value="inputValue"
-                v-on="inputEvents"
-            />
-        </template>
-    </v-date-picker>
+    <h4>{{ header }}</h4>
+    <v-date-picker v-if="show" v-model="date" :mode="mode" is-dark is24hr></v-date-picker>
     <input type="hidden" name="created_at" :value="formatDate" />
 </template>
 
 <script>
 export default {
     name: "DateTimeField",
-    props: ["dt"],
+    props: {
+        onlyDate: {
+            type: Boolean,
+            default: false,
+        },
+        dt: {
+            type: String,
+            default: "",
+        },
+    },
     data() {
         return {
             date: new Date(),
+            mode: "dateTime",
+            show: false,
         };
     },
     computed: {
+        header(){
+            let h = "Дата і час"
+            if (this.onlyDate) {
+                h = "Дата"
+            }
+            return h
+        },
         formatDate() {
             let mon = String(this.date.getMonth() + 1);
             let day = String(this.date.getDate());
@@ -30,10 +41,21 @@ export default {
             day = day.length == 1 ? `0${day}` : `${day}`;
             h = h.length == 1 ? `0${h}` : `${h}`;
             m = m.length == 1 ? `0${m}` : `${m}`;
-            const fdatetime = `${this.date.getFullYear()}-${mon}-${day} ${h}:${m}:00`;
+            const fdatetime = !this.onlyDate
+                ? `${this.date.getFullYear()}-${mon}-${day} ${h}:${m}:00`
+                : `${this.date.getFullYear()}-${mon}-${day} 00:00:00`;
             this.$emit("chg", fdatetime);
             return fdatetime;
         },
+    },
+    mounted() {
+        if (this.onlyDate) {
+            this.mode = "date";
+        }
+        if (this.dt !== "") {
+            this.date = new Date(this.dt);
+        }
+        this.show = true;
     },
 };
 </script>

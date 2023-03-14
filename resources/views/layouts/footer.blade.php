@@ -14,6 +14,7 @@
                         <a class="footer-link" href="/">
                             Головна
                         </a>
+
                     </li>
                     <li>
                         <a class="footer-link" href="https://blog.tsukor-norm.pp.ua">
@@ -21,8 +22,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{route('med.create')}}" class="footer-link">
-                            Додати препарат
+                        <a href="{{route('terms')}}" class="footer-link">
+                            Умови використання сайту
                         </a> <!-- /.footer-link -->
                     </li>
 

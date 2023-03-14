@@ -49,7 +49,7 @@ class BloodPressureController extends Controller
      */
     public function create()
     {
-        //
+        return view('bloodPressure.create');
     }
 
     /**
@@ -67,7 +67,7 @@ class BloodPressureController extends Controller
         $bp->pulse = $request->pulse;
         $bp->note = $request->note;
         $bp->save();
-        return new BloodPressureResource($bp);
+        return redirect()->route('home')->withStatus('Додано новий показник артеріального тиску');
     }
 
     /**
@@ -89,7 +89,10 @@ class BloodPressureController extends Controller
      */
     public function edit(BloodPressure $bloodPressure)
     {
-        //
+        $this->authorize('delete', $bloodPressure);
+        return view('bloodPressure.update', [
+            'bp' => $bloodPressure
+        ]);
     }
 
     /**
@@ -101,7 +104,15 @@ class BloodPressureController extends Controller
      */
     public function update(UpdateBloodPressureRequest $request, BloodPressure $bloodPressure)
     {
-        //
+        $this->authorize('delete', $bloodPressure);
+        $bloodPressure->user_id = Auth::id();
+        $bloodPressure->sis = $request->sis;
+        $bloodPressure->dis = $request->dis;
+        $bloodPressure->pulse = $request->pulse;
+        $bloodPressure->note = $request->note;
+        $bloodPressure->created_at = $request->created_at;
+        $bloodPressure->save();
+        return redirect()->route('home')->withStatus('Оновлено показник артеріального тиску');
     }
 
     /**

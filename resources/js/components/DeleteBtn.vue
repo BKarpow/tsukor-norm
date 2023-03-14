@@ -29,9 +29,9 @@ export default {
                     axios
                         .delete(this.deleteUrl)
                         .then((r) => {
-                            console.log(r);
                             if (r.status) {
                                 Swal.fire("Видалено!", r.info, "success");
+                                location.reload()
                             } else {
                                 Swal.fire(
                                     "Ой, щось пішло не так!",
@@ -43,7 +43,7 @@ export default {
                         .catch((err) => {
                             Swal.fire(
                                 "Ой, сталася помилка!",
-                                "Можливо ви вже видалили це показник",
+                                "Можливо ви вже видалили це видаляли",
                                 "error"
                             );
                         });
@@ -53,11 +53,3 @@ export default {
     },
 };
 </script>
-
-<style lang="scss" scoped>
-//Color Scheme
-$dark-bg: #453c67;
-$blue-bg: #6d67e4;
-$grey-blue-bg: #46c2cb;
-$yellow-bg: #f2f7a1;
-</style>

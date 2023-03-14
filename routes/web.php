@@ -38,7 +38,14 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::post('/feedback-footer', [FeedbackController::class, 'feedbackFooterSend'])
 ->name('feedback.store');
-Route::get('/', [IndexGlucoseController::class, 'index'])->name('ig.index');
+
+Route::get('/terms-of-use', function(){
+    return view('terms');
+})->name('terms');
+
+Route::get('/', function(){
+    return view('main');
+})->name('ig.index');
 Route::get('/ig', [IndexGlucoseController::class, 'index'])->name('ig.index');
 
 Route::get('/ig/add', [IndexGlucoseController::class, 'create'])->name('ig.add');
@@ -59,11 +66,14 @@ Route::group([
     Route::get('/import', [MySugarController::class, 'import'])->name('sugar.import');
     Route::get('/api/analytic', [MySugarController::class, 'getAnalyticsDataSugarApi'])->name('sugar.api.analytic');
     Route::get('/api/percentage', [MySugarController::class, 'getLevelsPercentageApi']);
+    Route::get('/api/empty-stomach', [MySugarController::class, 'getEmptyStomachApi']);
 
     Route::post('/import', [MySugarController::class, 'importStore'])->name('sugar.import.file.store');
     Route::get('/add', [MySugarController::class, 'create'])->name('sugar.add');
     Route::post('/add', [MySugarController::class, 'store'])->name('sugar.add.store');
-    Route::delete('/edit/{mySugar}', [MySugarController::class, 'destroy'])->name('sugar.delete');
+    Route::delete('/delete/{mySugar}', [MySugarController::class, 'destroy'])->name('sugar.delete');
+    Route::get('/edit/{mySugar}', [MySugarController::class, 'edit'])->name('sugar.edit');
+    Route::post('/edit/{mySugar}', [MySugarController::class, 'update'])->name('sugar.edit');
 });
 
 Route::group([
@@ -89,6 +99,16 @@ Route::group([
     Route::delete("/destroy/{bloodPressure}", [BloodPressureController::class, 'destroy']);
 });
 Route::group([
+    'prefix' => '/blood-pressure',
+    'middleware' => 'auth',
+    'controller' => BloodPressureController::class
+], function() {
+    Route::get('/create', 'create')->name('bloodPressure.create');
+    Route::post('/create', 'store');
+    Route::get('/edit/{bloodPressure}', 'edit')->name('bloodPressure.edit');
+    Route::post('/edit/{bloodPressure}', 'update');
+});
+Route::group([
     'prefix' => '/medicament',
     'middleware' => 'auth'
 ], function() {
@@ -100,6 +120,18 @@ Route::group([
     Route::get('/delete/{medicament}', [MedicamentController::class, 'destroy'])->name('med.delete');
     Route::post('/edit/{medicament}', [MedicamentController::class, 'update'])->name('med.edit');
     Route::post('/create', [MedicamentController::class, 'store'])->name('med.create');
+});
+Route::group([
+    'middleware' => 'auth',
+    'prefix' => '/hba1c',
+    'controller' => App\Http\Controllers\HbA1cController::class
+], function() {
+    Route::get('/', 'index')->name('hba1c.index');
+    Route::post('/edit/{hbA1c}', 'update')->name('hba1c.edit');
+    Route::get('/edit/{hbA1c}', 'edit')->name('hba1c.edit');
+    Route::get('/create', 'create')->name('hba1c.create');
+    Route::post('/create', 'store');
+    Route::delete('/delete/{hbA1c}', 'destroy')->name('hba1c.delete');
 });
 // Route::group([], function() {});
 

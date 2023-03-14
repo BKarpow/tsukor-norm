@@ -1,6 +1,8 @@
 <template>
     <div class="overflow-auto">
+        <h2>Графік цукрів крові</h2>
         <div class="my-1">
+            <h3>Цукор крові</h3>
             <div class="form-group">
                 <label for="range_days">Період відображення</label>
                 <select
@@ -22,11 +24,13 @@
         </div>
         <!-- /.my-1 -->
         <Line v-if="load" :data="data" :options="options" />
+        <ChartEmptyStomachGlu :range-days="rangeDays" ref="rc" />
     </div>
     <!-- /.overflow-auto -->
 </template>
 
 <script lang="ts">
+import ChartEmptyStomachGlu from "./ChartEmptyStomachGlu.vue";
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -55,6 +59,7 @@ export default {
     name: "Chart",
     components: {
         Line,
+        ChartEmptyStomachGlu,
     },
     props: {
         title: {
@@ -103,7 +108,9 @@ export default {
                     (item) => item.glu
                 );
                 this.load = true;
+                this.$refs.rc.getData(Number(this.rangeDays));
             });
+
         },
     },
     mounted() {

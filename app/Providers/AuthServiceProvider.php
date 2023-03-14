@@ -8,9 +8,12 @@ use App\Models\BloodPressure;
 use App\Models\IndexGlucose;
 use App\Models\Medicament;
 use App\Models\MySugar;
+use App\Policies\MySugarPolicy;
 use App\Policies\BloodPressurePolicy;
 use App\Policies\IndexGlucosePolicy;
 use App\Policies\MedicamentPolicy;
+use App\Policies\HbA1cPolicy;
+use App\Models\HbA1c;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -25,7 +28,8 @@ class AuthServiceProvider extends ServiceProvider
         IndexGlucose::class => IndexGlucosePolicy::class,
         MySugar::class => MySugarPolicy::class,
         BloodPressurePolicy::class => BloodPressure::class,
-        MedicamentPolicy::class => Medicament::class
+        MedicamentPolicy::class => Medicament::class,
+        HbA1cPolicy::class => HbA1c::class
     ];
 
     /**

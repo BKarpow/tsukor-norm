@@ -3,11 +3,30 @@
         :style="bgStyleCalc"
         class="cart-glu mb-2 p-2 animate__animated animate__zoomIn"
     >
-        <h3 class="glu-value">{{ getNameTimeDay }} {{ glu }} mmol/L</h3>
+        <h3 class="glu-value"> {{ glu }} mmol/L</h3>
         <!-- /.glu-value -->
-        <p class="desc">
+        <div class="my-1">
+            <div class="btn-group">
+                <delete-btn :delete-url="deleteUrl">
+                    <a href="#" class="btn btn-dark"
+                        ><i class="fa-solid fa-trash"></i></a
+                ></delete-btn>
+                <a :href="editUrl" class="btn btn-dark"
+                    ><i class="fa-solid fa-pen-to-square"></i
+                ></a>
+            </div>
+            <!-- /.btn-group -->
+        </div>
+        <!-- /.my-1 -->
+        <div class="p-1">
+            <strong>
+                {{ getNameTimeDay }}
+            </strong>
+        </div>
+        <!-- /.p-1 -->
+        <p class="desc p-1 mt-2">
             {{ descGlu }}
-            <spoler> {{ note }} </spoler>
+            {{ note }}
         </p>
         <!-- /.desc -->
         <p class="date">{{ time }}, {{ date }}</p>
@@ -31,6 +50,8 @@ export default {
         "time",
         "date",
         "note",
+        "deleteUrl",
+        "editUrl",
     ],
     computed: {
         getNameTimeDay() {

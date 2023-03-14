@@ -130,7 +130,7 @@
         >
     </div>
     <!-- /.alert alert-success -->
-    <ul class="list-group mt-1">
+    <ul class="list-group my-1">
         <li class="list-group-item" v-for="med in medicaments" :key="med.id">
             {{ med.name }} ({{ med.dose }})
         </li>
@@ -172,7 +172,7 @@ export default {
         noteMed() {
             let note = "";
             if (this.medicaments.length !== 0) {
-                note = "Мої ліки для контролю глюкози крові: \n";
+                note = "";
                 this.medicaments.forEach((item) => {
                     note += `${item.name} (${item.dose}) \n`;
                 });

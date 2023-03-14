@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateBloodPressureRequest extends FormRequest
+class StoreHbA1cRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,9 @@ class UpdateBloodPressureRequest extends FormRequest
     public function rules()
     {
         return [
-            'sis' => 'required|numeric|max:300|min:30',
-            'dis' => 'required|numeric|max:295|min:1',
-            'pulse' => 'required|numeric|max:300|min:25',
-            'note' => 'string|max:250',
+            'percentage' => 'required|numeric|max:100|min:1',
+            'note' => 'required|string|max:250',
+            'created_at' => 'required|date_format:Y-m-d H:i:s'
         ];
     }
 }

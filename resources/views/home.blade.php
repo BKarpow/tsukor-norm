@@ -10,6 +10,7 @@
                 <div class="card-header">Моя карта</div>
 
             <div class="card-body">
+                @include('cabinet.buttons')
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button
@@ -23,6 +24,16 @@
                             aria-selected="true">
                             Мій цукор
                         </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a
+                            class="nav-link"
+                            href="{{route('hba1c.index')}}"
+                            role="tab"
+                            title="Глікований гемоглобін"
+                            aria-selected="true">
+                            HbA1c
+                        </a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button

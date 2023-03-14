@@ -69,4 +69,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Medicament::class, 'user_id', 'id');
     }
+
+    public function hba1c()
+    {
+        return $this->hasMany(HbA1c::class, 'user_id', 'id');
+    }
 }

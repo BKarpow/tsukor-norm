@@ -7,7 +7,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    @yield('meta')
     <title>@yield('title')</title>
 
     <!-- Fonts -->
@@ -30,15 +30,15 @@
   {!! RecaptchaV3::initJs() !!}
 </head>
 <body>
-    <div id="app">
+<div id="app">
+    @include('layouts.header')
+    @include('sugar.flyButton')
+    <main class="py-4">
+        @yield('content')
+    </main>
+</div>
 
-        @include('layouts.header')
-        @include('sugar.flyButton')
-
-        <main class="py-4">
-            @yield('content')
-        </main>
-            @include('layouts.footer')
-    </div>
+@yield('contentnv')
+@include('layouts.footer')
 </body>
 </html>

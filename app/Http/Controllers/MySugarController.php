@@ -154,7 +154,8 @@ class MySugarController extends Controller
      */
     public function edit(MySugar $mySugar)
     {
-        //
+        $this->authorize('delete', $mySugar);
+        return view('sugar.edit', ['s'=>$mySugar]);
     }
 
     /**
@@ -166,7 +167,19 @@ class MySugarController extends Controller
      */
     public function update(UpdateMySugarRequest $request, MySugar $mySugar)
     {
-        //
+        $this->authorize('delete', $mySugar);
+        $comment = ($request->comment) ? $request->comment : "...";
+        $mySugar->glucose = (float)$request->glucose;
+        $mySugar->before_food = (bool)$request->before_food;
+        $mySugar->after_food = (bool)$request->after_food;
+        $mySugar->before_exercise = (bool)$request->before_exercise;
+        $mySugar->exercise = (bool)$request->exercise;
+        $mySugar->after_exercise = (bool)$request->after_exercise;
+        $mySugar->stress = (bool)$request->stress;
+        $mySugar->disease = (bool)$request->disease;
+        $mySugar->comment = $comment;
+        $mySugar->save();
+        return redirect()->route('home')->withStatus("Показник цукру збережено");
     }
 
     /**
@@ -182,7 +195,6 @@ class MySugarController extends Controller
         $info = "Видалено показник глюкози {$mySugar->glucose}ммол/л, який створено {$cr}";
         $mySugar->delete();
         return response()->json([
-            'status' => true,
             'info' => $info
         ]);
     }
@@ -209,7 +221,7 @@ class MySugarController extends Controller
         $cgAll = Auth::user()->mySugar()->count();
         $cgAllMin = Auth::user()
                         ->mySugar()
-                        ->where('glucose', '<', $tr->min_glu)
+                        ->where('glucose', '<=', $tr->min_glu)
                         ->count();
         $cgAllNorm = Auth::user()
                         ->mySugar()
@@ -218,7 +230,7 @@ class MySugarController extends Controller
                         ->count();
         $cgAllMax = Auth::user()
                         ->mySugar()
-                        ->where('glucose', '>', $tr->max_glu)
+                        ->where('glucose', '>=', $tr->max_glu)
                         ->count();
         $perOne = ($cgAll != 0) ? ($cgAll / 100) : 0 ;
         $rd = 1;
@@ -231,6 +243,25 @@ class MySugarController extends Controller
             'minPer' => round(($cgAllMin / $perOne), $rd),
             'perNorm' => round(($cgAllNorm / $perOne), $rd),
 
+        ]);
+    }
+
+    public function getEmptyStomachApi(Request $request)
+    {
+        $data = $request->validate([
+            'range' => 'required|numeric|max:180|min:7'
+        ]);
+        $intervalDays = (int)$data['range'];
+        $eq = Auth::user()->mySugar()->where([
+                    [DB::raw('TIME(created_at)'), '>=', '04:00:00'],
+                    [DB::raw('TIME(created_at)'), '<=', '07:00:00'],
+                    ['before_food', 1],
+                    ['created_at', '>=', DB::raw("DATE_SUB(NOW(), INTERVAL {$intervalDays} DAY)")]
+                ])
+                ->orderBy('created_at', 'asc');
+        return response()->json([
+            'sugars' => SugarAnalyticApiResource::collection($eq->get()),
+            'avg' => round( $eq->avg('glucose'), 1)
         ]);
     }
 }

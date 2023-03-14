@@ -10,6 +10,7 @@
                 <div class="card-header">Мій цукор зараз</div>
 
                 <div class="card-body">
+                    @include('cabinet.buttons')
                     <form method="POST" enctype="multipart/form-data" id="upload-file" action="{{ route('sugar.import.file.store') }}" >
                         @csrf
                         <div class="row">
