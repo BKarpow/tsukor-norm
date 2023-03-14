@@ -48,6 +48,7 @@ import Spoler from "./components/Spoler.vue";
 import GluItem from "./components/GluItem.vue";
 import ToolsSugar from "./components/ToolsSugar.vue";
 import MedicamentItem from "./components/MedicamentItem.vue";
+import GluProfileCharts from "./components/GluProfileCharts.vue";
 
 app.component("ig-list", IGList);
 app.component("example-component", ExampleComponent);
@@ -64,6 +65,7 @@ app.component("spoler", Spoler);
 app.component("glu-item", GluItem);
 app.component("tools-sugar", ToolsSugar);
 app.component("med-item", MedicamentItem);
+app.component("profile-app", GluProfileCharts);
 
 /**
  * The following block of code may be used to automatically register your

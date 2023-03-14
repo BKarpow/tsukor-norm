@@ -73,6 +73,7 @@
     </div><!-- /.row.d-flex -->
 </div><!-- /.container -->
 <div class="sugar-table">
+    <profile-app></profile-app>
     @include('sugar.sugarTable')
 </div>
 
