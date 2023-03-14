@@ -277,6 +277,7 @@ class MySugarController extends Controller
             ->mySugar()
             ->select(DB::raw('DATE(created_at) as created_at'))
             ->groupBy(DB::raw('DATE(created_at)'))
+            ->orderBy('created_at', 'desc')
             ->where('created_at', '>=', DB::raw("DATE_SUB(NOW(), INTERVAL {$interval} DAY)"))
             ->get()
         );
