@@ -271,12 +271,13 @@ class MySugarController extends Controller
         $data = $request->validate([
             'interval' => 'required|numeric|max:90|min:1'
         ]);
+        $interval = intval($data['interval']);
         return GluProfileResource::collection(
             Auth::user()
             ->mySugar()
             ->select(DB::raw('DATE(created_at) as created_at'))
             ->groupBy(DB::raw('DATE(created_at)'))
-            ->where('created_at', '>=', DB::raw("DATE_SUB(NOW(), INTERVAL {$data['interval']} DAY)"))
+            ->where('created_at', '>=', DB::raw("DATE_SUB(NOW(), INTERVAL {$interval} DAY)"))
             ->get()
         );
     }
