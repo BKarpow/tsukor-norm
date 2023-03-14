@@ -266,13 +266,17 @@ class MySugarController extends Controller
         ]);
     }
 
-    public function gluProfileApi()
+    public function gluProfileApi(Request $request)
     {
+        $data = $request->validate([
+            'interval' => 'required|numeric|max:90|min:1'
+        ]);
         return GluProfileResource::collection(
             Auth::user()
             ->mySugar()
             ->select(DB::raw('DATE(created_at) as created_at'))
             ->groupBy(DB::raw('DATE(created_at)'))
+            ->where('created_at', '>=', DB::raw("DATE_SUB(NOW(), INTERVAL {$data['interval']} DAY)"))
             ->get()
         );
     }
