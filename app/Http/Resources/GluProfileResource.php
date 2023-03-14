@@ -3,6 +3,9 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\MySugar;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class GluProfileResource extends JsonResource
 {
@@ -14,6 +17,13 @@ class GluProfileResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'date' => $this->dateCreate('d.m.Y'),
+            'set' => Auth::user()
+                        ->mySugar()
+                        ->select('glucose', DB::raw('TIME(created_at) as time'))
+                        ->where(DB::raw('DATE(created_at)'), $this->dateCreate('Y-m-d'))
+                        ->get(),
+        ];
     }
 }

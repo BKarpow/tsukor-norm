@@ -65,6 +65,7 @@ Route::group([
 ], function(){
     Route::get('/import', [MySugarController::class, 'import'])->name('sugar.import');
     Route::get('/api/analytic', [MySugarController::class, 'getAnalyticsDataSugarApi'])->name('sugar.api.analytic');
+    Route::get('/api/profile', [MySugarController::class, 'gluProfileApi'])->name('sugar.api.profile');
     Route::get('/api/percentage', [MySugarController::class, 'getLevelsPercentageApi']);
     Route::get('/api/empty-stomach', [MySugarController::class, 'getEmptyStomachApi']);
 

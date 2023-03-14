@@ -6,6 +6,7 @@ use App\Models\MySugar;
 use App\Http\Requests\StoreMySugarRequest;
 use App\Http\Requests\SugarImportFileUploadRequest;
 use App\Http\Requests\UpdateMySugarRequest;
+use App\Http\Resources\GluProfileResource;
 use App\Http\Resources\SugarAnalyticApiResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -263,5 +264,16 @@ class MySugarController extends Controller
             'sugars' => SugarAnalyticApiResource::collection($eq->get()),
             'avg' => round( $eq->avg('glucose'), 1)
         ]);
+    }
+
+    public function gluProfileApi()
+    {
+        return GluProfileResource::collection(
+            Auth::user()
+            ->mySugar()
+            ->select(DB::raw('DATE(created_at) as created_at'))
+            ->groupBy(DB::raw('DATE(created_at)'))
+            ->get()
+        );
     }
 }
