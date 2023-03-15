@@ -1,6 +1,6 @@
 <template>
     <div class="overflow-auto">
-        <h4>Глікемічний профіль</h4>
+        <h4>{{ dateName }}</h4>
 
         <Line v-if="load" :data="data" :options="options" />
     </div>
@@ -45,6 +45,30 @@ export default {
         title: {
             type: String,
             default: "",
+        },
+        dt: {
+            type: String,
+            default: "",
+        },
+    },
+    computed: {
+        dateName() {
+            const months = [
+                "Січень",
+                "Лютий",
+                "Березень",
+                "Квітень",
+                "Травень",
+                "Червень",
+                "Липень",
+                "Серпень",
+                "Вересень",
+                "Жовтень",
+                "Листопад",
+                "Грудень",
+            ];
+            const dt = new Date(this.dt)
+            return `${dt.getDate()} ${months[dt.getMonth()]} ${dt.getFullYear()}`
         },
     },
     data() {

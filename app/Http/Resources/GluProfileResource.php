@@ -19,6 +19,7 @@ class GluProfileResource extends JsonResource
     {
         return [
             'date' => $this->dateCreate('d.m.Y'),
+            'dateSystem' => $this->dateCreate('Y-m-d'),
             'set' => Auth::user()
                         ->mySugar()
                         ->select('glucose', DB::raw('TIME(created_at) as time'))

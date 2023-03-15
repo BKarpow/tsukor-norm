@@ -2,9 +2,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-11">
-                <h4>Профілі глюкози крові</h4>
+                <h2>Глікемічні профілі</h2>
                 <div class="my-1">
-                    <h3>Цукор крові</h3>
+                    <h3>Графік цукру за добу</h3>
                     <div class="form-group">
                         <label for="range_days">Період відображення</label>
                         <select
@@ -14,11 +14,12 @@
                             id="range_days"
                             class="form-control"
                         >
+                            <option value="1">1 день</option>
+                            <option value="2">2 дні</option>
                             <option value="3">3 дні</option>
                             <option value="7">7 днів</option>
                             <option value="14">14 днів</option>
                             <option value="30">30 днів</option>
-                            <option value="90">90 днів</option>
                         </select>
                         <!-- /#.form-control -->
                     </div>
@@ -32,6 +33,7 @@
                         :key="profile.date"
                         :set="profile.set"
                         :title="profile.date"
+                        :dt="profile.dateSystem"
                     />
                 </div>
                 <!-- /.mt-1 -->
@@ -55,7 +57,7 @@ export default {
         return {
             show: false,
             profileSet: [],
-            intervalDays: "7",
+            intervalDays: "2",
         };
     },
     methods: {
