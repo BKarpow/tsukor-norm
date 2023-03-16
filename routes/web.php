@@ -11,6 +11,8 @@ use App\Http\Controllers\FeedbackController;
 use Fresh\Transliteration\Transliterator;
 use Fresh\Transliteration\UkrainianToLatin;
 // use App\Lib\Tool;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +40,31 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::post('/feedback-footer', [FeedbackController::class, 'feedbackFooterSend'])
 ->name('feedback.store');
+
+Route::get('/migrate', function(){
+    if (Auth::user()->role != 42) {
+        die('Access block!');
+    }
+    $c = Artisan::call('migrate');
+
+    if ($c === 0) {
+        echo "Migration success!";
+    } else {
+        echo "Error migration!!";
+    }
+})->middleware('auth')->name('terms');
+
+Route::get('/migrate-rollback', function(){
+    if (Auth::user()->role != 42) {
+        die('Access block!');
+    }
+    $c = Artisan::call('migrate:rollback');
+    if ($c === 0) {
+        echo "Migration rollback success!";
+    } else {
+        echo "Error migration rollback!!";
+    }
+})->middleware('auth')->name('terms');
 
 Route::get('/terms-of-use', function(){
     return view('terms');

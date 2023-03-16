@@ -1,33 +1,72 @@
 <template>
-    <h3>Цільовий діапазон рівня глюкози</h3>
-    <div class="form-str d-flex justify-center">
-        <div class="form-group col-4 col-md-2 m-1">
-            <input
-                type="text"
-                class="form-control"
-                placeholder="Мінімум"
-                v-model="minGlu"
-            />
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="text-center">Ваші норми глюкози крові</h3>
+            </div>
+            <!-- /.col-md-12 -->
         </div>
-        <!-- /.form-group -->
-        <div class="form-group col-4 col-md-2 m-1">
-            <input
-                type="text"
-                class="form-control"
-                placeholder="Максимум"
-                v-model="maxGlu"
-            />
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group mb-2">
+                    <input
+                        type="tel"
+                        class="form-control"
+                        placeholder="Мінімум в день"
+                        v-model="minGlu"
+                    />
+                </div>
+                <!-- /.form-group -->
+                <div class="form-group mb-2">
+                    <input
+                        type="tel"
+                        class="form-control"
+                        placeholder="Мінімум зоанку"
+                        v-model="minGluNt"
+                    />
+                </div>
+                <!-- /.form-group -->
+            </div>
+            <!-- /.col-md-4 -->
+            <div class="col-md-4">
+                <div class="form-group mb-2">
+                    <input
+                        type="tel"
+                        class="form-control"
+                        placeholder="Максимум зранку"
+                        v-model="maxGluNt"
+                    />
+                </div>
+                <!-- /.form-group -->
+                <div class="form-group mb-2">
+                    <input
+                        type="tel"
+                        class="form-control"
+                        placeholder="Максимум в день"
+                        v-model="maxGlu"
+                    />
+                </div>
+                <!-- /.form-group -->
+            </div>
+            <!-- /.col-md-4 -->
         </div>
-        <!-- /.form-group -->
-        <div class="form-group col-4 col-md-2 m-1">
-            <button @click="storeOrUpdate" class="btn btn-primary">
-                {{ btnText }}
-            </button>
-            <!-- /.btn btn-primary -->
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <button @click="storeOrUpdate" class="btn btn-primary">
+                        {{ btnText }}
+                    </button>
+                    <!-- /.btn btn-primary -->
+                </div>
+                <!-- /.form-group -->
+            </div>
+            <!-- /.col-md-4 -->
         </div>
-        <!-- /.form-group -->
+        <!-- /.row -->
     </div>
-    <!-- /.form-str -->
+    <!-- /.container -->
 </template>
 
 <script>
@@ -50,7 +89,9 @@ export default {
     data() {
         return {
             minGlu: "",
+            minGluNt: "",
             maxGlu: "",
+            maxGluNt: "",
             noneStr: true,
         };
     },
@@ -72,10 +113,11 @@ export default {
             axios
                 .get("/api/str/last")
                 .then((resp) => {
-                    console.log(resp);
                     if (resp.data.status) {
                         this.minGlu = resp.data.str.min_glu;
                         this.maxGlu = resp.data.str.max_glu;
+                        this.minGluNt = resp.data.str.min_nt_glu;
+                        this.maxGluNt = resp.data.str.max_nt_glu;
                         this.noneStr = false;
                     } else {
                         Swal.fire(
@@ -106,6 +148,8 @@ export default {
                 .post("/api/str/last", {
                     min_glu: this.minGlu,
                     max_glu: this.maxGlu,
+                    min_nt_glu: this.minGluNt,
+                    max_nt_glu: this.maxGluNt,
                 })
                 .then((res) => {
                     if (res.data.status) {

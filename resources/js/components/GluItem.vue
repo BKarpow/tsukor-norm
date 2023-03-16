@@ -3,7 +3,7 @@
         :style="bgStyleCalc"
         class="cart-glu mb-2 p-2 animate__animated animate__zoomIn"
     >
-        <h3 class="glu-value"> {{ glu }} mmol/L</h3>
+        <h3 class="glu-value">{{ glu }} mmol/L</h3>
         <!-- /.glu-value -->
         <div class="my-1">
             <div class="btn-group">
@@ -24,6 +24,10 @@
             </strong>
         </div>
         <!-- /.p-1 -->
+        <p class="mt-1 p-1">
+            {{ desc }}
+        </p>
+        <!-- /.mt-1 p-1 -->
         <p class="desc p-1 mt-2">
             {{ descGlu }}
             {{ note }}
@@ -40,6 +44,7 @@ export default {
     props: [
         "glu",
         "max",
+        "maxnt",
         "min",
         "bf",
         "af",
@@ -53,6 +58,12 @@ export default {
         "deleteUrl",
         "editUrl",
     ],
+    data() {
+        return {
+            ranok: false,
+            desc: "",
+        };
+    },
     computed: {
         getNameTimeDay() {
             let nm = "";
@@ -62,12 +73,14 @@ export default {
             } else if (time > 400 && time <= 600) {
                 nm = "Ранковий";
                 if (this.bf) {
-                    nm = "Нотощ";
+                    nm = "Натще";
+                    this.ranok = true;
                 }
             } else if (time > 600 && time <= 1245) {
                 nm = "Сніданок";
                 if (this.bf) {
-                    nm = "Нотощ";
+                    nm = "Натще";
+                    this.ranok = true;
                 }
                 if (this.af) {
                     nm = "Після сніданку";
@@ -100,14 +113,29 @@ export default {
             if (this.glu >= this.max) {
                 cl = "var(--red-bg)";
                 clT = "white";
+                this.desc =
+                    "Високий рівень цукру крові! Межа: " + this.max + " mmol/L";
             }
             if (this.glu < this.max && this.glu > this.min) {
                 cl = "var(--green-bg)";
                 clT = "black";
+                this.desc = "Все добре - це нормальний рівень цукру!";
             }
             if (this.glu <= this.min) {
                 cl = "var(--yellow-bg)";
                 clT = "black";
+                this.desc =
+                    "УВАГА!! ГІПОГЛІКЕМІЯ, терміново їжте цукерку! Межа: " +
+                    this.min +
+                    " mmol/L";
+            }
+            if (this.glu >= this.maxnt && this.ranok) {
+                cl = "var(--red-bg)";
+                clT = "white";
+                this.desc =
+                    "Перевищення рівня цукру натще! Норма " +
+                    this.maxnt +
+                    " mmol/L";
             }
             return `background: ${cl}; color: ${clT};`;
         },

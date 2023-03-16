@@ -42,6 +42,8 @@ class SugarTargetRangeController extends Controller
             $str->user_id = Auth::id();
             $str->min_glu = $request->min_glu;
             $str->max_glu = $request->max_glu;
+            $str->min_nt_glu = $request->min_nt_glu;
+            $str->max_nt_glu = $request->max_nt_glu;
             $str->save();
             return response()->json([
                 'status' => true,
@@ -51,6 +53,8 @@ class SugarTargetRangeController extends Controller
         } else {
             $last->min_glu = $request->min_glu;
             $last->max_glu = $request->max_glu;
+            $last->min_nt_glu = $request->min_nt_glu;
+            $last->max_nt_glu = $request->max_nt_glu;
             $last->save();
             return response()->json([
                 'status' => true,

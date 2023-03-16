@@ -17,6 +17,8 @@ class SugarTargetRangeResource extends JsonResource
         return [
             'min_glu' => round((float)$this->min_glu, 1),
             'max_glu' => round((float)$this->max_glu, 1),
+            'min_nt_glu' => round((float)$this->min_nt_glu, 1),
+            'max_nt_glu' => round((float)$this->max_nt_glu, 1),
         ];
     }
 }

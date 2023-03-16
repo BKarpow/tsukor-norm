@@ -8,7 +8,7 @@
     "src": "resources/fonts/MacPawFixelDisplay-Regular.otf"
   },
   "resources/js/app.css": {
-    "file": "assets/app-8365e3db.css",
+    "file": "assets/app-286b18b6.css",
     "src": "resources/js/app.css"
   },
   "resources/sass/app.scss": {
@@ -17,11 +17,11 @@
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-4b2bcaa8.js",
+    "file": "assets/app-abd9bc6d.js",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-8365e3db.css"
+      "assets/app-286b18b6.css"
     ]
   }
 }

@@ -26,6 +26,8 @@ class SugarTargetRangeRequest extends FormRequest
         return [
             'min_glu' => 'required|numeric|min:3',
             'max_glu' => 'required|numeric|max:15',
+            'min_nt_glu' => 'required|numeric|max:15',
+            'max_nt_glu' => 'required|numeric|max:15',
         ];
     }
 }

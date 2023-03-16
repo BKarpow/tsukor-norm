@@ -11,6 +11,7 @@
             :s="{{(int)$sugar->stress}}"
             :h="{{(int)$sugar->disease}}"
             :max="{{(float)$sugarTargetRange->max_glu}}"
+            :maxnt="{{(float)$sugarTargetRange->max_nt_glu}}"
             :min="{{(float)$sugarTargetRange->min_glu}}"
             time="{{$sugar->dateCreate('H:i')}}"
             date="{{$sugar->dateCreate('d.m.Y')}}"
