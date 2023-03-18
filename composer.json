@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "davefx/phplot": "^6.2",
         "eleirbag89/telegrambotphp": "^1.4",
         "fresh/transliteration": "~4.0",
         "guzzlehttp/guzzle": "^7.2",
@@ -13,7 +14,8 @@
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
-        "laravel/ui": "^4.2"
+        "laravel/ui": "^4.2",
+        "tecnickcom/tcpdf": "^6.6"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

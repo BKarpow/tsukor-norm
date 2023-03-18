@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Lib\PdfExportTrait;
 
 class HomeController extends Controller
 {
+    use PdfExportTrait;
     /**
      * Create a new controller instance.
      *
@@ -60,5 +62,53 @@ class HomeController extends Controller
                                          ->orderBy('name', 'asc')
                                          ->get()
         ]);
+    }
+
+    public function pdfExport()
+    {
+        return view('pdfExport', [
+            'pdfList' => $this->getListMyPdfFiles(),
+        ]);
+    }
+
+    public function pdfExportStore(Request $request)
+    {
+        $request->validate([
+            'startDate'=>'required|date_format:Y-m-d',
+            'endDate'=>'required|date_format:Y-m-d',
+        ]);
+        $allDates = Auth::user()->mySugar()
+        ->select(DB::raw('DATE(created_at) as `date`, COUNT(created_at) as count'))
+        ->groupBy(DB::raw('DATE(created_at)'))
+        ->orderBy('created_at', 'desc')
+        ->get();
+        // DB::enableQueryLog();
+        $data = Auth::user()->mySugar()
+                    ->select(DB::raw('ROUND(glucose, 1) as glucose, DATE(created_at) as `date`, TIME(created_at) as `time`, before_food, after_food'))
+                    ->orderBy('created_at', 'desc')
+                    ->whereRaw("DATE(created_at) >= '{$request->startDate}'")
+                    ->whereRaw("DATE(created_at) <= '{$request->endDate}'")
+                    ->get();
+        // $queries = DB::getQueryLog();
+        // dd($queries);
+        $pdfContent = $this->writerDataPdf($data, $allDates);
+        $headers = [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="'.$this->pdfFileName.'"'
+        ];
+        return response($pdfContent, 200, $headers);
+    }
+
+    public function pdfDownload($pdfName)
+    {
+        if (!file_exists($this->getPdfDirPath().$pdfName)) {
+            abort(404);
+        }
+        $pdfContent = file_get_contents($this->getPdfDirPath().$pdfName);
+        $headers = [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="'.$pdfName.'"'
+        ];
+        return response($pdfContent, 200, $headers);
     }
 }

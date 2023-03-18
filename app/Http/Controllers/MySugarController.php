@@ -6,6 +6,7 @@ use App\Models\MySugar;
 use App\Http\Requests\StoreMySugarRequest;
 use App\Http\Requests\SugarImportFileUploadRequest;
 use App\Http\Requests\UpdateMySugarRequest;
+use App\Http\Resources\AllDatesResource;
 use App\Http\Resources\GluProfileResource;
 use App\Http\Resources\SugarAnalyticApiResource;
 use Illuminate\Support\Facades\Auth;
@@ -281,5 +282,15 @@ class MySugarController extends Controller
             ->where('created_at', '>=', DB::raw("DATE_SUB(NOW(), INTERVAL {$interval} DAY)"))
             ->get()
         );
+    }
+
+    public function getAllDatesSugar()
+    {
+        $res = Auth::user()->mySugar()
+        ->select(DB::raw('DATE(created_at) as `date`, COUNT(created_at) as count'))
+        ->groupBy(DB::raw('DATE(created_at)'))
+        ->orderBy('created_at', 'desc')
+        ->get();
+        return AllDatesResource::collection($res);
     }
 }

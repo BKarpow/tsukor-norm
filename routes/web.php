@@ -38,6 +38,7 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+
 Route::post('/feedback-footer', [FeedbackController::class, 'feedbackFooterSend'])
 ->name('feedback.store');
 
@@ -95,6 +96,7 @@ Route::group([
     Route::get('/api/profile', [MySugarController::class, 'gluProfileApi'])->name('sugar.api.profile');
     Route::get('/api/percentage', [MySugarController::class, 'getLevelsPercentageApi']);
     Route::get('/api/empty-stomach', [MySugarController::class, 'getEmptyStomachApi']);
+    Route::get('/api/all-dates', [MySugarController::class, 'getAllDatesSugar']);
 
     Route::post('/import', [MySugarController::class, 'importStore'])->name('sugar.import.file.store');
     Route::get('/add', [MySugarController::class, 'create'])->name('sugar.add');
@@ -102,6 +104,16 @@ Route::group([
     Route::delete('/delete/{mySugar}', [MySugarController::class, 'destroy'])->name('sugar.delete');
     Route::get('/edit/{mySugar}', [MySugarController::class, 'edit'])->name('sugar.edit');
     Route::post('/edit/{mySugar}', [MySugarController::class, 'update'])->name('sugar.edit');
+});
+
+Route::group([
+    'prefix' => '/export-pdf',
+    'middleware' => 'auth',
+    'controller' => HomeController::class
+], function() {
+    Route::get('/', 'pdfExport')->name('pdfExport');
+    Route::post('/store', 'pdfExportStore')->name('pdfExport.store');
+    Route::get('/download/{pdfName}', 'pdfDownload')->name('pdfExport.download');
 });
 
 Route::group([

@@ -49,6 +49,7 @@ import GluItem from "./components/GluItem.vue";
 import ToolsSugar from "./components/ToolsSugar.vue";
 import MedicamentItem from "./components/MedicamentItem.vue";
 import GluProfileCharts from "./components/GluProfileCharts.vue";
+import DateDiapason from "./components/DateDiapason.vue";
 
 app.component("ig-list", IGList);
 app.component("example-component", ExampleComponent);
@@ -66,6 +67,7 @@ app.component("glu-item", GluItem);
 app.component("tools-sugar", ToolsSugar);
 app.component("med-item", MedicamentItem);
 app.component("profile-app", GluProfileCharts);
+app.component("dt-diapason", DateDiapason);
 
 /**
  * The following block of code may be used to automatically register your

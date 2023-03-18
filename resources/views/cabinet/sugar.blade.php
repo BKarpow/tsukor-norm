@@ -2,7 +2,10 @@
 <div class="my-1">
         <chart-7></chart-7>
 </div><!-- /.my-1 -->
-<p>Записів про рівень цукру: {{ $sugarCount }}.</p>
+<div class="my-1">
+    <a href="{{ route('pdfExport') }}" class="btn btn-info">Експортувати в PDF</a> <!-- /.btn btn-info -->
+</div>
+<!-- /.my-1 -->
 
 <div class="container">
     <div class="row mb-2">
