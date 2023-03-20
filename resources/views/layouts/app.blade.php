@@ -32,11 +32,10 @@
 <body>
 <div id="app">
     @include('layouts.header')
-    @include('sugar.flyButton')
-    <main class="py-4">
+    <main class="pb-4">
         @yield('content')
     </main>
-</div>
+</div> <!-- /#app -->
 
 @yield('contentnv')
 @include('layouts.footer')

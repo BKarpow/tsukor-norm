@@ -114,6 +114,7 @@ Route::group([
     Route::get('/', 'pdfExport')->name('pdfExport');
     Route::post('/store', 'pdfExportStore')->name('pdfExport.store');
     Route::get('/download/{pdfName}', 'pdfDownload')->name('pdfExport.download');
+    Route::delete('/delete/{pdfName}', 'pdfDelete')->name('pdfExport.delete');
 });
 
 Route::group([

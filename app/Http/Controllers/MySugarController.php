@@ -7,6 +7,7 @@ use App\Http\Requests\StoreMySugarRequest;
 use App\Http\Requests\SugarImportFileUploadRequest;
 use App\Http\Requests\UpdateMySugarRequest;
 use App\Http\Resources\AllDatesResource;
+use App\Http\Resources\EmptyStomachResource;
 use App\Http\Resources\GluProfileResource;
 use App\Http\Resources\SugarAnalyticApiResource;
 use Illuminate\Support\Facades\Auth;
@@ -254,16 +255,18 @@ class MySugarController extends Controller
             'range' => 'required|numeric|max:180|min:7'
         ]);
         $intervalDays = (int)$data['range'];
-        $eq = Auth::user()->mySugar()->where([
+        $eq = Auth::user()->mySugar()
+                ->selectRaw('MIN(UNIX_TIMESTAMP(created_at)) as mn_date, AVG(glucose) as glu, DATE(created_at) as date')
+                ->where([
                     [DB::raw('TIME(created_at)'), '>=', '04:00:00'],
-                    [DB::raw('TIME(created_at)'), '<=', '07:00:00'],
+                    [DB::raw('TIME(created_at)'), '<=', '07:45:00'],
                     ['before_food', 1],
                     ['created_at', '>=', DB::raw("DATE_SUB(NOW(), INTERVAL {$intervalDays} DAY)")]
                 ])
-                ->orderBy('created_at', 'asc');
+                ->orderByRaw('DATE(created_at) ASC')
+                ->groupByRaw('DATE(created_at)');
         return response()->json([
-            'sugars' => SugarAnalyticApiResource::collection($eq->get()),
-            'avg' => round( $eq->avg('glucose'), 1)
+            'sugars' => EmptyStomachResource::collection($eq->get()),
         ]);
     }
 

@@ -24,10 +24,20 @@
             <ul class="list-group">
                 @foreach ($pdfList as $pdf)
                 <li class="list-group-item">
-                    {{ $pdf }}
-                    <a href="{{ route('pdfExport.download', ['pdfName'=>$pdf]) }}" class="btn btn-success">
-                        Завантажити
-                    </a> <!-- /.btn btn-success -->
+                    {{ $pdf }} &nbsp; <i class="fa-solid fa-file-pdf"></i> &nbsp;
+                    <div class="d-flex justify-content-center">
+                        <a title="Завантажити файл" href="{{ route('pdfExport.download', ['pdfName'=>$pdf]) }}" class="btn btn-success d-block mr-1">
+                            <i class="fa-solid fa-download"></i>
+                        </a> <!-- /.btn btn-success -->
+
+                        <delete-btn delete-url="{{ route('pdfExport.delete', ['pdfName'=>$pdf]) }}">
+                            <button title="Видалити файл" class="btn btn-danger">
+                                <i class="fa-solid fa-trash"></i>
+                            </button> <!-- /.btn btn-danger -->
+                        </delete-btn> <!-- /.btn btn-success -->
+                    </div>
+                    <!-- /.btn-group -->
+
                 </li>
                 <!-- /.list-group-item -->
                 @endforeach

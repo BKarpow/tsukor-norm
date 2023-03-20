@@ -97,6 +97,18 @@ trait PdfExportTrait {
         </tr>';
     }
 
+    private function getHtmlCopyText(): string
+    {
+        return '<p>
+        Сайт розроблено для допомоги людям, які хворіють на цукровий діабет.
+        На сайті немає і ніколи не буде реклами,
+        пітримати проект можна на PayPal: bogdan.karpow@ukr.net,
+        monobank: 4441 1144 0148 4884
+        </p><p>
+        tsukor-norm.pp.ua 2023рік. © розробник Богдан Карпов bogdan.karpow@ukr.net, dexby101#gmail.com
+        </p>';
+    }
+
     /**
      * Конвертує рядок з датою в інтове значення.
      * Тобто "17:00:00" в 170000, для зручності умовних гілок
@@ -227,6 +239,7 @@ trait PdfExportTrait {
             // }
         }
         $html .= "</table>";
+        $html .= $this->getHtmlCopyText();
         $this->pdf->AddPage();
         $this->pdf->writeHTML($html);
         $pdfFilePath = $this->getPdfFilePath();

@@ -7,6 +7,24 @@
 @section('title') Головна SugarNorm @endsection
 
 @section('content')
+<div class="h-bg">
+    <div class="h-tx">
+        <h1>Тримай цукор під контролем!</h1>
+        <div class="h-btn">
+            <a href="#" class="btn-sg">
+                Мій трекер діабету
+            </a>
+            <!-- /.btn-sg -->
+            <a href="#" class="btn-sg">
+                Продукти для діабетика
+            </a>
+            <!-- /.btn-sg -->
+        </div>
+        <!-- /.h-btn -->
+    </div>
+    <!-- /.h-text -->
+</div>
+<!-- /.h-bg -->
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-11">

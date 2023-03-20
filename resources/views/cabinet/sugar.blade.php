@@ -17,7 +17,7 @@
                 </li>
                 <!-- /.list-group-item -->
                 <li class="list-group-item">
-                    Середня кількість вимірів за день: {{$avgPerDay}}.
+                    Середня кількість вимірів в день за останній тиждень: {{$avgPerDay}}.
                 </li>
                 <!-- /.list-group-item -->
             </ul>

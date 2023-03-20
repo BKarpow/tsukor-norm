@@ -2,7 +2,10 @@
     <div class="overflow-auto my-1" v-if="load">
         <h3>Ранковий цукор крові за {{ rangeDays }} днів.</h3>
         <Line :data="data" :options="options" />
-        <p class="p-1">Середній цукор натощак за {{ rangeDays }} днів: <strong> {{ avg }} mmol/L </strong></p>
+        <p class="p-1">
+            Середній цукор натощак за {{ rangeDays }} днів:
+            <strong> {{ avg }} mmol/L </strong>
+        </p>
         <!-- /.p-1 -->
     </div>
     <!-- /.overflow-auto -->
@@ -80,7 +83,10 @@ export default {
                 this.data.datasets[0].data = resp.data.sugars.map(
                     (item) => item.glu
                 );
-                this.avg = resp.data.avg;
+                this.avg = Number(
+                    resp.data.sugars.reduce((a, c) => a + c.glu, 0) /
+                        resp.data.sugars.length
+                ).toFixed(1);
                 this.load = true;
             });
         },

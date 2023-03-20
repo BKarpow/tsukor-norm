@@ -33,6 +33,7 @@ class HomeController extends Controller
                             $query->select(DB::raw('COUNT(*) as count_per_day'))
                                 ->from('my_sugar')
                                 ->whereUserId(Auth::id())
+                                ->where('created_at', '>', DB::raw('DATE_SUB(NOW(), INTERVAL 7 DAY)'))
                                 ->groupBy(DB::raw('DATE(created_at)'));
                         }, 'daily_counts')
                         ->value('AVG(count_per_day)');
@@ -110,5 +111,16 @@ class HomeController extends Controller
             'Content-Disposition' => 'attachment; filename="'.$pdfName.'"'
         ];
         return response($pdfContent, 200, $headers);
+    }
+
+    public function pdfDelete($pdfName)
+    {
+        if (!file_exists($this->getPdfDirPath().$pdfName)) {
+            abort(404);
+        }
+        return response()->json([
+            'status' => (bool)unlink($this->getPdfDirPath().$pdfName),
+            'info' => "Файл експорту {$pdfName} видалено"
+        ]);
     }
 }
