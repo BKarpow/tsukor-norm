@@ -5,11 +5,10 @@
  */
 
 import "./bootstrap";
-// import Vue from "vue";
+import "./main";
 import { createApp } from "vue";
 import VCalendar from "v-calendar";
 import "v-calendar/dist/style.css";
-// import "mdb-vue-ui-kit/css/mdb.min.css";
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin

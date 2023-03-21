@@ -7,24 +7,92 @@
 @section('title') Головна SugarNorm @endsection
 
 @section('content')
-<div class="h-bg">
-    <div class="h-tx">
-        <h1>Тримай цукор під контролем!</h1>
-        <div class="h-btn">
-            <a href="#" class="btn-sg">
-                Мій трекер діабету
-            </a>
-            <!-- /.btn-sg -->
-            <a href="#" class="btn-sg">
-                Продукти для діабетика
-            </a>
-            <!-- /.btn-sg -->
+
+<!-- ======= Hero Section ======= -->
+<section id="hero">
+    <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
+
+      <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
+
+      <div class="carousel-inner" role="listbox">
+
+        <!-- Slide 1 -->
+        <div class="carousel-item active" style="background-image: url(assets/img/slide/slide-1.webp)">
+          <div class="carousel-container">
+            <div class="container">
+              <h2 class="animate__animated animate__fadeInDown">Вітаю на сайті <span>SugarNorm</span></h2>
+              <p class="animate__animated animate__fadeInUp">Цей сайт створено як корисний інструмент для людей які хворіють на цукровий діабет.</p>
+              <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Повний опис</a>
+            </div>
+          </div>
         </div>
-        <!-- /.h-btn -->
+
+        <!-- Slide 2 -->
+        <div class="carousel-item" style="background-image: url(assets/img/slide/slide-2.jpg)">
+          <div class="carousel-container">
+            <div class="container">
+              <h2 class="animate__animated animate__fadeInDown">Тримай цукор під контролем</h2>
+              <p class="animate__animated animate__fadeInUp">Записуйте та аналізуйте свій цурок крові.</p>
+              <a href="{{route('home')}}" class="btn-get-started animate__animated animate__fadeInUp scrollto">Увійти в трекер здоров'я</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="carousel-item" style="background-image: url(assets/img/slide/slide-3.jpg)">
+          <div class="carousel-container">
+            <div class="container">
+              <h2 class="animate__animated animate__fadeInDown">Обирай корисне харчування</h2>
+              <p class="animate__animated animate__fadeInUp">Одним із перших засобів контролю рівня цукру є дієта. Підбір привильних продуктів за глікемічним індексом - тримає діабет під контролем.</p>
+              <a href="{{ route('ig.index') }}" class="btn-get-started animate__animated animate__fadeInUp scrollto">Зручна тпблиця продуктів</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+      </a>
+
+      <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+      </a>
+
     </div>
-    <!-- /.h-text -->
-</div>
-<!-- /.h-bg -->
+  </section><!-- End Hero -->
+
+  <!-- ======= Featured Services Section ======= -->
+  <section id="featured-services" class="featured-services section-bg">
+    <div class="container">
+
+      <div class="row no-gutters">
+        <div class="col-lg-4 col-md-6">
+          <div class="icon-box">
+            <div class="icon"><i class="bi bi-laptop"></i></div>
+            <h4 class="title"><a href="">Lorem Ipsum</a></h4>
+            <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="icon-box">
+            <div class="icon"><i class="bi bi-briefcase"></i></div>
+            <h4 class="title"><a href="">Dolor Sitema</a></h4>
+            <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="icon-box">
+            <div class="icon"><i class="bi bi-calendar4-week"></i></div>
+            <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
+            <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur trade stravi</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End Featured Services Section -->
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-11">
