@@ -71,6 +71,13 @@ Route::get('/terms-of-use', function(){
     return view('terms');
 })->name('terms');
 
+Route::group([
+    'prefix' => '/about',
+    'controller' => App\Http\Controllers\AboutController::class,
+], function(){
+    Route::get('/', 'aboutPage')->name('about');
+});
+
 Route::get('/', function(){
     return view('main');
 })->name('ig.index');

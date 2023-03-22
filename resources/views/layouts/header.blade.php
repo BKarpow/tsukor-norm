@@ -10,9 +10,10 @@
 
       <nav id="navbar" class="navbar">
         <ul>
+          <li><a class="nav-link scrollto active" href="/">Головна</a></li>
           <li><a class="nav-link scrollto active" href="{{route('home')}}">Трекер здоров'я</a></li>
           <li><a class="nav-link scrollto" href="{{route('ig.index')}}">Продукти для діабетика</a></li>
-          {{-- <li><a class="nav-link scrollto" href="{{route('about')}}">Про сайт</a></li> --}}
+          <li><a class="nav-link scrollto" href="{{route('about')}}">Про сайт</a></li>
           {{-- <li><a class="nav-link scrollto" href="#services">Services</a></li> --}}
           {{-- <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li> --}}
           {{-- <li><a class="nav-link scrollto" href="#team">Team</a></li> --}}
