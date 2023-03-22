@@ -4,7 +4,7 @@
     <meta name="description" content="Наш сайт для діабетиків дозволяє вести щоденник самоконтролю та аналізувати рівень цукру в крові. Ми також маємо рекомендації щодо продуктів, корисних для діабетиків. Простий та безпечний у використанні.">
 @endsection
 
-@section('title') Головна SugarNorm @endsection
+@section('title') Головна {{env('APP_NAME')}} @endsection
 
 @section('content')
 
@@ -20,7 +20,7 @@
         <div class="carousel-item active" style="background-image: url(assets/img/slide/slide-1.webp)">
           <div class="carousel-container">
             <div class="container">
-              <h2 class="animate__animated animate__fadeInDown">Вітаю на сайті <span>SugarNorm</span></h2>
+              <h2 class="animate__animated animate__fadeInDown">Вітаю на сайті <span>{{env('APP_NAME')}}</span></h2>
               <p class="animate__animated animate__fadeInUp">Цей сайт створено як корисний інструмент для людей які хворіють на цукровий діабет.</p>
               <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Повний опис</a>
             </div>
@@ -44,7 +44,8 @@
             <div class="container">
               <h2 class="animate__animated animate__fadeInDown">Обирай корисне харчування</h2>
               <p class="animate__animated animate__fadeInUp">Одним із перших засобів контролю рівня цукру є дієта. Підбір привильних продуктів за глікемічним індексом - тримає діабет під контролем.</p>
-              <a href="{{ route('ig.index') }}" class="btn-get-started animate__animated animate__fadeInUp scrollto">Зручна тпблиця продуктів</a>
+              <a href="{{ route('ig.index') }}"
+              class="btn-get-started animate__animated animate__fadeInUp scrollto">Зручна тпблиця продуктів</a>
             </div>
           </div>
         </div>

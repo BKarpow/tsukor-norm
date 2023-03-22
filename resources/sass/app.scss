@@ -179,3 +179,21 @@ $navbar-light-brand-hover-color: $navbar-light-active-color;
     background-color: white;
     color: black;
 }
+
+.btn-tn{
+    font-family: "Raleway", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 14px 32px;
+  border-radius: 4px;
+  transition: 0.5s;
+  line-height: 1;
+  color: #fff;
+  animation-delay: 0.8s;
+  background: #5cb874;
+  &:hover{
+    color: #fff !important;
+  }
+}

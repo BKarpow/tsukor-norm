@@ -23,14 +23,32 @@
             <!-- /.form-group -->
         </div>
         <!-- /.my-1 -->
-        <Line v-if="load" :data="data" :options="options" />
-        <ChartEmptyStomachGlu :range-days="rangeDays" ref="rc" />
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>Середній рівень цукру за {{ rangeDays }} днів</h4>
+                    <Line v-if="load" :data="data" :options="options" />
+                </div>
+                <!-- /.col-md-4 -->
+                <div class="col-md-4">
+                    <ChartEmptyStomachGlu :range-days="rangeDays" ref="rc" />
+                </div>
+                <!-- /.col-md-4 -->
+                <div class="col-md-4">
+                    <ChartDugSugar />
+                </div>
+                <!-- /.col-md-4 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
     </div>
     <!-- /.overflow-auto -->
 </template>
 
 <script lang="ts">
 import ChartEmptyStomachGlu from "./ChartEmptyStomachGlu.vue";
+import ChartDugSugar from "./ChartDugSugar.vue";
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -60,6 +78,7 @@ export default {
     components: {
         Line,
         ChartEmptyStomachGlu,
+        ChartDugSugar,
     },
     props: {
         title: {
@@ -110,7 +129,6 @@ export default {
                 this.load = true;
                 this.$refs.rc.getData(Number(this.rangeDays));
             });
-
         },
     },
     mounted() {

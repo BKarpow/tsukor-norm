@@ -1,28 +1,14 @@
 <template>
-    <div class="col-md-4">
-        <div v-if="load" class="">
-            <h5>Відсоток рівнів цукру за весь час</h5>
-            <ul class="list-group">
-                <li class="list-group-item">
-                    Вище діапазону: {{ info.maxPer }}%
-                </li>
-                <!-- /.list-group-item -->
-                <li class="list-group-item">В нормі: {{ info.perNorm }}%</li>
-                <!-- /.list-group-item -->
-                <li class="list-group-item">
-                    Гіпоглікемія: {{ info.minPer }}%
-                </li>
-                <!-- /.list-group-item -->
-            </ul>
-        </div>
-        <!-- /.mt-2 -->
-    </div>
-    <!-- /.col-md-4 -->
-    <div class="col-md-4 mb-2">
-        <h5>Діаграма цукру за весь час</h5>
-        <Doughnut v-if="load" :data="data" :options="options" />
-    </div>
-    <!-- /.col-md-4 -->
+    <h4>Рівні цукру за весь час</h4>
+    <Doughnut v-if="load" :data="data" :options="options" />
+    <ul class="list-group mt-2">
+        <li class="list-group-item">Вище діапазону: {{ info.maxPer }}%</li>
+        <!-- /.list-group-item -->
+        <li class="list-group-item">В нормі: {{ info.perNorm }}%</li>
+        <!-- /.list-group-item -->
+        <li class="list-group-item">Гіпоглікемія: {{ info.minPer }}%</li>
+        <!-- /.list-group-item -->
+    </ul>
 </template>
 
 <script lang="ts">

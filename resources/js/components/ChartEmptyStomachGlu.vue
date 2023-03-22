@@ -1,6 +1,6 @@
 <template>
     <div class="overflow-auto my-1" v-if="load">
-        <h3>Ранковий цукор крові за {{ rangeDays }} днів.</h3>
+        <h4>Ранковий цукор крові за {{ rangeDays }} днів.</h4>
         <Line :data="data" :options="options" />
         <p class="p-1">
             Середній цукор натощак за {{ rangeDays }} днів:

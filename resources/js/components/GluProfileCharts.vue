@@ -27,20 +27,26 @@
                 </div>
                 <!-- /.my-1 -->
                 <span v-if="!show">Отримання данних...</span>
-                <div class="mt-1" v-if="show">
-                    <GluProfileChartItem
-                        v-for="profile in profileSet"
-                        :key="profile.date"
-                        :set="profile.set"
-                        :title="profile.date"
-                        :dt="profile.dateSystem"
-                    />
-                </div>
                 <!-- /.mt-1 -->
             </div>
             <!-- /.col-md-11 -->
         </div>
         <!-- /.row -->
+        <div class="row d-flex flex-wrap mt-1" v-if="show">
+            <div
+                class="col-md-4 "
+                v-for="profile in profileSet"
+                :key="profile.date"
+            >
+                <GluProfileChartItem
+                    :set="profile.set"
+                    :title="profile.date"
+                    :dt="profile.dateSystem"
+                />
+            </div>
+            <!-- /.col-md-4 m-1 -->
+        </div>
+        <!-- /.row d-flex flex-wrap -->
     </div>
     <!-- /.container -->
 </template>

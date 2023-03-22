@@ -3,7 +3,7 @@
  <!-- ======= Footer ======= -->
  <footer id="footer">
     <div class="container">
-      <h3>SugarNorm</h3>
+      <h3>{{env('APP_NAME')}}</h3>
       <p>Цей ресурс дозволяє вести записи цукру крові та інших важливих показників.</p>
       <div class="social-links">
         <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
