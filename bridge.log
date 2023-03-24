@@ -1,0 +1,8 @@
+array (
+  'token' => '88KksuM8C_WaKVGlZTZxW8A29YXuJ_U-ylFadxqS_fY=',
+  'module' => 'createUser',
+  'user_login' => 'baran8',
+  'user_email' => 'baran8@baran8.bara',
+  'user_pass' => 'baran8baran8',
+  'redirect_url' => 'http://localhost:8000/home',
+)
