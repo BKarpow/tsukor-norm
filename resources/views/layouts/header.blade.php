@@ -37,8 +37,19 @@
           <li><a class="nav-link scrollto" href="#contact">Контакти</a></li>
           @auth
           <li><a class="getstarted scrollto" href="{{ route('sugar.add') }}">+ Глюкоза крові</a></li>
+          <li>
+            <a class="getstarted scrollto" href="{{ route('logout') }}"
+               onclick="event.preventDefault();
+               document.getElementById('logout-form').submit();">
+                <i class="bi bi-box-arrow-left"></i>  &nbsp; Вийти
+            </a>
+          </li>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
           @else
           <li><a class="getstarted scrollto" href="{{ route('login') }}">Увійти</a></li>
+          <li><a class="getstarted scrollto" href="{{ route('register') }}">Створити акаунт</a></li>
           @endauth
 
         </ul>

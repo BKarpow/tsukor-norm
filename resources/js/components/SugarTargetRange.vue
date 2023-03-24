@@ -10,8 +10,10 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group mb-2">
+                    <label for="minGlu">Мінімальний рівень глюкози</label>
                     <input
                         type="tel"
+                        id="minGlu"
                         class="form-control"
                         placeholder="Мінімум в день"
                         v-model="minGlu"
@@ -19,8 +21,10 @@
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group mb-2">
+                    <label for="minGluNt">Мінімальний рівень глюкози натще</label>
                     <input
                         type="tel"
+                        id="minGluNt"
                         class="form-control"
                         placeholder="Мінімум зоанку"
                         v-model="minGluNt"
@@ -31,8 +35,10 @@
             <!-- /.col-md-4 -->
             <div class="col-md-4">
                 <div class="form-group mb-2">
+                    <label for="maxGlu">Максимальний рівень глюкози</label>
                     <input
                         type="tel"
+                        id="maxGlu"
                         class="form-control"
                         placeholder="Максимум зранку"
                         v-model="maxGluNt"
@@ -40,8 +46,10 @@
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group mb-2">
+                    <label for="maxGluNt">Максимальний рівень глюкози натще</label>
                     <input
                         type="tel"
+                        id="maxGluNt"
                         class="form-control"
                         placeholder="Максимум в день"
                         v-model="maxGlu"

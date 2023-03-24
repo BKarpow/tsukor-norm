@@ -10,9 +10,12 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Lib\BridgeWordPressAuthTrait;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
+    use BridgeWordPressAuthTrait;
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -55,7 +58,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'g-recaptcha-response' => ['required', 'recaptchav3:register,0.5'],
+            // 'g-recaptcha-response' => ['required', 'recaptchav3:register,0.5'],
         ]);
     }
 
@@ -79,6 +82,29 @@ class RegisterController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
+        if ( $this->createNewWordPressUser($data) ) {
+            session()->put('user_new', $data);
+        }
         return $user;
+    }
+
+    /**
+     * The user has been registered.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function registered(Request $request, $user)
+    {
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+        if ( $this->createNewWordPressUser($data) ) {
+            return $this->goToAuthWpPage($data);
+        }
     }
 }

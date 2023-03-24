@@ -24,6 +24,7 @@ class GluProfileResource extends JsonResource
                         ->mySugar()
                         ->select('glucose', DB::raw('TIME(created_at) as time'))
                         ->where(DB::raw('DATE(created_at)'), $this->dateCreate('Y-m-d'))
+                        ->orderByRaw('TIME(created_at) ASC')
                         ->get(),
         ];
     }

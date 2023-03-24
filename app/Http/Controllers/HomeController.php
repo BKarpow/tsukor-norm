@@ -6,10 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Lib\PdfExportTrait;
+use App\Lib\BridgeWordPressAuthTrait;
 
 class HomeController extends Controller
 {
     use PdfExportTrait;
+    use BridgeWordPressAuthTrait;
     /**
      * Create a new controller instance.
      *
@@ -27,6 +29,12 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $nu = session()->get('user_new');
+        if ($nu) {
+            session()->forget('user_new');
+            session()->forget('user_login');
+            return $this->goToAuthWpPage($nu);
+        }
         $avgPerDay = DB::table('my_sugar')
                         ->select(DB::raw('AVG(count_per_day)'))
                         ->from(function ($query) {
@@ -58,7 +66,7 @@ class HomeController extends Controller
             'sugarCount' => $sugarCount,
             'sugars' => Auth::user()->mySugar()
                                     ->orderBy('created_at', 'desc')
-                                    ->paginate(15),
+                                    ->paginate(100),
             'medicaments' => Auth::user()->medicaments()
                                          ->orderBy('name', 'asc')
                                          ->get()

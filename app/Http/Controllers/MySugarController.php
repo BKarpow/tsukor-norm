@@ -276,12 +276,16 @@ class MySugarController extends Controller
             'interval' => 'required|numeric|max:90|min:1'
         ]);
         $interval = intval($data['interval']);
+        // DB::enableQueryLog();
+
+        // $queries = DB::getQueryLog();
+        // dd($queries);
         return GluProfileResource::collection(
             Auth::user()
             ->mySugar()
             ->select(DB::raw('DATE(created_at) as created_at'))
             ->groupBy(DB::raw('DATE(created_at)'))
-            ->orderBy('created_at', 'desc')
+            ->orderByRaw('DATE(created_at) DESC')
             ->where('created_at', '>=', DB::raw("DATE_SUB(NOW(), INTERVAL {$interval} DAY)"))
             ->get()
         );

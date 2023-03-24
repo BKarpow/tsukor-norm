@@ -31,7 +31,7 @@
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
-  {!! RecaptchaV3::initJs() !!}
+
 </head>
 <body>
 <div id="app">
