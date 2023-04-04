@@ -43,7 +43,7 @@ class MedicamentController extends Controller
         $med->user_id = Auth::id();
         $med->name = $request->name;
         $med->dose = $request->dose;
-        $med->url_shop = $request->url_shop;
+        // $med->url_shop = $request->url_shop;
         $med->number = (int)$request->number;
         $med->sugar_lower = (bool)$request->sugar_lower;
         $med->active = (bool)$request->active;
@@ -89,7 +89,7 @@ class MedicamentController extends Controller
         $this->authorize('update', $medicament);
         $medicament->name = $request->name;
         $medicament->dose = $request->dose;
-        $medicament->url_shop = $request->url_shop;
+        // $medicament->url_shop = $request->url_shop;
         $medicament->number = (int)$request->number;
         $medicament->sugar_lower = (bool)$request->sugar_lower;
         $medicament->active = (bool)$request->active;

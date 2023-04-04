@@ -5,10 +5,21 @@
                 <i class="fa-solid fa-house"></i>
             </a><!-- /.btn btn-primary -->
         @endif
+        <!-- medicamentTake.create -->
         <a href="{{ route('sugar.add') }}"
         class="btn-tn m-1 animate__animated animate__fadeInUp scrollto"
         >
             <i class="bi bi-node-plus-fill"></i> Глюкоза крові
+        </a><!-- /.btn btn-primary -->
+        <a href="{{ route('medicamentTake.create') }}"
+        class="btn-tn m-1 animate__animated animate__fadeInUp scrollto"
+        >
+        <i class="fa-solid fa-pills"></i> Прийом ліків
+        </a><!-- /.btn btn-primary -->
+        <a href="{{ route('insulinLog.create') }}"
+        class="btn-tn m-1 animate__animated animate__fadeInUp scrollto"
+        >
+            <i class="fa-solid fa-syringe"></i> Прийом інсуліну
         </a><!-- /.btn btn-primary -->
         <a href="{{ route('bloodPressure.create') }}"
         class="btn-tn m-1 animate__animated animate__fadeInUp scrollto">

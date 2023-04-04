@@ -42,7 +42,7 @@
                 @change="onAfterFood"
             />
             <label class="form-check-label" for="after_food">
-                Після їжі (не раніше ніж 1 години ! )
+                Після їжі (не раніше ніж через 2 години! )
             </label>
         </div>
     </div>

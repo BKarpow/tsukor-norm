@@ -31,15 +31,15 @@
                     @include('cabinet.buttons')
                     <form method="POST" action="{{ route('sugar.add.store') }}">
                         @csrf
-                        <div class="form-group py-2">
-                            <date-time-field></date-time-field>
-                        </div>
-                        <!-- /.form-group py-1 -->
+                        
 
                         <sugar-add-triggers></sugar-add-triggers>
 
 
-
+                        <div class="form-group py-2">
+                            <date-time-field></date-time-field>
+                        </div>
+                        <!-- /.form-group py-1 -->
                         <div class="form-group mt-2 col-7">
                             <button class="btn btn-primary btn-lg"> <i-add :size="32"></i-add> Додати</button>
                         </div>

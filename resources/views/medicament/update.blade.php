@@ -73,7 +73,7 @@
                         </div>
                         <!-- /.form-group.col-5 -->
 
-                         <div class="form-group mt-2 col-5">
+                         {{-- <div class="form-group mt-2 col-5">
                             <input
                                 type="url"
                                 name="url_shop"
@@ -91,10 +91,10 @@
                                 <!-- /.alert alert-warning -->
                             @enderror
                         </div>
-                        <!-- /.form-group.col-5 -->
+                        <!-- /.form-group.col-5 --> --}}
 
 
-                        <div class="form-check form-switch mt-2">
+                        <div class="form-check form-switch my-2">
                             <input
                                 class="form-check-input"
                                 type="checkbox"

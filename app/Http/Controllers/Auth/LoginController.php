@@ -58,4 +58,15 @@ class LoginController extends Controller
         ];
         return $this->goToAuthWpPage($data);
     }
+
+    /**
+     * The user has logged out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return mixed
+     */
+    protected function loggedOut(Request $request)
+    {
+        return redirect(env('BRIDGE_SUGNOUT_URL').'?redirect_url='.url('/'));
+    }
 }

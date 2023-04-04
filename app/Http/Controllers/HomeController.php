@@ -65,8 +65,10 @@ class HomeController extends Controller
             'sugarAvg' => $sugarAvg,
             'sugarCount' => $sugarCount,
             'sugars' => Auth::user()->mySugar()
-                                    ->orderBy('created_at', 'desc')
-                                    ->paginate(100),
+                                    ->selectRaw('DATE(created_at) as date')
+                                    ->groupByRaw('DATE(created_at)')
+                                    ->orderByRaw('DATE(created_at) DESC')
+                                    ->paginate(30),
             'medicaments' => Auth::user()->medicaments()
                                          ->orderBy('name', 'asc')
                                          ->get()

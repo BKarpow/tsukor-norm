@@ -4,7 +4,7 @@
 </div><!-- /.my-1 -->
 
 
-<div class="container">
+<div class="container mb-2">
     <div class="row mb-2">
         <div class="col-md-4 mb-2">
             <h4>Середній цукор</h4>
@@ -77,13 +77,8 @@
     </div><!-- /.row -->
     <profile-app></profile-app>
 </div><!-- /.container -->
-<div class="sugar-table">
-    <div class="my-1">
-        <a href="{{ route('pdfExport') }}" class="btn-tn">
-            <i class="bi bi-arrow-90deg-right"></i>  Експортувати в <i class="bi bi-filetype-pdf"></i>
-        </a> <!-- /.btn btn-info -->
-    </div>
-    <!-- /.my-1 -->
-    @include('sugar.sugarTable')
-</div>
+{{-- <div class="sugar-table">
+
+
+</div> --}}
 

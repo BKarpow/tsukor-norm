@@ -75,6 +75,21 @@ class User extends Authenticatable
         return $this->hasMany(HbA1c::class, 'user_id', 'id');
     }
 
+    public function insulin()
+    {
+        return $this->hasMany(Insulin::class, 'user_id', 'id');
+    }
+
+    public function insulinLog()
+    {
+        return $this->hasMany(InsulinTake::class, 'user_id', 'id');
+    }
+
+    public function medTake()
+    {
+        return $this->hasMany(MedicamentTake::class, 'user_id', 'id');
+    }
+
     public function config()
     {
         return $this->hasMany(Config::class, 'user_id', 'id');

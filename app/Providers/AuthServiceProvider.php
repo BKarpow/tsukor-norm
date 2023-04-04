@@ -29,7 +29,9 @@ class AuthServiceProvider extends ServiceProvider
         MySugar::class => MySugarPolicy::class,
         BloodPressurePolicy::class => BloodPressure::class,
         MedicamentPolicy::class => Medicament::class,
-        HbA1cPolicy::class => HbA1c::class
+        HbA1cPolicy::class => HbA1c::class,
+        App\Policies\InsulinPolicy::class => App\Models\Insulin::class,
+        App\Policies\InsulinTakePolicy::class => App\Models\InsulinTake::class
     ];
 
     /**

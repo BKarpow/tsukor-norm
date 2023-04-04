@@ -181,6 +181,44 @@ Route::group([
     Route::post('/create', 'store');
     Route::delete('/delete/{hbA1c}', 'destroy')->name('hba1c.delete');
 });
+Route::group([
+    'prefix' => '/insulin',
+    'middleware' => 'auth',
+    'controller' => App\Http\Controllers\InsulinController::class
+], function() {
+    Route::get('/', 'index')->name('insulin.index');
+    Route::get('/create', 'create')->name('insulin.create');
+    Route::post('/create', 'store');
+    Route::get('/edit/{insulin}', 'edit')->name('insulin.edit');
+    Route::post('/edit/{insulin}', 'update');
+    Route::delete('/delete/{insulin}', 'destroy')->name('insulin.delete');
+});
+Route::group([
+    'prefix' => '/insulin-log',
+    'middleware' => 'auth',
+    'controller' => App\Http\Controllers\InsulinTakeController::class
+], function() {
+    Route::get('/', 'index')->name('insulinLog.index');
+    Route::get('/create', 'create')->name('insulinLog.create');
+    Route::post('/create', 'store');
+    Route::get('/edit/{insulinTake}', 'edit')->name('insulinLog.update');
+    Route::post('/edit/{insulinTake}', 'update');
+});
+Route::group([
+    'prefix' => '/glucose-api',
+    'middleware' => 'auth',
+    'controller' => App\Http\Controllers\ApiMainHistoryController::class
+], function() {
+    Route::get('/get-date', 'glucoseForDate');
+});
+Route::group([
+    'prefix' => '/med-take',
+    'middleware' => 'auth',
+    'controller' => App\Http\Controllers\MedicamentTakeController::class,
+], function() {
+    Route::get('/create', 'create')->name('medicamentTake.create');
+    Route::post('/create', 'store');
+});
 // Route::group([], function() {});
 
 

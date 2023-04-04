@@ -25,6 +25,7 @@
         "mdb-vue-ui-kit": "^3.2.0",
         "sweetalert2": "^11.7.1",
         "swiper": "^9.1.1",
+        "usemodal-vue3": "^0.3.7",
         "v-calendar": "^3.0.0-alpha.8",
         "vue-chartjs": "^5.2.0"
     }

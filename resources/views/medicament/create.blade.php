@@ -70,7 +70,7 @@
                         </div>
                         <!-- /.form-group.col-5 -->
 
-                         <div class="form-group mt-2 col-5">
+                         {{-- <div class="form-group mt-2 col-5">
                             <input
                                 type="url"
                                 name="url_shop"
@@ -86,13 +86,13 @@
                                 </div>
                                 <!-- /.alert alert-warning -->
                             @enderror
-                        </div>
+                        </div> --}}
                         <!-- /.form-group.col-5 -->
 
 
                         <div class="form-check form-switch">
                             <input
-                                class="form-check-input"
+                                class="form-check-input my-2"
                                 type="checkbox"
                                 role="switch"
                                 id="sugar_lower"

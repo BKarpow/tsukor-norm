@@ -1,6 +1,8 @@
 <template>
-    <h4>{{ header }}</h4>
-    <v-date-picker v-if="show" v-model="date" :mode="mode" is-dark is24hr></v-date-picker>
+    <h4 align="center">{{ header }}</h4>
+    <div class="d-flex justify-content-center align-items-center flex-wrap">
+        <v-date-picker v-if="show" v-model="date" :mode="mode" is-dark is24hr></v-date-picker>
+    </div>
     <input type="hidden" name="created_at" :value="formatDate" />
 </template>
 

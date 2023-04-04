@@ -49,6 +49,7 @@ import ToolsSugar from "./components/ToolsSugar.vue";
 import MedicamentItem from "./components/MedicamentItem.vue";
 import GluProfileCharts from "./components/GluProfileCharts.vue";
 import DateDiapason from "./components/DateDiapason.vue";
+import NewGlucosePanel from "./components/NewGlucosePanel.vue"
 
 app.component("ig-list", IGList);
 app.component("example-component", ExampleComponent);
@@ -67,6 +68,7 @@ app.component("tools-sugar", ToolsSugar);
 app.component("med-item", MedicamentItem);
 app.component("profile-app", GluProfileCharts);
 app.component("dt-diapason", DateDiapason);
+app.component("new-panel", NewGlucosePanel); // required props date (example: 2023-04-01)
 
 /**
  * The following block of code may be used to automatically register your
