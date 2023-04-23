@@ -42,7 +42,7 @@ class HbA1cController extends Controller
         HbA1c::insert([
             'user_id' => Auth::id(),
             'percentage' => $request->percentage,
-            'note' => $request->note,
+            'note' => $request->input('note', ""),
             'created_at' => $request->created_at,
             'updated_at' => now(),
         ]);

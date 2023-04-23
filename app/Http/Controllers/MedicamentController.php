@@ -47,7 +47,7 @@ class MedicamentController extends Controller
         $med->number = (int)$request->number;
         $med->sugar_lower = (bool)$request->sugar_lower;
         $med->active = (bool)$request->active;
-        $med->note = $request->note;
+        $med->note = $request->input('note', "");
         $med->save();
         return redirect()->route('home')->withStatus("Ліки {$med->name} успішно збережені");
     }

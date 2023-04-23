@@ -93,7 +93,7 @@ class IndexGlucoseController extends Controller
         $ig->fats = $request->fats;
         $ig->carbohydrates = $request->carbohydrates;
         $ig->calories = $request->calories;
-        $ig->description_food = $request->description_food;
+        $ig->description_food = $request->input('description_food', "");
         $ig->public = false;
         $ig->save();
         $ip = $request->ip();

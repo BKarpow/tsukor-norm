@@ -63,7 +63,7 @@ class InsulinTakeController extends Controller
         $it->user_id = Auth::id();
         $it->insulin_id = $request->insulin_id;
         $it->insulin_dose = $request->insulin_dose;
-        $it->note = $request->note;
+        $it->note = $request->input('note', "");
         $it->created_at = $request->created_at;
         $it->save();
         return redirect()->route('insulinLog.index')->withStatus('Прийом інсуліну записано');

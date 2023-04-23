@@ -26,6 +26,7 @@ class StoreMedicamentRequest extends FormRequest
         return [
             'name' => 'required|string|max:150|min:1',
             'dose' => 'required|string|max:150|min:1',
+            'note' => 'max:250',
         ];
     }
 }

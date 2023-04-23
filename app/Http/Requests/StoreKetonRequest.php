@@ -26,7 +26,7 @@ class StoreKetonRequest extends FormRequest
         return [
             'keton' => 'required|string|min:2|max:3',
             'created_at' => 'required|date_format:Y-m-d H:i:s',
-            'note' => 'string|max:250'
+            'note' => 'max:250',
 
         ];
     }

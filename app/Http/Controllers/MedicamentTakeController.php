@@ -53,7 +53,7 @@ class MedicamentTakeController extends Controller
         $m->user_id = Auth::id();
         $m->med_id = $request->med_id;
         $m->dose = $request->dose;
-        $m->note = $request->note;
+        $m->note = $request->input('note', "");
         $m->created_at = $request->created_at;
         $m->save();
         return redirect()

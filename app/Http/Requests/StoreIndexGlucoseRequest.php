@@ -27,6 +27,7 @@ class StoreIndexGlucoseRequest extends FormRequest
         return [
             'food' => 'required|string|max:100|min:2',
             'ig' => 'required|numeric|max:120',
+            'description_food' => 'max:250',
             'g-recaptcha-response' => ['required', new ReCaptcha],
         ];
     }

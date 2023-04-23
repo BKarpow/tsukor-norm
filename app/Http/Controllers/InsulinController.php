@@ -43,7 +43,7 @@ class InsulinController extends Controller
         $insulin->user_id = Auth::id();
         $insulin->name = $request->name;
         $insulin->type = $request->type;
-        $insulin->note = $request->note;
+        $insulin->note = $request->input('note', "");
         $insulin->save();
         return redirect()->route('insulin.index')->withStatus('Препарат інсуліну додано!');
     }

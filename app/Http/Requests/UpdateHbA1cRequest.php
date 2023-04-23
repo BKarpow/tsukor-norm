@@ -25,7 +25,7 @@ class UpdateHbA1cRequest extends FormRequest
     {
         return [
             'percentage' => 'required|numeric|max:100|min:1',
-            'note' => 'required|string|max:250',
+            'note' => 'max:250',
             'created_at' => 'required|date_format:Y-m-d H:i:s'
         ];
     }
