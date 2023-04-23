@@ -55,16 +55,18 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-
-        return Validator::make($data, [
+        $validateRules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'type_diabet' => ['required', 'numeric', 'max:3'],
             'use_insulin' => ['sometimes'],
             'use_tablet' => ['sometimes'],
-            'g-recaptcha-response' => ['required', new ReCaptcha],
-        ]);
+        ];
+        if (!env('APP_DEBUG')){
+            $validateRules['g-recaptcha-response'] = ['required', new ReCaptcha];
+        }
+        return Validator::make($data, $validateRules);
     }
 
     /**

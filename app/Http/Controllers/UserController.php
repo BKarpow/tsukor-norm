@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Rules\ReCaptcha;
 
 class UserController extends Controller
 {
@@ -33,5 +34,31 @@ class UserController extends Controller
             $user->password = Hash::make($request->password);
             $user->save();
             return redirect()->route('home')->withStatus('Профіль користувача оновлено!');
+    }
+
+    public function deleteUserAndData()
+    {
+        return view('auth.deleteUser');
+    }
+
+    public function deleteUserAndDataStore(Request $request)
+    {
+        $validateRules = [
+            'password' => 'required|string'
+        ];
+        if (!env('APP_DEBUG')){
+            $validateRules['g-recaptcha-response'] = ['required', new ReCaptcha];
+        }
+        $request->validate($validateRules);
+        $user = User::findOrFail(Auth::id());
+        if (Hash::check($request->password, $user->password)) {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            $user->delete();
+            return redirect()->route('home');
+        } else {
+            return redirect()->route('home')->withStatus("Некоректний пароль, спробуйте ше раз!");
+        }
     }
 }

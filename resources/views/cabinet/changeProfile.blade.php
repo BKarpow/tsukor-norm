@@ -39,6 +39,11 @@
     <!-- /.form-group -->
 </form>
 <div class="my-2">
+    <h4>Видалити акаунт</h4>
+    <a href="{{route('user.delete')}}" class="btn btn-danger">Видалити мій акаунт та всі мої записи!</a> <!-- /.btn btn-primary -->
+</div>
+<!-- /.mt-2 -->
+<div class="my-2">
     <h4>Експорт моїх данних</h4>
     <a href="{{route('export.json')}}" class="btn btn-primary">Завантажити в форматі JSON</a> <!-- /.btn btn-primary -->
 </div>

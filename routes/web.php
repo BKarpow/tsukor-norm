@@ -231,6 +231,8 @@ Route::group([
     'middleware' => 'auth',
     'controller' => App\Http\Controllers\UserController::class,
 ], function() {
+    Route::get('/delete', 'deleteUserAndData')->name('user.delete');
+    Route::post('/delete', 'deleteUserAndDataStore');
     Route::post('/create', 'saveSetupType')->name('user.saveSetup');
     Route::post('/change-profile', 'changeProfile')->name('user.changeProfile');
 });
