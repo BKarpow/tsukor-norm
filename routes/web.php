@@ -245,6 +245,13 @@ Route::group([
     Route::post('/create', 'store');
 });
 
+Route::group([
+    'prefix' => '/data/export',
+    'middleware' => 'auth',
+    'controller' => App\Http\Controllers\ExportImportController::class,
+], function() {
+    Route::get('/json', 'getJson')->name('export.json');
+});
 // Route::group([], function() {});
 
 Route::get('/redirect', [App\Http\Controllers\Auth\LoginController::class, 'redirectToProvider']);

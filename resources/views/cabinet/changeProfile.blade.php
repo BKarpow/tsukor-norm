@@ -38,3 +38,8 @@
         </div>
     <!-- /.form-group -->
 </form>
+<div class="my-2">
+    <h4>Експорт моїх данних</h4>
+    <a href="{{route('export.json')}}" class="btn btn-primary">Завантажити в форматі JSON</a> <!-- /.btn btn-primary -->
+</div>
+<!-- /.mt-2 -->
