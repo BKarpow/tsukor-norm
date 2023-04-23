@@ -1,11 +1,11 @@
 <template>
     <div class="form-group col-md-8">
+        <label for="glucose">Ваш поточний цукор крові</label>
         <input
             type="tel"
             name="glucose"
             id="glucose"
             placeholder="рівень в ммол/л"
-            pattern="^[\d\.]+$"
             maxlength="4"
             size="15"
             autocomplete="off"
@@ -153,6 +153,22 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
+const alertHelper = (gluLevel) => {
+    if (gluLevel <= 3.9 && gluLevel > 0) {
+        Swal.fire({
+            title: "ГІПОГЛІКЕМІЯ!!!",
+            html: "У Вас низький рівень цукру крові, терміново їжте цукерку (одну)!",
+            icon: "warning",
+        });
+    } else if (gluLevel >= 9) {
+        Swal.fire({
+            title: "Високий рівень цукру!!!",
+            html: "У Вас високий рівень цукру крові, пийте воду, зробіть прогулянку, нічого неїжте поки рівень цукру не нормалізуєтся!",
+            icon: "warning",
+        });
+    }
+};
 export default {
     name: "SugarAddTriggers",
     data() {
@@ -165,6 +181,7 @@ export default {
             medicaments: [],
             glu: "",
             note: "",
+            tID: 0,
         };
     },
     computed: {
@@ -186,6 +203,14 @@ export default {
             glu = glu.replace(/\,+/, ".");
             glu = glu.replace(",", ".");
             this.glu = glu;
+            try {
+                clearTimeout(this.tID);
+            } catch {
+                console.log("Not timer");
+            }
+            this.tID = setTimeout(() => {
+                alertHelper(Number(this.glu));
+            }, 1000);
         },
     },
     methods: {
