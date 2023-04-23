@@ -11,3 +11,4 @@ Disallow: /insulin-log
 Disallow: /med-take
 Disallow: /setup-user
 Disallow: /keton
+Sitemap: https://tsukor-norm.pp.ua/sitemap.xml
