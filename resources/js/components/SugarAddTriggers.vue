@@ -122,20 +122,19 @@
         </div>
     </div>
     <!-- /.py-2 -->
-    <h3>Ліки</h3>
+    <!-- <h3>Ліки</h3>
     <div class="alert alert-success" v-if="medicaments.length == 0">
         <strong
             >Ви не додали ліків, або не вказали що ліки для контролю
             цукпу</strong
         >
-    </div>
+    </div> -->
     <!-- /.alert alert-success -->
-    <ul class="list-group my-1">
+    <!-- <ul class="list-group my-1">
         <li class="list-group-item" v-for="med in medicaments" :key="med.id">
             {{ med.name }} ({{ med.dose }})
         </li>
-        <!-- /.list-group-item -->
-    </ul>
+    </ul> -->
     <!-- /.list-group mt-1 -->
 
     <div class="form-group">
@@ -196,7 +195,7 @@ export default {
                 .then((res) => {
                     this.medicaments = res.data.data;
                     console.log("Medicaments loaded!");
-                    this.note = this.noteMed;
+                    // this.note = this.noteMed;
                 })
                 .catch((err) => {
                     console.error(err);
@@ -228,7 +227,7 @@ export default {
         },
     },
     mounted() {
-        this.getMedicaments();
+        // this.getMedicaments();
     },
 };
 </script>

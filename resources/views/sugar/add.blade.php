@@ -11,7 +11,7 @@
 
                 <div class="card-body">
 
-                    <div class="alert alert-info my-1">
+                    {{-- <div class="alert alert-info my-1">
                         <h5>Зверніть увагу!</h5>
                         <p>Гіпоглікемія - це стан, коли рівень глюкози в крові стає дуже низьким. Це може спричинити різноманітні симптоми, такі як:</p>
                         <ol>
@@ -27,11 +27,11 @@
                             Що робити?
                         </a> <!-- /.mt-2 -->
                     </div>
-                    <!-- /.alert alert-info my-1 -->
+                    <!-- /.alert alert-info my-1 --> --}}
                     @include('cabinet.buttons')
                     <form method="POST" action="{{ route('sugar.add.store') }}">
                         @csrf
-                        
+
 
                         <sugar-add-triggers></sugar-add-triggers>
 

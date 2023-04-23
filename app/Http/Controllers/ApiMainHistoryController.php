@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\GlucoseResource;
 use App\Http\Resources\InsulinTakeResource;
+use App\Http\Resources\KetonResource;
 use App\Http\Resources\MedicamentsResource;
 use App\Http\Resources\SugarTargetRangeResource;
 
@@ -22,6 +23,11 @@ class ApiMainHistoryController extends Controller
         $request->validate([
             'date' => 'required|date',
         ]);
+        $keton = Auth::user()->keton()
+                        ->whereRaw("DATE(created_at) = '{$request->date}'")
+                        ->orderByRaw('TIME(created_at) desc')
+                        ->first();
+        $keton = $keton ? new KetonResource($keton) : false;
         return response()->json([
             'date' => $request->date,
             'targetRange' => new SugarTargetRangeResource(
@@ -44,7 +50,8 @@ class ApiMainHistoryController extends Controller
                 ->whereRaw("DATE(created_at) = '{$request->date}'")
                 ->orderByRaw('TIME(created_at) ASC')
                 ->get()
-            )
+            ),
+            'keton' => $keton,
         ]);
     }
 }

@@ -71,7 +71,8 @@ class HomeController extends Controller
                                     ->paginate(30),
             'medicaments' => Auth::user()->medicaments()
                                          ->orderBy('name', 'asc')
-                                         ->get()
+                                         ->get(),
+            'hba1c' => Auth::user()->hba1c()->orderBy('created_at','desc')->first()
         ]);
     }
 

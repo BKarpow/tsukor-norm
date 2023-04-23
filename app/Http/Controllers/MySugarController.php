@@ -43,6 +43,9 @@ class MySugarController extends Controller
      */
     public function create()
     {
+        header("Cache-Control: no-cache, no-store, must-revalidate");
+        header("Pragma: no-cache");
+        header("Expires: 0");
         return view('sugar.add');
     }
 
@@ -157,6 +160,9 @@ class MySugarController extends Controller
      */
     public function edit(MySugar $mySugar)
     {
+        header("Cache-Control: no-cache, no-store, must-revalidate");
+        header("Pragma: no-cache");
+        header("Expires: 0");
         $this->authorize('delete', $mySugar);
         return view('sugar.edit', ['s'=>$mySugar]);
     }

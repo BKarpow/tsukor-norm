@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="ua">
 <head>
     <meta charset="utf-8">
     <meta name="description" сщтеуте="Корисний сайт для діабетеків, зручна таблиця із списком глікімечний індексів, особистий журнал рівня цукру в крові та багато чого іншого." />
@@ -14,7 +14,7 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
      <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" /> --}}
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet" />
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -31,7 +31,7 @@
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
-
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
 <div id="app">
@@ -45,5 +45,6 @@
 
 @yield('contentnv')
 @include('layouts.footer')
+<script src="https://kit.fontawesome.com/9f48383e83.js" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -9,9 +9,11 @@ use App\Http\Requests\StoreIndexGlucoseRequest;
 use App\Http\Requests\UpdateIndexGlucoseRequest;
 use App\Http\Resources\IGResource;
 use Fresh\Transliteration\UkrainianToLatin;
+use App\Lib\TelegramTrait;
 
 class IndexGlucoseController extends Controller
 {
+    use TelegramTrait;
 
     /**
      * Paginate items in page
@@ -92,8 +94,10 @@ class IndexGlucoseController extends Controller
         $ig->carbohydrates = $request->carbohydrates;
         $ig->calories = $request->calories;
         $ig->description_food = $request->description_food;
-        $ig->public = true;
+        $ig->public = false;
         $ig->save();
+        $ip = $request->ip();
+        $this->sendText("Створино новий продукт на сайті, ID:{$ig->id}, name:{$ig->food}.{$ip}");
         return redirect()->back()->withStatus('Додано, але цей запис має пройти модерацію!');
     }
 

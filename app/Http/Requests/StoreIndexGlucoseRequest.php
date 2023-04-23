@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\ReCaptcha;
 
 class StoreIndexGlucoseRequest extends FormRequest
 {
@@ -25,8 +26,8 @@ class StoreIndexGlucoseRequest extends FormRequest
     {
         return [
             'food' => 'required|string|max:100|min:2',
-            'ig' => 'required|numeric|max:120'
-
+            'ig' => 'required|numeric|max:120',
+            'g-recaptcha-response' => ['required', new ReCaptcha],
         ];
     }
 }

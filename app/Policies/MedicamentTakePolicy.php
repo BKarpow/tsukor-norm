@@ -53,7 +53,7 @@ class MedicamentTakePolicy
      */
     public function update(User $user, MedicamentTake $medicamentTake)
     {
-        //
+        return $medicamentTake->user_id == $user->id;
     }
 
     /**

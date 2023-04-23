@@ -23,12 +23,12 @@ class BloodPressureController extends Controller
      */
     public function index()
     {
-        return BloodPressureResource::collection(
-            Auth::user()
-                ->bloodPressure()
-                ->orderBy("created_at", "desc")
-                ->paginate(25)
-        );
+        return view('bloodPressure.index', [
+            'bps' => Auth::user()
+                        ->bloodPressure()
+                        ->orderBy("created_at", "desc")
+                        ->paginate(25)
+        ]);
     }
 
     public function getAllApi()
@@ -49,6 +49,9 @@ class BloodPressureController extends Controller
      */
     public function create()
     {
+        header("Cache-Control: no-cache, no-store, must-revalidate");
+        header("Pragma: no-cache");
+        header("Expires: 0");
         return view('bloodPressure.create');
     }
 

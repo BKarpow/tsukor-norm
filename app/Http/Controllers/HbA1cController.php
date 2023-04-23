@@ -107,4 +107,29 @@ class HbA1cController extends Controller
             'deletedId' => $hb
         ]);
     }
+
+    public function getLastDaysApi()
+    {
+        $hbLast = Auth::user()->hba1c()->orderBy('created_at','desc')->first();
+        if (!$hbLast) {
+            return response()->json([
+                'error' => true,
+                'errorMessage' => "No exists hba1c",
+                'lastDate' => "",
+                'level' => 0,
+                'exceedingNormDiabet' => false,
+                'exceedingIntervalDays' => false,
+                'daysPassed' => 0
+            ]);
+        }
+        return response()->json([
+            'error' => false,
+            'errorMessage' => "",
+            'lastDate' => $hbLast->dateCreate('d.m.Y'),
+            'level' => $hbLast->percentage,
+            'exceedingNormDiabet' => $hbLast->exceedingNormDiabet(),
+            'exceedingIntervalDays' => $hbLast->exceedingIntervalDays(),
+            'daysPassed' => $hbLast->countLastFullDays()
+        ]);
+    }
 }

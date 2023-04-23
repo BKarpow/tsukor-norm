@@ -1,5 +1,6 @@
 <template>
     <div class="form-group mt-2 col-5">
+        <label for="carbohydrates">Кількість вуглеводів в 100г.</label>
         <input
             type="tel"
             name="carbohydrates"

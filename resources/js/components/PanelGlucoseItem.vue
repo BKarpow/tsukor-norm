@@ -1,8 +1,34 @@
 <template>
     <div @click="showModal = true" :style="bgStyleCalc" class="glucose-item">
-
+        <div class="d-flex py-1 justify-content-center">
+            <div class="mr-1 pr-1" v-if="gluData.beforeFood">
+                <i class="fa-solid fa-cookie fa-2xl"></i>
+            </div>
+            <!-- /.mr-1 -->
+            <div class="mr-1 pr-1" v-if="gluData.afterFood">
+                <i class="fa-solid fa-cookie-bite fa-2xl"></i>
+            </div>
+            <!-- /.mr-1 -->
+            <div class="mr-1 pr-1" v-if="gluData.stress">
+                <i class="fa-solid fa-face-flushed fa-shake fa-2xl"></i>
+            </div>
+            <!-- /.mr-1 -->
+            <div class="mr-1 pr-1" v-if="gluData.disease">
+                <i class="fa-solid fa-virus-covid fa-beat-fade fa-2xl"></i>
+            </div>
+            <!-- /.mr-1 -->
+            <div class="mr-1" v-if="gluData.beforeExercise">
+                <i class="fa-solid fa-dumbbell fa-rotate-90 fa-2xl"></i>
+            </div>
+            <div class="mr-1" v-if="gluData.exercise">
+                <i class="fa-solid fa-dumbbell fa-beat fa-2xl"></i>
+            </div>
+            <div class="mr-1" v-if="gluData.afterExercise">
+                <i class="fa-solid fa-dumbbell fa-2xl"></i>
+            </div>
+        </div>
         <h3>{{ gluData.glucose }}</h3>
-        <p>{{ gluData.time }}</p>
+        <p class="text-end text-bold text-">{{ gluData.time }}</p>
     </div>
     <!-- /.glucose-item -->
     <Modal :width="320" title="Цукор крові" v-model:visible="showModal">
@@ -11,14 +37,17 @@
             class="mb-2 p-2 animate__animated animate__zoomIn"
         >
             <h3 class="glu-value">{{ gluData.glucose }} mmol/L</h3>
+            <h5 class="glu-value">{{ mmolToMg }} mg/dl</h5>
             <!-- /.glu-value -->
             <div class="my-1">
                 <div class="btn-group">
-                    <delete-btn delete-url="#">
+                    <delete-btn :delete-url="`/my-sugar/delete/${gluData.id}`">
                         <a href="#" class="btn btn-dark"
                             ><i class="fa-solid fa-trash"></i></a
                     ></delete-btn>
-                    <a href="#" class="btn btn-dark"
+                    <a
+                        :href="`/my-sugar/edit/${gluData.id}`"
+                        class="btn btn-dark"
                         ><i class="fa-solid fa-pen-to-square"></i
                     ></a>
                 </div>
@@ -71,10 +100,17 @@ export default {
             desc: "",
         };
     },
+
     computed: {
+        mmolToMg() {
+            return Math.floor(this.gluData.glucose * 18);
+        },
+        getIntegerTime() {
+            return Number(String(this.gluData.time).replace(":", ""));
+        },
         getNameTimeDay() {
             let nm = "";
-            let time = Number(String(this.gluData.time).replace(":", ""));
+            let time = this.getIntegerTime;
             if (time > 0 && time <= 400) {
                 nm = "Під час сну";
             } else if (time > 400 && time <= 600) {
@@ -173,6 +209,12 @@ export default {
             return d;
         },
     },
+    mounted() {
+        let time = this.getIntegerTime;
+        if (time > 400 && time <= 600 && this.gluData.beforeFood) {
+            this.ranok = true;
+        }
+    },
 };
 </script>
 
@@ -182,6 +224,7 @@ export default {
     border-radius: 6px;
     padding: 0.45rem;
     margin-right: 0.35rem;
+    margin-bottom: 0.35rem;
     h3 {
         text-align: center;
     }

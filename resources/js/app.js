@@ -29,7 +29,13 @@ window.enablePop = () => {
     );
 };
 
-const app = createApp({});
+const app = createApp({
+    data(){
+        return {
+            showSlideout: false,
+        }
+    }
+});
 app.use(VCalendar, {});
 
 import ExampleComponent from "./components/ExampleComponent.vue";
@@ -50,6 +56,10 @@ import MedicamentItem from "./components/MedicamentItem.vue";
 import GluProfileCharts from "./components/GluProfileCharts.vue";
 import DateDiapason from "./components/DateDiapason.vue";
 import NewGlucosePanel from "./components/NewGlucosePanel.vue"
+import ButtonHbA1c from "./components/ButtonHbA1c.vue"
+import PasswordField from "./components/PasswordField.vue";
+import KetonTriger from "./components/KetonTriger.vue";
+
 
 app.component("ig-list", IGList);
 app.component("example-component", ExampleComponent);
@@ -69,6 +79,9 @@ app.component("med-item", MedicamentItem);
 app.component("profile-app", GluProfileCharts);
 app.component("dt-diapason", DateDiapason);
 app.component("new-panel", NewGlucosePanel); // required props date (example: 2023-04-01)
+app.component("btn-hb", ButtonHbA1c); // required props url (route hna1c.create)
+app.component("pwd-field", PasswordField);
+app.component("keton-input", KetonTriger);
 
 /**
  * The following block of code may be used to automatically register your

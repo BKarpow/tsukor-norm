@@ -6,6 +6,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @include('cabinet.buttons')
             <div class="card">
                 <div class="card-header">Дрдавання HbA1c</div>
 

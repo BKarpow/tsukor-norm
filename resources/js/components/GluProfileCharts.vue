@@ -54,6 +54,15 @@
 <script>
 import GluProfileChartItem from "./GluProfileChartItem.vue";
 
+const generateRandomHexColor = () => {
+  const hexCharacters = '0123456789ABCDEF';
+  let hexColor = '#';
+  for (let i = 0; i < 6; i++) {
+    hexColor += hexCharacters[Math.floor(Math.random() * 16)];
+  }
+  return hexColor;
+}
+
 export default {
     name: "GluProfileCharts",
     components: {

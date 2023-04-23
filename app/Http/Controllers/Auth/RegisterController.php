@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Lib\BridgeWordPressAuthTrait;
 use Illuminate\Http\Request;
+use App\Rules\ReCaptcha;
 
 class RegisterController extends Controller
 {
@@ -54,11 +55,15 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            // 'g-recaptcha-response' => ['required', 'recaptchav3:register,0.5'],
+            'type_diabet' => ['required', 'numeric', 'max:3'],
+            'use_insulin' => ['sometimes'],
+            'use_tablet' => ['sometimes'],
+            'g-recaptcha-response' => ['required', new ReCaptcha],
         ]);
     }
 
@@ -70,10 +75,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $insulin = $data['use_insulin'] ?? false;
+        $tablet = $data['use_tablet'] ?? false;
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'type_diabet' => $data['type_diabet'],
+            'use_insulin'  => (bool)$insulin,
+            'use_tablet'  => (bool)$tablet
         ]);
         SugarTargetRange::insert([
             'user_id' => $user->id,

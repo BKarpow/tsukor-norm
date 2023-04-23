@@ -77,8 +77,5 @@
     </div><!-- /.row -->
     <profile-app></profile-app>
 </div><!-- /.container -->
-{{-- <div class="sugar-table">
 
-
-</div> --}}
 

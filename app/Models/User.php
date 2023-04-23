@@ -21,6 +21,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'type_diabet',
+        'use_insulin',
+        'use_tablet',
+        'avatar',
+        'avatar_original'
     ];
 
     /**
@@ -88,6 +93,11 @@ class User extends Authenticatable
     public function medTake()
     {
         return $this->hasMany(MedicamentTake::class, 'user_id', 'id');
+    }
+
+    public function keton()
+    {
+        return $this->hasMany(Keton::class, 'user_id', 'id');
     }
 
     public function config()

@@ -144,17 +144,19 @@ Route::group([
     Route::get("/", [BloodPressureController::class, 'index']);
     Route::get("/all", [BloodPressureController::class, 'getAllApi']);
     Route::post("/store", [BloodPressureController::class, 'store']);
-    Route::delete("/destroy/{bloodPressure}", [BloodPressureController::class, 'destroy']);
+    // Route::delete("/destroy/{bloodPressure}", [BloodPressureController::class, 'destroy']);
 });
 Route::group([
     'prefix' => '/blood-pressure',
     'middleware' => 'auth',
     'controller' => BloodPressureController::class
 ], function() {
+    Route::get('/', 'index')->name('bloodPressure.index');
     Route::get('/create', 'create')->name('bloodPressure.create');
     Route::post('/create', 'store');
     Route::get('/edit/{bloodPressure}', 'edit')->name('bloodPressure.edit');
     Route::post('/edit/{bloodPressure}', 'update');
+    Route::delete('/delete/{bloodPressure}', 'destroy')->name('bloodPressure.delete');;
 });
 Route::group([
     'prefix' => '/medicament',
@@ -180,6 +182,7 @@ Route::group([
     Route::get('/create', 'create')->name('hba1c.create');
     Route::post('/create', 'store');
     Route::delete('/delete/{hbA1c}', 'destroy')->name('hba1c.delete');
+    Route::get('/api/last', 'getLastDaysApi');
 });
 Route::group([
     'prefix' => '/insulin',
@@ -216,10 +219,36 @@ Route::group([
     'middleware' => 'auth',
     'controller' => App\Http\Controllers\MedicamentTakeController::class,
 ], function() {
+    Route::get('/', 'index')->name('medicamentTake.index');
     Route::get('/create', 'create')->name('medicamentTake.create');
     Route::post('/create', 'store');
+    Route::get('/edit/{medicamentTake}', 'edit')->name('medicamentTake.update');
+    Route::post('/edit/{medicamentTake}', 'update');
+    Route::delete('/delete/{medicamentTake}', 'destroy')->name('medicamentTake.delete');
 });
+Route::group([
+    'prefix' => '/setup-user',
+    'middleware' => 'auth',
+    'controller' => App\Http\Controllers\UserController::class,
+], function() {
+    Route::post('/create', 'saveSetupType')->name('user.saveSetup');
+    Route::post('/change-profile', 'changeProfile')->name('user.changeProfile');
+});
+
+Route::group([
+    'prefix' => '/keton',
+    'middleware' => 'auth',
+    'controller' => App\Http\Controllers\KetonController::class,
+], function() {
+    Route::get('/', 'index')->name('keton.index');
+    Route::get('/create', 'create')->name('keton.create');
+    Route::post('/create', 'store');
+});
+
 // Route::group([], function() {});
+
+Route::get('/redirect', [App\Http\Controllers\Auth\LoginController::class, 'redirectToProvider']);
+Route::get('/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleProviderCallback']);
 
 
 

@@ -1,11 +1,5 @@
 <template>
-    <MaterialField
-        label="Systalic pressure"
-        type="tel"
-        v-model="fValue"
-        name="test"
-    />
-    <spoler> Test 123 </spoler>
+    
 </template>
 
 <script>

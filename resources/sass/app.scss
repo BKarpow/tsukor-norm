@@ -197,3 +197,15 @@ $navbar-light-brand-hover-color: $navbar-light-active-color;
     color: #fff !important;
   }
 }
+
+.btn-soc-login-g{
+    text-decoration: none;
+    color: #333;
+    padding: 1rem;
+    margin: 1rem;
+    border: 3px solid #333;
+    &:hover{
+        text-decoration: none;
+    color: #333;
+    }
+}

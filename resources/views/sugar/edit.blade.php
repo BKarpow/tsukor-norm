@@ -13,10 +13,7 @@
                     @include('cabinet.buttons')
                     <form method="POST" action="{{route('sugar.edit',['mySugar'=>$s])}}">
                         @csrf
-                        <div class="form-group py-2">
-                            <date-time-field dt="{{$s->created_at}}"></date-time-field>
-                        </div>
-                        <!-- /.form-group py-1 -->
+
                         <div class="form-group mb-2">
                             <label for="glucose">Рівень цукру крові (ммол/л)</label>
                             <input
@@ -156,6 +153,10 @@
                                 <!-- /#.form-control -->
                             </div>
                             <!-- /.form-group -->
+                            <div class="form-group py-2">
+                                <date-time-field dt="{{$s->created_at}}"></date-time-field>
+                            </div>
+                            <!-- /.form-group py-1 -->
                         <div class="form-group mt-2 col-7">
                             <button class="btn btn-primary btn-lg"> <i-add :size="32"></i-add> Зберегти</button>
                         </div>

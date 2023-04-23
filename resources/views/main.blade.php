@@ -22,7 +22,9 @@
             <div class="container">
               <h2 class="animate__animated animate__fadeInDown">Вітаю на сайті <span>{{env('APP_NAME')}}</span></h2>
               <p class="animate__animated animate__fadeInUp">Цей сайт створено як корисний інструмент для людей які хворіють на цукровий діабет.</p>
-              <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Повний опис</a>
+              <a href="{{route('home')}}" class="btn-get-started animate__animated animate__fadeInUp scrollto">
+                Увійти в трекер
+              </a>
             </div>
           </div>
         </div>
@@ -84,17 +86,19 @@
         <div class="col-lg-4 col-md-6">
           <div class="icon-box">
             <div class="icon"><i class="bi bi-briefcase"></i></div>
-            <h4 class="title"><a href="">Dolor Sitema</a></h4>
-            <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
+            <h4 class="title"><a href="{{route('ig.index')}}">Глікемічні індекси продуктів</a></h4>
+            <p class="description">
+                Дізнайтеся глікемічні індекси продуктів та розрахуйте хлібні одиниці з нашою корисною інструментальною сторінкою. Зробіть своє харчування здоровішим та керуйте рівнем цукру в крові за допомогою нашого простого та зручного калькулятора. Приєднуйтесь до нашої спільноти та зберігайте свої улюблені продукти для швидкого доступу до них у майбутньому. Доступно для безкоштовного використання!
+            </p>
           </div>
         </div>
-        <div class="col-lg-4 col-md-6">
+        {{-- <div class="col-lg-4 col-md-6">
           <div class="icon-box">
             <div class="icon"><i class="bi bi-calendar4-week"></i></div>
             <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
             <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur trade stravi</p>
           </div>
-        </div>
+        </div> --}}
       </div>
 
     </div>

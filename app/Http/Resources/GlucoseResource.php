@@ -16,6 +16,7 @@ class GlucoseResource extends JsonResource
     {
         // return parent::toArray($request);
         return [
+            "id" => (int)$this->id,
             "glucose" => $this->glucoseLevel(),
             "beforeFood" => (bool)$this->before_food,
             "afterFood" => (bool)$this->after_food,

@@ -16,7 +16,11 @@ class MedicamentTakeController extends Controller
      */
     public function index()
     {
-        //
+        return view('medicamentTake.index', [
+            'meds' => Auth::user()->medTake()
+            ->orderBy('created_at', 'desc')
+            ->paginate(25),
+        ]);
     }
 
     /**
@@ -26,6 +30,9 @@ class MedicamentTakeController extends Controller
      */
     public function create()
     {
+        header("Cache-Control: no-cache, no-store, must-revalidate");
+        header("Pragma: no-cache");
+        header("Expires: 0");
         return view('medicamentTake.create', [
             'medicaments' => Auth::user()->medicaments()
             ->orderBy('name', 'asc')
@@ -62,7 +69,7 @@ class MedicamentTakeController extends Controller
      */
     public function show(MedicamentTake $medicamentTake)
     {
-        //
+
     }
 
     /**
@@ -73,7 +80,10 @@ class MedicamentTakeController extends Controller
      */
     public function edit(MedicamentTake $medicamentTake)
     {
-        //
+        $this->authorize('update', $medicamentTake);
+        return view('medicamentTake.update', [
+            'medicament' => $medicamentTake,
+        ]);
     }
 
     /**
@@ -85,7 +95,14 @@ class MedicamentTakeController extends Controller
      */
     public function update(UpdateMedicamentTakeRequest $request, MedicamentTake $medicamentTake)
     {
-        //
+        $this->authorize('update', $medicamentTake);
+        $medicamentTake->dose = $request->dose;
+        $medicamentTake->note = $request->note;
+        $medicamentTake->created_at = $request->created_at;
+        $medicamentTake->save();
+        return redirect()
+            ->route('home')
+            ->withStatus('Прийом ліків оновлено.');
     }
 
     /**
@@ -96,6 +113,13 @@ class MedicamentTakeController extends Controller
      */
     public function destroy(MedicamentTake $medicamentTake)
     {
-        //
+        $this->authorize('update', $medicamentTake);
+        $id = $medicamentTake;
+        $medicamentTake->delete();
+        return response()->json([
+            'status' => true,
+            'deletedId' => $id
+        ]);
+
     }
 }
