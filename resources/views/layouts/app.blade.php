@@ -51,6 +51,10 @@
     <!-- End Google Tag Manager -->
 </head>
 <body>
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P9DPZD7"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 <div id="app">
     @include('layouts.header')
     <main >
