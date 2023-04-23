@@ -8,6 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @yield('meta')
+    <meta name="msvalidate.01" content="77C9A94E1C87587141D7B1290F53ECF5" />
     <title>@yield('title')</title>
 
     <!-- Fonts -->
