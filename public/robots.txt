@@ -1,2 +1,13 @@
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /home
+Disallow: /my-sugar
+Disallow: /export-pdf
+Disallow: /blood-pressure
+Disallow: /medicament
+Disallow: /hba1c
+Disallow: /insulin
+Disallow: /insulin-log
+Disallow: /med-take
+Disallow: /setup-user
+Disallow: /keton
