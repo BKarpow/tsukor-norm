@@ -17,13 +17,14 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="sis">Сісталічне</label>
+                                        <label for="tel">Сісталічне</label>
                                         <input
                                             type="text"
                                             name="sis"
                                             id="sis"
                                             placeholder="В мм.рт.ст."
                                             class="form-control"
+                                            value="{{old('sis')}}"
                                         >
                                         @error('sis')
                                             <div class="alert alert-warning">
@@ -39,11 +40,12 @@
                                     <div class="form-group">
                                         <label for="dis">Діасталічне</label>
                                         <input
-                                            type="text"
+                                            type="tel"
                                             name="dis"
                                             id="dis"
                                             placeholder="В мм.рт.ст."
                                             class="form-control"
+                                            value="{{old('dis')}}"
                                         >
                                         @error('dis')
                                             <div class="alert alert-warning">
@@ -62,11 +64,12 @@
                                     <div class="form-group">
                                         <label for="pulse">Пульс</label>
                                         <input
-                                            type="text"
+                                            type="tel"
                                             name="pulse"
                                             id="pulse"
                                             placeholder="Ударів за хвилину"
                                             class="form-control"
+                                            value="{{old('pulse')}}"
                                         >
                                         @error('pulse')
                                             <div class="alert alert-warning">
@@ -88,7 +91,7 @@
                                             placeholder="Кілька слів про свій тиск..."
                                             id="note"
                                             name="note"
-                                            ></textarea>
+                                            >{{old('pulse')}}</textarea>
                                             @error('note')
                                                 <div class="alert alert-warning">
                                                     <strong>{{$message}}</strong>
