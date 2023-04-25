@@ -23,6 +23,16 @@
                 </p>
             </div>
             <!-- /.panel__body-glucose -->
+            <div class="panel__body-bp">
+                <div v-if="!show" class="grey-bg-75"></div>
+                <!-- /.grey-ng-75 -->
+                <h5 v-if="show && bloodPressures.length != 0">АТ та пульс</h5>
+                <p class="blocks">
+                    <PanelBpItem  v-for="bp in bloodPressures" :key="bp.id" :bp-data="bp" />
+                </p>
+                <!-- /.blocks -->
+            </div>
+            <!-- /.panel__body-bp -->
             <div class="panel__body-medicament">
                 <div v-if="!show" class="grey-bg-100"></div>
                 <!-- /.grey-ng-75 -->
@@ -57,6 +67,11 @@
             </div>
             <div class="panel__body-insulin"></div>
             <!-- /.panel__body-insulin -->
+            <div class="p-1 mt-1">
+                <small>{{ dateName }}</small>
+            </div>
+            <!-- /.p-1 mt-1 -->
+
         </div>
         <!-- /.panel__body -->
     </div>
@@ -64,8 +79,10 @@
 </template>
 
 <script>
+import PanelBpItemVue from './PanelBpItem.vue';
 import PanelGlucoseItem from "./PanelGlucoseItem.vue";
 import PanelMedicamentItem from "./PanelMedicamentItem.vue";
+import PanelBpItem from "./PanelBpItem.vue";
 export default {
     name: "NewGlucosePanel",
     props: {
@@ -77,6 +94,7 @@ export default {
     components: {
         PanelGlucoseItem,
         PanelMedicamentItem,
+        PanelBpItem
     },
     computed: {
         medSwitchId() {
@@ -110,6 +128,7 @@ export default {
             insulins: [],
             medicaments: [],
             medicamentsF: [],
+            bloodPressures: [],
             medicamentsLen: 0,
             targetRange: {},
             sugarLover: true,
@@ -128,6 +147,7 @@ export default {
                     this.glucoses = r.data.glucose;
                     this.insulins = r.data.insulin;
                     this.medicaments = r.data.medicaments;
+                    this.bloodPressures = r.data.bloodPressure
                     this.medicamentsF = this.medicaments.filter(
                         (item) => item.sugarLower
                     );
@@ -214,6 +234,15 @@ $border-radius: 6px;
         }
     }
     &__body-medicament {
+        h5 {
+            padding-left: 0.35rem;
+        }
+        p {
+            padding: 0.35rem;
+            @include blockMix();
+        }
+    }
+    &__body-bp {
         h5 {
             padding-left: 0.35rem;
         }
