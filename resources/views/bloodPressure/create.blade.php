@@ -91,7 +91,8 @@
                                             placeholder="Кілька слів про свій тиск..."
                                             id="note"
                                             name="note"
-                                            >{{old('pulse')}}</textarea>
+                                            required
+                                            >Поточний тиск</textarea>
                                             @error('note')
                                                 <div class="alert alert-warning">
                                                     <strong>{{$message}}</strong>

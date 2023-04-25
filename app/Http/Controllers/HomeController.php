@@ -68,7 +68,7 @@ class HomeController extends Controller
                                     ->selectRaw('DATE(created_at) as date')
                                     ->groupByRaw('DATE(created_at)')
                                     ->orderByRaw('DATE(created_at) DESC')
-                                    ->paginate(30),
+                                    ->paginate(14),
             'medicaments' => Auth::user()->medicaments()
                                          ->orderBy('name', 'asc')
                                          ->get(),

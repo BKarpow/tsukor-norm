@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BloodPressureResource;
 use App\Http\Resources\GlucoseResource;
 use App\Http\Resources\InsulinTakeResource;
 use App\Http\Resources\KetonResource;
@@ -47,6 +48,12 @@ class ApiMainHistoryController extends Controller
             ),
             'medicaments' => MedicamentsResource::collection(
                 Auth::user()->medTake()
+                ->whereRaw("DATE(created_at) = '{$request->date}'")
+                ->orderByRaw('TIME(created_at) ASC')
+                ->get()
+            ),
+            'bloodPressure' => BloodPressureResource::collection(
+                Auth::user()->bloodPressure()
                 ->whereRaw("DATE(created_at) = '{$request->date}'")
                 ->orderByRaw('TIME(created_at) ASC')
                 ->get()

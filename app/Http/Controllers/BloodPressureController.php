@@ -68,7 +68,7 @@ class BloodPressureController extends Controller
         $bp->sis = $request->sis;
         $bp->dis = $request->dis;
         $bp->pulse = $request->pulse;
-        $bp->note = $request->input('note', "");
+        $bp->note = $request->input('note', "Вимір АТ");
         $bp->save();
         return redirect()->route('home')->withStatus('Додано новий показник артеріального тиску');
     }
