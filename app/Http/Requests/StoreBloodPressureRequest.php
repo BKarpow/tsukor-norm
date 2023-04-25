@@ -27,7 +27,7 @@ class StoreBloodPressureRequest extends FormRequest
             'sis' => 'required|numeric|max:300|min:30',
             'dis' => 'required|numeric|max:295|min:1',
             'pulse' => 'required|numeric|max:300|min:25',
-            'note' => 'string|max:250',
+            'note' => 'max:250',
         ];
     }
 }
