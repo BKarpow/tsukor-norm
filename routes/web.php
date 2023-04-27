@@ -254,6 +254,13 @@ Route::group([
 ], function() {
     Route::get('/json', 'getJson')->name('export.json');
 });
+Route::group([
+    'prefix' => '/admin',
+    'middleware' => 'auth',
+    'controller' => App\Http\Controllers\AdminStatistickController::class
+], function() {
+    Route::get('/visitors', 'pageVisitors')->name('admin.ips');
+});
 // Route::group([], function() {});
 
 Route::get('/redirect', [App\Http\Controllers\Auth\LoginController::class, 'redirectToProvider']);

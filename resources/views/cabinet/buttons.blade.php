@@ -31,6 +31,12 @@
         </a><!-- /.btn btn-primary -->
 
         <btn-hb url="{{route('hba1c.create')}}"></btn-hb>
+        @if (auth()->user()->role == 42)
+        <a href="{{ route('admin.ips') }}"
+        class="btn-tn m-1 animate__animated animate__fadeInUp scrollto">
+             Візити сайту
+        </a><!-- /.btn btn-primary -->
+        @endif
     @endauth
     <a href="{{ route('ig.add') }}"
         class="btn-tn m-1 animate__animated animate__fadeInUp scrollto">

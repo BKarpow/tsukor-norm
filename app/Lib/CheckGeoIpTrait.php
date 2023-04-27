@@ -3,7 +3,8 @@
 namespace App\Lib;
 use Illuminate\Support\Facades\Http;
 
-trait CheckGeoIp {
+trait CheckGeoIpTrait 
+{
 
     private function getIpInfo(string $ip)
     {

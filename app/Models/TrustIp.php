@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class TrustIp extends Model
 {
     use HasFactory;
-    private array $dontTrustCountry = [
+    static array $notTrustCountry = [
         'RU',
         'ru',
         'rus',

@@ -18,6 +18,7 @@
                     <div class="card-header">Моя карта</div>
                     <!-- home-analytics -->
                     <div class="card-body">
+                        
                         @if (auth()->user()->type_diabet != null)
                             @include('cabinet.buttons')
                             @include('cabinet.controlDiabet')

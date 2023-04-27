@@ -20,7 +20,6 @@ return new class extends Migration
             $table->integer('visits');
             $table->boolean('trust')->default(false);
             $table->timestamps();
-            $table->timestamps();
         });
     }
 
