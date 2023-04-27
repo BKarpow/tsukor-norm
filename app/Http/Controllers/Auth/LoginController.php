@@ -10,6 +10,7 @@ use App\Lib\BridgeWordPressAuthTrait;
 use App\Models\User;
 use Socialite;
 use App\Rules\ReCaptcha;
+use App\Rules\StopRussianEmail;
 
 class LoginController extends Controller
 {
@@ -55,7 +56,7 @@ class LoginController extends Controller
     protected function validateLogin(Request $request)
     {
         $va = [
-            $this->username() => 'required|string',
+            $this->username() => ['required', 'string', new StopRussianEmail],
             'password' => 'required|string',
 
         ];

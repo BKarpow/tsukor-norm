@@ -19,7 +19,7 @@
                                     <div class="form-group">
                                         <label for="tel">Сісталічне</label>
                                         <input
-                                            type="text"
+                                            type="tel"
                                             name="sis"
                                             id="sis"
                                             placeholder="В мм.рт.ст."
@@ -112,7 +112,7 @@
                         </div>
                         <!-- /.form-group mb-1 -->
 
-                        <div class="form-group ">
+                        <div class="form-group mt-2 ">
                             <button class="btn btn-success btn-lg">
                                 <i-add :size="32"></i-add>
                                 Додати

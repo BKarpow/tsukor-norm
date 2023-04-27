@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Lib\BridgeWordPressAuthTrait;
 use Illuminate\Http\Request;
 use App\Rules\ReCaptcha;
+use App\Rules\StopRussianEmail;
 
 class RegisterController extends Controller
 {
@@ -57,7 +58,7 @@ class RegisterController extends Controller
     {
         $validateRules = [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users', new StopRussianEmail],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'type_diabet' => ['required', 'numeric', 'max:3'],
             'use_insulin' => ['sometimes'],
