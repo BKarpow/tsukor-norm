@@ -23,16 +23,20 @@
                 </p>
             </div>
             <!-- /.panel__body-glucose -->
-            <div class="panel__body-bp">
+            <div class="panel__body-insulin">
                 <div v-if="!show" class="grey-bg-75"></div>
                 <!-- /.grey-ng-75 -->
-                <h5 v-if="show && bloodPressures.length != 0">АТ та пульс</h5>
+                <h5 v-if="show && insulins.length != 0">Інсулін</h5>
                 <p class="blocks">
-                    <PanelBpItem  v-for="bp in bloodPressures" :key="bp.id" :bp-data="bp" />
+                    <PanelinsulinItem
+                        v-for="ins in insulins"
+                        :key="ins.id"
+                        :ins-data="ins"
+                    />
+
                 </p>
-                <!-- /.blocks -->
             </div>
-            <!-- /.panel__body-bp -->
+            <!-- /.panel__body-insulin -->
             <div class="panel__body-medicament">
                 <div v-if="!show" class="grey-bg-100"></div>
                 <!-- /.grey-ng-75 -->
@@ -65,8 +69,18 @@
                     <!-- /.d-flex justify-content-center align-items-center -->
                 </p>
             </div>
-            <div class="panel__body-insulin"></div>
-            <!-- /.panel__body-insulin -->
+            <div class="panel__body-bp">
+                <div v-if="!show" class="grey-bg-75"></div>
+                <!-- /.grey-ng-75 -->
+                <h5 v-if="show && bloodPressures.length != 0">АТ та пульс</h5>
+                <p class="blocks">
+                    <PanelBpItem  v-for="bp in bloodPressures" :key="bp.id" :bp-data="bp" />
+                </p>
+                <!-- /.blocks -->
+            </div>
+            <!-- /.panel__body-bp -->
+
+
             <div class="p-1 mt-1">
                 <small>{{ dateName }}</small>
             </div>
@@ -83,6 +97,7 @@ import PanelBpItemVue from './PanelBpItem.vue';
 import PanelGlucoseItem from "./PanelGlucoseItem.vue";
 import PanelMedicamentItem from "./PanelMedicamentItem.vue";
 import PanelBpItem from "./PanelBpItem.vue";
+import PanelinsulinItem from "./PanelinsulinItem.vue";
 export default {
     name: "NewGlucosePanel",
     props: {
@@ -94,7 +109,7 @@ export default {
     components: {
         PanelGlucoseItem,
         PanelMedicamentItem,
-        PanelBpItem
+        PanelBpItem, PanelinsulinItem
     },
     computed: {
         medSwitchId() {
@@ -236,6 +251,7 @@ $border-radius: 6px;
     &__body-medicament {
         h5 {
             padding-left: 0.35rem;
+            color: #1f1f1f;
         }
         p {
             padding: 0.35rem;
@@ -245,6 +261,17 @@ $border-radius: 6px;
     &__body-bp {
         h5 {
             padding-left: 0.35rem;
+            color: #1f1f1f;
+        }
+        p {
+            padding: 0.35rem;
+            @include blockMix();
+        }
+    }
+    &__body-insulin {
+        h5 {
+            padding-left: 0.35rem;
+            color: #1f1f1f !important;
         }
         p {
             padding: 0.35rem;

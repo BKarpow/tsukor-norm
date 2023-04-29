@@ -66,5 +66,8 @@ export default {
     h3 {
         text-align: center;
     }
+    h5 {
+        color: #1f1f1f !important;
+    }
 }
 </style>

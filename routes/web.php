@@ -206,7 +206,9 @@ Route::group([
     Route::post('/create', 'store');
     Route::get('/edit/{insulinTake}', 'edit')->name('insulinLog.update');
     Route::post('/edit/{insulinTake}', 'update');
+    Route::delete('/delete/{insulinTake}', 'destroy');
 });
+
 Route::group([
     'prefix' => '/glucose-api',
     'middleware' => 'auth',

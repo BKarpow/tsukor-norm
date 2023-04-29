@@ -47,7 +47,6 @@ class HomeController extends Controller
                             ->unionAll(DB::table('medicament_takes')
                                 ->select('created_at')
                                 ->whereUserId(Auth::id()))
-                            // Додайте UNION ALL для кожної таблиці, яку ви хочете включити в запит
                             ->orderBy('created_at', 'desc')
                             ->paginate(16);
 

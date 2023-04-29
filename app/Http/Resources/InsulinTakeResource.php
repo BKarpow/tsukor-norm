@@ -15,6 +15,7 @@ class InsulinTakeResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => (int) $this->id,
             'insulin' => $this->insulin->name,
             'type' => $this->insulin->type,
             'dose' => round($this->insulin_dose, 1),

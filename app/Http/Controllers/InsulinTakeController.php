@@ -121,6 +121,13 @@ class InsulinTakeController extends Controller
      */
     public function destroy(InsulinTake $insulinTake)
     {
-        //
+        $this->authorize('update', $insulinTake);
+        $id = $insulinTake->id;
+        $insulinTake->delete();
+        return response()->json([
+            'status' => true,
+            'deletedId' => $id
+        ]);
+
     }
 }

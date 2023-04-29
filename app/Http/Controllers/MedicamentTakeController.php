@@ -114,7 +114,7 @@ class MedicamentTakeController extends Controller
     public function destroy(MedicamentTake $medicamentTake)
     {
         $this->authorize('update', $medicamentTake);
-        $id = $medicamentTake;
+        $id = $medicamentTake->id;
         $medicamentTake->delete();
         return response()->json([
             'status' => true,
