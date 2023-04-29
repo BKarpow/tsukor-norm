@@ -62,7 +62,7 @@
             edit-url="{{route('sugar.edit',['mySugar'=>$sugar])}}"
         >
         </glu-item> --}}
-        <new-panel date="{{ $sugar->date }}"></new-panel>
+        <new-panel date="{{ date('Y-m-d', strtotime($sugar->created_at)) }}"></new-panel>
     @endforeach
 </div>
 <!-- /.my-1 -->

@@ -35,6 +35,23 @@ class HomeController extends Controller
             session()->forget('user_login');
             return $this->goToAuthWpPage($nu);
         }
+        $allItemsDate =   DB::table('my_sugar')
+                            ->select('created_at')
+                            ->whereUserId(Auth::id())
+                            ->unionAll(DB::table('blood_pressures')
+                                ->select('created_at')
+                                ->whereUserId(Auth::id()))
+                            ->unionAll(DB::table('insulin_takes')
+                                ->select('created_at')
+                                ->whereUserId(Auth::id()))
+                            ->unionAll(DB::table('medicament_takes')
+                                ->select('created_at')
+                                ->whereUserId(Auth::id()))
+                            // Додайте UNION ALL для кожної таблиці, яку ви хочете включити в запит
+                            ->orderBy('created_at', 'desc')
+                            ->paginate(16);
+
+
         $avgPerDay = DB::table('my_sugar')
                         ->select(DB::raw('AVG(count_per_day)'))
                         ->from(function ($query) {
@@ -64,11 +81,7 @@ class HomeController extends Controller
             'last90Day' => round( $last90Day, 1),
             'sugarAvg' => $sugarAvg,
             'sugarCount' => $sugarCount,
-            'sugars' => Auth::user()->mySugar()
-                                    ->selectRaw('DATE(created_at) as date')
-                                    ->groupByRaw('DATE(created_at)')
-                                    ->orderByRaw('DATE(created_at) DESC')
-                                    ->paginate(14),
+            'sugars' => $allItemsDate,
             'medicaments' => Auth::user()->medicaments()
                                          ->orderBy('name', 'asc')
                                          ->get(),
