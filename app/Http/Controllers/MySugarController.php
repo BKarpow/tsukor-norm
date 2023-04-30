@@ -10,6 +10,7 @@ use App\Http\Resources\AllDatesResource;
 use App\Http\Resources\EmptyStomachResource;
 use App\Http\Resources\GluProfileResource;
 use App\Http\Resources\SugarAnalyticApiResource;
+use App\Models\UserWriteHistory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -124,20 +125,42 @@ class MySugarController extends Controller
     public function store(StoreMySugarRequest $request)
     {
         $comment = ($request->comment) ? $request->comment : "Sugar in blood";
-        MySugar::insert([
-            "user_id" => Auth::id(),
-            "glucose" => (float)$request->glucose,
-            "before_food" => (bool)$request->before_food,
-            "after_food" => (bool)$request->after_food,
-            "before_exercise" => (bool)$request->before_exercise,
-            "exercise" => (bool)$request->exercise,
-            "after_exercise" => (bool)$request->after_exercise,
-            "stress" => (bool)$request->stress,
-            "disease" => (bool)$request->disease,
-            "comment" => $comment,
-            "created_at" => $request->created_at,
-            "updated_at" => now()
+        // $g = MySugar::insert([
+        //     "user_id" => Auth::id(),
+        //     "glucose" => (float)$request->glucose,
+        //     "before_food" => (bool)$request->before_food,
+        //     "after_food" => (bool)$request->after_food,
+        //     "before_exercise" => (bool)$request->before_exercise,
+        //     "exercise" => (bool)$request->exercise,
+        //     "after_exercise" => (bool)$request->after_exercise,
+        //     "stress" => (bool)$request->stress,
+        //     "disease" => (bool)$request->disease,
+        //     "comment" => $comment,
+        //     "created_at" => $request->created_at,
+        //     "updated_at" => now()
+        // ]);
+        $g = new MySugar();
+        $g->user_id = Auth::id();
+        $g->glucose = (float)$request->glucose;
+        $g->before_food = (bool)$request->before_food;
+        $g->after_food = (bool)$request->after_food;
+        $g->before_exercise = (bool)$request->before_exercise;
+        $g->exercise = (bool)$request->exercise;
+        $g->after_exercise = (bool)$request->after_exercise;
+        $g->stress = (bool)$request->stress;
+        $g->disease = (bool)$request->disease;
+        $g->comment = $comment;
+        $g->created_at = $request->created_at;
+        $g->save();
+        UserWriteHistory::insert([
+            'user_id' => Auth::id(),
+            'write_id' => $g->id,
+            'type' => UserWriteHistory::TYPE_GLUCOSE,
+            'note' => 'Controller store',
+            'created_at' => $request->created_at,
+            'updated_at' => now(),
         ]);
+
         return redirect()->route('home')->withStatus("Показник цукру збережено");
     }
 

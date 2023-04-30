@@ -6,6 +6,7 @@ use App\Models\InsulinTake;
 use App\Http\Requests\StoreInsulinTakeRequest;
 use App\Http\Requests\UpdateInsulinTakeRequest;
 use App\Models\Insulin;
+use App\Models\UserWriteHistory;
 use Illuminate\Support\Facades\Auth;
 
 class InsulinTakeController extends Controller
@@ -66,6 +67,14 @@ class InsulinTakeController extends Controller
         $it->note = $request->input('note', "");
         $it->created_at = $request->created_at;
         $it->save();
+        UserWriteHistory::insert([
+            'user_id' => Auth::id(),
+            'write_id' => $it->id,
+            'type' => UserWriteHistory::TYPE_INSULIN_TAKE,
+            'note' => 'Controller store',
+            'created_at' => $request->created_at,
+            'updated_at' => now(),
+        ]);
         return redirect()->route('insulinLog.index')->withStatus('Прийом інсуліну записано');
     }
 

@@ -1,6 +1,20 @@
 <template>
     <div @click="showModal = true" :style="bgStyleCalc" class="glucose-item">
         <div class="d-flex py-1 justify-content-center">
+            <div
+                class="mr-1 pr-1"
+                v-if="
+                    !gluData.afterFood &&
+                    !gluData.beforeFood &&
+                    !gluData.stress &&
+                    !gluData.disease &&
+                    !gluData.beforeExercise &&
+                    !gluData.exercise &&
+                    !gluData.afterExercise
+                "
+            >
+                <i class="fa-solid fa-cubes-stacked fa-2xl"></i>
+            </div>
             <div class="mr-1 pr-1" v-if="gluData.beforeFood">
                 <i class="fa-solid fa-cookie fa-2xl"></i>
             </div>

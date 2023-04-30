@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MedicamentTake;
 use App\Http\Requests\StoreMedicamentTakeRequest;
 use App\Http\Requests\UpdateMedicamentTakeRequest;
+use App\Models\UserWriteHistory;
 use Illuminate\Support\Facades\Auth;
 
 class MedicamentTakeController extends Controller
@@ -56,6 +57,14 @@ class MedicamentTakeController extends Controller
         $m->note = $request->input('note', "");
         $m->created_at = $request->created_at;
         $m->save();
+        UserWriteHistory::insert([
+            'user_id' => Auth::id(),
+            'write_id' => $m->id,
+            'type' => UserWriteHistory::TYPE_MEDICAMENT_TAKE,
+            'note' => 'Controller store',
+            'created_at' => $request->created_at,
+            'updated_at' => now(),
+        ]);
         return redirect()
             ->route('home')
             ->withStatus('Прийом ліків додано.');

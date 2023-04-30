@@ -6,6 +6,7 @@ use App\Models\BloodPressure;
 use App\Http\Requests\StoreBloodPressureRequest;
 use App\Http\Requests\UpdateBloodPressureRequest;
 use App\Http\Resources\BloodPressureResource;
+use App\Models\UserWriteHistory;
 use Illuminate\Support\Facades\Auth;
 
 class BloodPressureController extends Controller
@@ -69,7 +70,16 @@ class BloodPressureController extends Controller
         $bp->dis = $request->dis;
         $bp->pulse = $request->pulse;
         $bp->note = $request->input('note', "Вимір АТ");
+        $bp->created_at = $request->created_at;
         $bp->save();
+        UserWriteHistory::insert([
+            'user_id' => Auth::id(),
+            'write_id' => $bp->id,
+            'type' => UserWriteHistory::TYPE_BLOOD_PRESSURE,
+            'note' => 'Controller store',
+            'created_at' => $request->created_at,
+            'updated_at' => now(),
+        ]);
         return redirect()->route('home')->withStatus('Додано новий показник артеріального тиску');
     }
 

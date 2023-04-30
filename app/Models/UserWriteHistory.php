@@ -16,4 +16,6 @@ class UserWriteHistory extends Model
     const TYPE_BLOOD_PRESSURE = 2;
     const TYPE_INSULIN_TAKE = 3;
     const TYPE_MEDICAMENT_TAKE = 4;
+    const TYPE_KETON = 5;
+    const TYPE_HBA1C = 6;
 }
