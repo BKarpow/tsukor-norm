@@ -104,4 +104,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Config::class, 'user_id', 'id');
     }
+
+    public function history()
+    {
+
+        return $this->hasMany(UserWriteHistory::class, 'user_id', 'id');
+    }
 }

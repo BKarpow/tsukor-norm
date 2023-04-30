@@ -35,20 +35,11 @@ class HomeController extends Controller
             session()->forget('user_login');
             return $this->goToAuthWpPage($nu);
         }
-        $allItemsDate =   DB::table('my_sugar')
-                            ->select('created_at')
-                            ->whereUserId(Auth::id())
-                            ->unionAll(DB::table('blood_pressures')
-                                ->select('created_at')
-                                ->whereUserId(Auth::id()))
-                            ->unionAll(DB::table('insulin_takes')
-                                ->select('created_at')
-                                ->whereUserId(Auth::id()))
-                            ->unionAll(DB::table('medicament_takes')
-                                ->select('created_at')
-                                ->whereUserId(Auth::id()))
-                            ->orderBy('created_at', 'desc')
-                            ->paginate(16);
+        $allItemsDate =   Auth::user()->history()
+                            ->selectRaw('DATE(created_at) as created_at')
+                            ->groupBYRaw('DATE(created_at)')
+                            ->orderByRaw('DATE(created_at) desc')
+                            ->paginate(20);
 
 
         $avgPerDay = DB::table('my_sugar')

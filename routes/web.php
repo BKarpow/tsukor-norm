@@ -215,6 +215,7 @@ Route::group([
     'controller' => App\Http\Controllers\ApiMainHistoryController::class
 ], function() {
     Route::get('/get-date', 'glucoseForDate');
+    Route::get('/sync', 'syncToHistory');
 });
 Route::group([
     'prefix' => '/med-take',

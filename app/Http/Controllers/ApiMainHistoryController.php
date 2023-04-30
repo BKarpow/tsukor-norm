@@ -8,7 +8,7 @@ use App\Http\Resources\InsulinTakeResource;
 use App\Http\Resources\KetonResource;
 use App\Http\Resources\MedicamentsResource;
 use App\Http\Resources\SugarTargetRangeResource;
-
+use App\Models\UserWriteHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -60,5 +60,31 @@ class ApiMainHistoryController extends Controller
             ),
             'keton' => $keton,
         ]);
+    }
+
+    private function seedDataToHistory($data, int $type)
+    {
+        foreach($data as $item) {
+            $ei = Auth::user()->history()->whereWriteId($item->id)->first();
+            if (!$ei) {
+                UserWriteHistory::insert([
+                    'user_id' => Auth::id(),
+                    'write_id' => $item->id,
+                    'type' => $type,
+                    'note' => 'Synchronic exporter v1',
+                    'created_at' => $item->created_at,
+                    'updated_at' => $item->updated_at,
+                ]);
+            }
+        }
+    }
+
+    public function syncToHistory()
+    {
+        $this->seedDataToHistory(Auth::user()->mySugar()->get(), UserWriteHistory::TYPE_GLUCOSE );
+        $this->seedDataToHistory(Auth::user()->insulinLog()->get(), UserWriteHistory::TYPE_INSULIN_TAKE );
+        $this->seedDataToHistory(Auth::user()->medTake()->get(), UserWriteHistory::TYPE_MEDICAMENT_TAKE );
+        $this->seedDataToHistory(Auth::user()->bloodPressure()->get(), UserWriteHistory::TYPE_BLOOD_PRESSURE );
+        return redirect()->route('home')->withStatus('Синхронізація з історією пройшла успішно!');
     }
 }
