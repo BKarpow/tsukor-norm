@@ -79,6 +79,9 @@ Route::group([
 });
 
 Route::get('/', function(){
+    if (Auth::check()) {
+        return redirect()->route('home');
+    }
     return view('main');
 })->name('ig.index');
 Route::get('/ig', [IndexGlucoseController::class, 'index'])->name('ig.index');
