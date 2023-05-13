@@ -58,6 +58,7 @@ export default {
             this.date = new Date(this.dt);
         }
         this.show = true;
+        this.$emit('get-date', this.formatDate);
     },
 };
 </script>

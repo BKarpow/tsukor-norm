@@ -134,4 +134,15 @@ class MedicamentController extends Controller
                 ->get()
         );
     }
+
+    public function getActiveMed()
+    {
+        return MedicamentResource::collection(
+            Auth::user()
+                ->medicaments()
+                ->whereActive(true)
+                ->orderBy('name', 'asc')
+                ->get()
+        );
+    }
 }

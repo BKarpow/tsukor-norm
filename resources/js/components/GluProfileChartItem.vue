@@ -32,6 +32,15 @@ ChartJS.register(
 
 const lcStorageName = "gluRangeDays";
 
+function generateRandomHexColor() {
+  const hexCharacters = '0123456789ABCDEF';
+  let hexColor = '#';
+  for (let i = 0; i < 6; i++) {
+    hexColor += hexCharacters[Math.floor(Math.random() * 16)];
+  }
+  return hexColor;
+}
+
 export default {
     name: "GluProfileChartItem",
     components: {

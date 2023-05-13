@@ -166,6 +166,7 @@ Route::group([
     'middleware' => 'auth'
 ], function() {
     Route::get('/api/list/sugar-lower', [MedicamentController::class, 'getActiveMedSugar']);
+    Route::get('/api/list', [MedicamentController::class, 'getActiveMed']);
     Route::get('/api/triggerActive/{medicament}', [MedicamentController::class, 'triggerActive'])
             ->name('med.api.triggerActive');
     Route::get('/create', [MedicamentController::class, 'create'])->name('med.create');
