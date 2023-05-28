@@ -1,12 +1,12 @@
 <template>
     <a :href="url"
         v-if="showBtn"
-        class="btn-tn m-1 animate__animated animate__fadeInUp scrollt">
+        class="btn-tn m-1  scrollt">
             <i class="fa-solid fa-square-plus"></i> {{ btnText }}
         </a><!-- /.btn btn-primary -->
         <a href="#"
         v-if="showInfo"
-        class="btn animate__animated animate__fadeInUp scrollt">
+        class="btn  scrollt">
          {{ infoText }}
         </a><!-- /.btn btn-primary -->
 
@@ -35,8 +35,8 @@ export default {
                         this.btnText = "Вже час аналізу на HbA1c!"
                     }else {
                         this.showBtn = false;
-                        this.showInfo = true;
-                        this.infoText = 'Останній hba1c: '+r.data.level+'%'
+                        this.showInfo = false;
+                        this.infoText = 'Останній!! hba1c: '+r.data.level+'%'
                     }
                 }
             })

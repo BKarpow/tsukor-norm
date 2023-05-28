@@ -1,4 +1,5 @@
 User-agent: *
+Disallow:
 Allow: /
 Disallow: /home
 Disallow: /my-sugar
@@ -11,4 +12,4 @@ Disallow: /insulin-log
 Disallow: /med-take
 Disallow: /setup-user
 Disallow: /keton
-Sitemap: https://tsukor-norm.pp.ua/sitemap.xml
+Sitemap: /sitemap.xml

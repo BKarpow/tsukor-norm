@@ -38,6 +38,9 @@ const app = createApp({
 });
 app.use(VCalendar, {});
 
+import VSpoiler from 'v-spoiler';
+import 'v-spoiler/dist/v-spoiler.css';
+
 import ExampleComponent from "./components/ExampleComponent.vue";
 import CalcHO from "./components/CalcHO.vue";
 import IGList from "./components/IGlist.vue";
@@ -60,6 +63,7 @@ import ButtonHbA1c from "./components/ButtonHbA1c.vue"
 import PasswordField from "./components/PasswordField.vue";
 import KetonTriger from "./components/KetonTriger.vue";
 import CreateMedTake from "./components/CreateMedTake.vue";
+import InfoArea from "./components/InfoArea.vue";
 
 
 app.component("ig-list", IGList);
@@ -84,6 +88,8 @@ app.component("btn-hb", ButtonHbA1c); // required props url (route hna1c.create)
 app.component("pwd-field", PasswordField);
 app.component("keton-input", KetonTriger);
 app.component("create-med-take", CreateMedTake);
+app.component('VSpoiler', VSpoiler);
+app.component('info', InfoArea);
 
 /**
  * The following block of code may be used to automatically register your

@@ -19,3 +19,21 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+# Увімкнути стиснення gzip
+<IfModule mod_deflate.c>
+    # Включити модуль стиснення
+    SetOutputFilter DEFLATE
+
+    # Налаштувати MIME-типи, які будуть стискуватися
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml application/xml application/xhtml+xml text/javascript text/css application/x-javascript
+
+    # Встановити рівень стиснення
+    DeflateCompressionLevel 6
+
+    # Включити стиснення для неповноцінних браузерів
+    BrowserMatch ^Mozilla/4 gzip-only-text/html
+    BrowserMatch ^Mozilla/4\.0[678] no-gzip
+    BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+</IfModule>
+

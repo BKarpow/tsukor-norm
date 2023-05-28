@@ -43,7 +43,7 @@
         <h4>Вибрані ліки</h4>
         <ul class="list-group">
             <li class="list-group-item" v-for="d in dataMeds" :key="d.id">
-                {{ d.name }} {{ d.doseTake }}x{{ d.dose }}
+                {{ d.name }} {{ d.dose }}x{{ d.dose_med }}
             </li>
             <!-- /.list-group-item -->
         </ul>
@@ -52,7 +52,9 @@
     <!-- /.form-group mb-2 -->
 
     <div class="form-group mb-2">
+        <label for="note">Короткий опис прийому ліків.</label>
         <textarea
+            id="note"
             class="form-control"
             placeholder="Кілька слів ..."
             v-model="note"
@@ -61,7 +63,7 @@
 
     <div class="form-group mb-2" v-if="dataMeds.length">
         <button @click="saveMedTakes" type="button" class="btn btn-success">
-            Записати прийом ліків
+            <i class="fa-solid fa-square-plus"></i>  Записати прийом ліків
         </button>
         <!-- /.btn btn-success -->
     </div>
@@ -103,6 +105,7 @@ export default {
         },
         onChecked(ev, med) {
             if (ev.target.checked) {
+                med.dose_med = med.dose;
                 med.med_id = med.id
                 med.dose = this.$refs[`med${med.id}`][0].value;
                 med.note = this.note;

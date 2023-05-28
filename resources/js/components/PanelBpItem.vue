@@ -2,7 +2,7 @@
     <div @click="showModal = true" :style="bgStyleCalc" class="glucose-item">
         <!-- <p class="text-center"> <i style="font-size: 2rem;" class="bi bi-heart-pulse-fill"></i></p> -->
         <h3> <i  class="bi bi-heart-pulse-fill"></i> &nbsp;{{ bpData.sis }}/{{ bpData.dis }}</h3>
-        <h4>{{ bpData.pulse }} чсс. <i v-if="!bpData.isNormalPulse" style="color: var(--yellow-bg);" class="bi bi-exclamation-diamond-fill"></i></h4>
+        <h4>{{ bpData.pulse }} чсс. <i v-if="!bpData.isNormalPulse"  class="fa-solid fa-heart-pulse fa-bounce fa-lg"></i></h4>
         <p class="text-end text-bold text-">{{ bpData.time }}</p>
     </div>
     <!-- /.glucose-item -->
