@@ -14,10 +14,12 @@ use App\Lib\BridgeWordPressAuthTrait;
 use Illuminate\Http\Request;
 use App\Rules\ReCaptcha;
 use App\Rules\StopRussianEmail;
+use App\Lib\TelegramTrait;
 
 class RegisterController extends Controller
 {
     use BridgeWordPressAuthTrait;
+    use TelegramTrait;
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -88,6 +90,9 @@ class RegisterController extends Controller
             'use_insulin'  => (bool)$insulin,
             'use_tablet'  => (bool)$tablet
         ]);
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $msg = "Новий користувач: \n{$data['name']}<{$data['email']}>, IP: {$ip}";
+        $this->sendText($msg);
         SugarTargetRange::insert([
             'user_id' => $user->id,
             'min_glu' => 3.9,

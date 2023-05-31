@@ -11,6 +11,7 @@ use App\Models\User;
 use Socialite;
 use App\Rules\ReCaptcha;
 use App\Rules\StopRussianEmail;
+use App\Lib\TelegramTrait;
 
 class LoginController extends Controller
 {
@@ -27,6 +28,7 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
     use BridgeWordPressAuthTrait;
+    use TelegramTrait;
 
     /**
      * Where to redirect users after login.
@@ -143,6 +145,9 @@ class LoginController extends Controller
             $newUser->avatar          = $user->avatar;
             $newUser->avatar_original = $user->avatar_original;
             $newUser->save();
+            $ip = $_SERVER['REMOTE_ADDR'];
+            $msg = "Новий користувач через Google: \n{$user->name}<{$user->email}>, IP: {$ip}";
+            $this->sendText($msg);
             auth()->login($newUser, true);
         }
         return redirect()->to('/home');
