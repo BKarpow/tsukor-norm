@@ -40,33 +40,19 @@
             <div class="panel__body-medicament">
                 <div v-if="!show" class="grey-bg-100"></div>
                 <!-- /.grey-ng-75 -->
-                <h5 v-if="show && medicaments.length != 0">Ліки</h5>
-                <div
-                    v-if="show && medicaments.length != 0"
-                    class="form-check form-switch m-2"
-                >
-                    <input
-                        class="form-check-input"
-                        type="checkbox"
-                        role="switch"
-                        :id="medSwitchId"
-                        v-model="sugarLover"
-                        @change="onSugarLover"
-                    />
-                    <label class="form-check-label" :for="medSwitchId">
-                       Лише для контролю цукру.
-                    </label>
-                </div>
-                <p class="blocks">
-                    <PanelMedicamentItem
-                        v-for="med in medicamentsF"
-                        :key="med.id"
-                        :med-data="med"
-                    />
-                    <div v-if="sugarLover && medicamentsLen != 0" class="d-flex justify-content-center align-items-center">
-                        <p style="cursor: pointer;" @click="showAllMeds">Всі (ще {{ medicamentsLen }}) </p>
-                    </div>
-                    <!-- /.d-flex justify-content-center align-items-center -->
+                <h5 v-if="show && medicaments.length != 0"><img
+                width="36"
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAC8klEQVR4nO2aS2sUQRSFPwRDxAd5iZClCUYl4iIuA6I7QX+BJj5A3YqrRFeuZbL2BwhOIj728RGJCw1xaZIxIihE0YXG6GacYEnBGSia6Uw/qrtHmAOXpnuqzq0z9bq3q6GNNgpDN3AReAysAL9lFeARcEllWhadwATwAzBNbB24AeygxdAPvHYaOgtcBoaAnbIhPZt1yi2obkugH/iohr0DjkeoY8u8V51PrSCm0+mJeaAnRt1e4KXqvhJXYZhUQz4AfQnqW+Gr4rDzqxB0ORP7RAqek+L4Ls7ccV4NeOqB65m4LGfueCDnVzxwXRXXfQrAipwf9MB1SFyWM3f8kvNdHrh2i2uDAmBkrcoXGW0hIWj3yP8ytHq1v8wAi8AaUNV1EZgGxlXOq+Ok2ASuO/eDauRmhLTAADWgrHqFCjmlawcwBfyJKMAEzNYriacQIWh4PE8owATMRtb7ihCy18lRfNlqlKjcp5DtHnvCBGy+2TDzKWTKU6O/AiPAaOB5KYqQpHZHPIMpJrYJiBgW57HAb3a5HshCyF8nap72LGJY98Ey5SyEvHFWqVpKrm/AEfHZP+dLSLnNsImfxvmtQJaZZU8Yx8Z8CznjYVjFFWHkz6uQ/eJYzFGEAZZ9C9kjjs8ZzgnTwH76FmI3QLQs5tETxpnwXoXUY6C1nHrCZNUjR2POER8iDLDkW8jpGKtW2uFkmm2KGykI67HPeE49YWTnGgmppCBccl5i13ISUQs7Kau/Mk1qh8VTzng4Gdk9QnAhJfHdLaLfEc8iqltFv106CkhKbtf0A+IqBX4bVSjuQ4QBbtMEEykdPAG2KYN74anRJmBzzgYcik4dm6VxdNPJ2eunV7nm7HX060AzqbOKk1P3eeyZuSTHgcHj6ai20OCVTYfmTNw4zMiqmhNNh9NWw2wy4gcDtsy1Js4GtGRGzSBrKh+6OsVFtz7TeOh8wmGjgLc6WjvrhPFR0KPMrqx8Yl0Nt9dlPR+LeTTeRhtkhH9wKgdqZkIycgAAAABJRU5ErkJggg=="
+            /> Ліки</h5>
+                <p class="">
+                    <ul class="list-group">
+                        <PanelMedicamentItem
+                            v-for="med in medicaments"
+                            :key="med.id"
+                            :med-data="med"
+                        />
+                    </ul>
+                    <!-- /.list-group -->
                 </p>
             </div>
             <div class="panel__body-bp">
@@ -255,7 +241,8 @@ $border-radius: 6px;
         }
         p {
             padding: 0.35rem;
-            @include blockMix();
+            width: 85%;
+            // @include blockMix();
         }
     }
     &__body-bp {
