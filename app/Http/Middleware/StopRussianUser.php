@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use App\Models\TrustIp;
 use Illuminate\Support\Facades\Http;
+use App\Events\RussianUserVisit;
 
 class StopRussianUser
 {
@@ -48,12 +49,11 @@ class StopRussianUser
 
             ]);
             if (!$trust) {
-
+                event(new RussianUserVisit($request->ip(), $request->userAgent(), strtotime(now())));
                 die("Stop russian war!");
             }
         } else {
             if (!$ip->trust) {
-
                 die("Stop russian war!");
             }
             // $ip->increment('visits');
