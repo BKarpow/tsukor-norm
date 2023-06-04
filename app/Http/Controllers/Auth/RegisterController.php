@@ -121,8 +121,9 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
-        if ( $this->createNewWordPressUser($data) ) {
-            return $this->goToAuthWpPage($data);
-        }
+        // if ( $this->createNewWordPressUser($data) ) {
+        //     return $this->goToAuthWpPage($data);
+        // }
+        return redirect()->route('home');
     }
 }

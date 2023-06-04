@@ -33,7 +33,7 @@ class HomeController extends Controller
         if ($nu) {
             session()->forget('user_new');
             session()->forget('user_login');
-            return $this->goToAuthWpPage($nu);
+            // return $this->goToAuthWpPage($nu);
         }
         $allItemsDate =   Auth::user()->history()
                             ->selectRaw('DATE(created_at) as created_at')
