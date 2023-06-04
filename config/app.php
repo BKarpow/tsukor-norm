@@ -82,7 +82,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'ua',
 
     /*
     |--------------------------------------------------------------------------
@@ -213,6 +213,6 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ])->toArray(),
-    
+
 
 ];
