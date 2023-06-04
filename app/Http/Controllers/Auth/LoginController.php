@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\RegisterUser;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -146,8 +147,7 @@ class LoginController extends Controller
             $newUser->avatar_original = $user->avatar_original;
             $newUser->save();
             $ip = $_SERVER['REMOTE_ADDR'];
-            $msg = "Новий користувач через Google: \n{$user->name}<{$user->email}>, IP: {$ip}";
-            $this->sendText($msg);
+            event( new RegisterUser($newUser->name, $newUser->email))
             auth()->login($newUser, true);
         }
         return redirect()->to('/home');

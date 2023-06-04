@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\RegisterUser;
 use App\Http\Controllers\Controller;
 use App\Models\SugarTargetRange;
 use App\Providers\RouteServiceProvider;
@@ -91,8 +92,7 @@ class RegisterController extends Controller
             'use_tablet'  => (bool)$tablet
         ]);
         $ip = $_SERVER['REMOTE_ADDR'];
-        $msg = "Новий користувач: \n{$data['name']}<{$data['email']}>, IP: {$ip}";
-        $this->sendText($msg);
+
         SugarTargetRange::insert([
             'user_id' => $user->id,
             'min_glu' => 3.9,
@@ -100,10 +100,10 @@ class RegisterController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-
-        if ( $this->createNewWordPressUser($data) ) {
-            session()->put('user_new', $data);
-        }
+        event(new RegisterUser($data['name'], $data['email']));
+        // if ( $this->createNewWordPressUser($data) ) {
+        //     session()->put('user_new', $data);
+        // }
         return $user;
     }
 
@@ -121,6 +121,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
+        event(new RegisterUser($data['name'], $data['email']));
         // if ( $this->createNewWordPressUser($data) ) {
         //     return $this->goToAuthWpPage($data);
         // }
