@@ -30,6 +30,13 @@
                     <ul>
                         @auth
                             <li><a href="{{ route('sugar.add') }}">+ Глюкоза крові</a></li>
+                            @if (auth()->user()->isAdmin())
+                            <li><a href="{{ route('admin.product') }}">Керування прродуктами</a></li>
+                            <li>
+                                <a href="{{ route('admin.ips') }}"class="">Візити сайту</a><!-- /.btn btn-primary -->
+                            </li>
+                            @endif
+
                             <li>
                                 <a href="{{ route('logout') }}"
                                     onclick="event.preventDefault();

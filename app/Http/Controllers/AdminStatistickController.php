@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminStatistickController extends Controller
 {
-    public function FunctionName(Type $var = null)
+    public function __construct()
     {
-        $this->middleware('auth');
+        # code
     }
 
     public function pageVisitors()

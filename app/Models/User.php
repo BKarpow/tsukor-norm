@@ -48,7 +48,7 @@ class User extends Authenticatable
     ];
 
     const ROLE_ADMIN = 42;
-    const ROLE_USER = 42;
+    const ROLE_USER = 1;
 
     public function isAdmin(): bool
     {

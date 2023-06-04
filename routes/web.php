@@ -263,10 +263,18 @@ Route::group([
 });
 Route::group([
     'prefix' => '/admin',
-    'middleware' => 'auth',
+    'middleware' => 'admin',
     'controller' => App\Http\Controllers\AdminStatistickController::class
 ], function() {
     Route::get('/visitors', 'pageVisitors')->name('admin.ips');
+});
+Route::group([
+    'prefix' => '/admin-product',
+    'middleware' => 'admin',
+    'controller' => App\Http\Controllers\ControlProductIgController::class
+], function() {
+    Route::get('/', 'showList')->name('admin.product');
+    Route::get('/trigger/{indexGlucose}', 'publicTrigger')->name('admin.product.public.trigger');
 });
 // Route::group([], function() {});
 
