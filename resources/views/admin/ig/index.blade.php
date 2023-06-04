@@ -28,21 +28,26 @@
                             <tbody>
                                 @foreach ($products as $product)
                                     <tr>
-                                        <td>{{$product->id}}</td>
-                                        <td>{{$product->food}}</td>
-                                        <td>{{$product->ig}}</td>
-                                        <td>{{$product->carbohydrates}}</td>
-                                        <td>{{$product->calories}}</td>
                                         <td>
                                             @if ($product->public)
-                                                <i style="color: var(--green-bg);" class="bi bi-bookmark-check-fill"></i>&nbsp;
-                                                <a href="{{route('admin.product.public.trigger', ['indexGlucose' => $product->id])}}"
+                                                <i style="color: var(--green-bg);" class="fa-solid fa-circle-check fa-lg"></i>
+                                            @else
+                                                <i style="color: var(--red-bg);" class="fa-solid fa-lock fa-lg"></i>
+                                            @endif
+                                            {{ $product->id }}
+                                        </td>
+                                        <td>{{ $product->food }}</td>
+                                        <td>{{ $product->ig }}</td>
+                                        <td>{{ $product->carbohydrates }}</td>
+                                        <td>{{ $product->calories }}</td>
+                                        <td>
+                                            @if ($product->public)
+                                                <a href="{{ route('admin.product.public.trigger', ['indexGlucose' => $product->id]) }}"
                                                     class="btn btn-dark">
                                                     Відмінити публікацію
                                                 </a> <!-- /.btn btn-dark -->
                                             @else
-                                                <i style="color: var(--red-bg);" class="bi bi-sign-stop-fill"></i> &nbsp;
-                                                <a href="{{route('admin.product.public.trigger', ['indexGlucose' => $product->id])}}"
+                                                <a href="{{ route('admin.product.public.trigger', ['indexGlucose' => $product->id]) }}"
                                                     class="btn btn-success">
                                                     Дозволити публікацію
                                                 </a> <!-- /.btn btn-dark -->
