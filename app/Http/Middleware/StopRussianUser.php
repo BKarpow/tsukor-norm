@@ -25,20 +25,20 @@ class StopRussianUser
         $inf = $this->getIpInfo($ip);
         return !(bool)in_array($inf['country_code2'], $trustCountries);
     }
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
-     */
-    public function handle(Request $request, Closure $next)
-    {
-        $ip = TrustIp::where('ip', $request->ip())->first();
 
+    private function useHeaderIpGeolocation(Request $request, Closure $next) {
+        $countryCode = $_SERVER["HTTP_CF_IPCOUNTRY"];
+        if ($countryCode == "RU") {
+            event(new RussianUserVisit($request->ip(), $request->userAgent(), strtotime(now())));
+            die("<h1 align='center'>Рускій воєнний корабль - іді на хуй!</h1>");
+        }
+        return $next($request);
+    }
+
+    private function useServiceIpGeolocation(Request $request) {
+        $ip = TrustIp::where('ip', $request->ip())->first();
         if (!$ip) {
             $trust = $this->isTrustCountry($request->ip(), TrustIp::$notTrustCountry);
-
             TrustIp::insert([
                 'ip' => $request->ip(),
                 'user_agent' => $request->userAgent(),
@@ -46,7 +46,6 @@ class StopRussianUser
                 'trust' => $trust,
                 'created_at' => now(),
                 'updated_at' => now(),
-
             ]);
             if (!$trust) {
                 event(new RussianUserVisit($request->ip(), $request->userAgent(), strtotime(now())));
@@ -59,6 +58,22 @@ class StopRussianUser
             // $ip->increment('visits');
             $ip->user_agent = $request->userAgent();
             $ip->save();
+        }
+    }
+
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     */
+    public function handle(Request $request, Closure $next)
+    {
+        if (isset($_SERVER["HTTP_CF_IPCOUNTRY"])) {
+            return $this->useHeaderIpGeolocation($request, $next);
+        } else {
+            $this->useServiceIpGeolocation($request);
         }
         return $next($request);
     }

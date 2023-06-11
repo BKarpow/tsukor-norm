@@ -85,7 +85,7 @@ class LoginController extends Controller
             'password' => $request->password,
 
         ];
-        return $this->goToAuthWpPage($data);
+        return redirect()->to('/');
     }
 
     /**
@@ -96,7 +96,8 @@ class LoginController extends Controller
      */
     protected function loggedOut(Request $request)
     {
-        return redirect(env('BRIDGE_SUGNOUT_URL').'?redirect_url='.url('/'));
+        // return redirect(env('BRIDGE_SUGNOUT_URL').'?redirect_url='.url('/'));
+        return redirect()->to('/');
     }
 
     /**
@@ -147,7 +148,7 @@ class LoginController extends Controller
             $newUser->avatar_original = $user->avatar_original;
             $newUser->save();
             $ip = $_SERVER['REMOTE_ADDR'];
-            event( new RegisterUser($newUser->name, $newUser->email))
+            event( new RegisterUser($newUser->name, $newUser->email));
             auth()->login($newUser, true);
         }
         return redirect()->to('/home');

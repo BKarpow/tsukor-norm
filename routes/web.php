@@ -280,6 +280,9 @@ Route::group([
 
 Route::get('/redirect', [App\Http\Controllers\Auth\LoginController::class, 'redirectToProvider']);
 Route::get('/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleProviderCallback']);
+Route::get('/ip', function() {
+    dd($_SERVER);
+});
 
 
 
