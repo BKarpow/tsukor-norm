@@ -42,30 +42,29 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('/feedback-footer', [FeedbackController::class, 'feedbackFooterSend'])
 ->name('feedback.store');
 
-Route::get('/migrate', function(){
-    if (Auth::user()->role != 42) {
-        die('Access block!');
-    }
-    $c = Artisan::call('migrate');
+// Route artisan control
+Route::group([
+    'prefix' => '/artisan',
+    'middleware' => 'admin',
+], function(){
+    Route::get('/migrate', function(){
+        $c = Artisan::call('migrate');
+        if ($c === 0) {
+            echo "Migration success!";
+        } else {
+            echo "Error migration!!";
+        }
+    });
 
-    if ($c === 0) {
-        echo "Migration success!";
-    } else {
-        echo "Error migration!!";
-    }
-})->middleware('auth')->name('terms');
-
-Route::get('/migrate-rollback', function(){
-    if (Auth::user()->role != 42) {
-        die('Access block!');
-    }
-    $c = Artisan::call('migrate:rollback');
-    if ($c === 0) {
-        echo "Migration rollback success!";
-    } else {
-        echo "Error migration rollback!!";
-    }
-})->middleware('auth')->name('terms');
+    Route::get('/migrate-rollback', function(){
+        $c = Artisan::call('migrate:rollback');
+        if ($c === 0) {
+            echo "Migration rollback success!";
+        } else {
+            echo "Error migration rollback!!";
+        }
+    });
+});
 
 Route::get('/terms-of-use', function(){
     return view('terms');
@@ -280,9 +279,9 @@ Route::group([
 
 Route::get('/redirect', [App\Http\Controllers\Auth\LoginController::class, 'redirectToProvider']);
 Route::get('/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleProviderCallback']);
-Route::get('/ip', function() {
-    dd($_SERVER);
-});
+// Route::get('/ip', function() {
+//     dd($_SERVER);
+// });
 
 
 
