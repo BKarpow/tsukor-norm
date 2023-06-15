@@ -34,3 +34,10 @@ window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 //     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
 //     enabledTransports: ['ws', 'wss'],
 // });
+
+window.getNumberTimeHM = () => {
+    const now = new Date();
+    var hours = now.getHours();
+    var minutes = now.getMinutes();
+    return Number(hours.toString() + minutes.toString());
+};

@@ -28,7 +28,7 @@
                 v-model="beforeFood"
                 @change="onBeforeFood"
             />
-            <label class="form-check-label" for="before_food"> До їжі </label>
+            <label class="form-check-label" for="before_food"> {{textLabelBeforeFood}} </label>
         </div>
 
         <div class="form-check form-switch">
@@ -185,6 +185,13 @@ export default {
         };
     },
     computed: {
+        textLabelBeforeFood() {
+            const tm = getNumberTimeHM();
+            if (tm >= 400 && tm <= 1230) {
+                return "Натще.";
+            }
+            return "До їжі.";
+        },
         noteMed() {
             let note = "";
             if (this.medicaments.length !== 0) {
