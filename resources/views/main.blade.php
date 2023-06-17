@@ -65,6 +65,20 @@
     </div>
   </section><!-- End Hero -->
 
+  <!-- IG Product list -->
+  <div class="container my-2">
+    <div class="row justify-content-center align-items-center ">
+        <div class="col-md-11">
+            <h2 class="text-center">Продукти для діабетика</h2>
+            <ig-list></ig-list>
+        </div>
+        <!-- /.col-md-11 -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+  <!-- /IG Product list -->
+
   <!-- ======= Featured Services Section ======= -->
   <section id="featured-services" class="featured-services section-bg">
     <div class="container">

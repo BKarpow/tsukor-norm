@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-11">
                 <h1 class="text-center">Глікемічний індекс продуктів.</h1>
 
                 <Spinner v-if="load" />

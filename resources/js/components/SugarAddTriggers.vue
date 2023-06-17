@@ -187,7 +187,7 @@ export default {
     computed: {
         textLabelBeforeFood() {
             const tm = getNumberTimeHM();
-            if (tm >= 400 && tm <= 1230) {
+            if (tm >= 400 && tm <= 1100) {
                 return "Натще.";
             }
             return "До їжі.";

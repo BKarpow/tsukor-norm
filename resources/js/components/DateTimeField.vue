@@ -1,7 +1,14 @@
 <template>
     <h4 align="center">{{ header }}</h4>
     <div class="d-flex justify-content-center align-items-center flex-wrap">
-        <v-date-picker v-if="show" v-model="date" :mode="mode" is-dark is24hr></v-date-picker>
+        <v-date-picker
+            v-if="show"
+            @update:model-value="handleDate"
+            v-model="date"
+            :mode="mode"
+            is-dark
+            is24hr
+        ></v-date-picker>
     </div>
     <input type="hidden" name="created_at" :value="formatDate" />
 </template>
@@ -9,6 +16,7 @@
 <script>
 export default {
     name: "DateTimeField",
+    emits: ["chg", "get-date"],
     props: {
         onlyDate: {
             type: Boolean,
@@ -27,12 +35,12 @@ export default {
         };
     },
     computed: {
-        header(){
-            let h = "Дата і час"
+        header() {
+            let h = "Дата і час";
             if (this.onlyDate) {
-                h = "Дата"
+                h = "Дата";
             }
-            return h
+            return h;
         },
         formatDate() {
             let mon = String(this.date.getMonth() + 1);
@@ -50,6 +58,11 @@ export default {
             return fdatetime;
         },
     },
+    methods: {
+        handleDate(dt) {
+            // console.log("DT update", this.formatDate);
+        },
+    },
     mounted() {
         if (this.onlyDate) {
             this.mode = "date";
@@ -58,7 +71,7 @@ export default {
             this.date = new Date(this.dt);
         }
         this.show = true;
-        this.$emit('get-date', this.formatDate);
+        this.$emit("get-date", this.formatDate);
     },
 };
 </script>
