@@ -1,4 +1,8 @@
 <template>
+    <div class="mb-2">
+        <DateTimeField @chg="setCreateAt"/>
+    </div>
+    <!-- /.mb-2 -->
     <div class="form-group mb-2">
         <ul class="list-group">
             <li
@@ -33,10 +37,8 @@
     </div>
     <!-- /.form-group -->
 
-    <div class="mb-2">
-        <DateTimeField @chg="setCreateAt" />
-    </div>
-    <!-- /.mb-2 -->
+
+
 
     <div class="form-group mb-2" v-if="dataMeds.length">
         <h4>Вибрані ліки</h4>
@@ -62,7 +64,7 @@
 
     <div class="form-group mb-2" v-if="dataMeds.length">
         <button @click="saveMedTakes" type="button" class="btn btn-success">
-            <i class="fa-solid fa-square-plus"></i> Записати прийом ліків
+            <i class="fa-solid fa-square-plus"></i>  Записати прийом ліків
         </button>
         <!-- /.btn btn-success -->
     </div>
@@ -72,8 +74,8 @@
 <script>
 import axios from "axios";
 
-import DateTimeField from "./DateTimeField.vue";
-import Swal from "sweetalert2";
+import DateTimeField from './DateTimeField.vue';
+import Swal from 'sweetalert2';
 
 export default {
     data() {
@@ -84,13 +86,13 @@ export default {
             createAt: "",
         };
     },
-    components: {
-        DateTimeField,
+    components:{
+        DateTimeField
     },
     methods: {
-        setCreateAt(ca) {
+        setCreateAt(ca){
             console.log("CreateAt", ca);
-            this.createAt = ca;
+            this.createAt = ca
         },
         getMeds() {
             axios.get("/medicament/api/list").then((r) => {
@@ -98,25 +100,22 @@ export default {
             });
         },
         saveMedTakes() {
-            axios
-                .post("/med-take/create", this.dataMeds)
-                .then((r) => {
-                    if (r.data.adds) {
-                        window.location = "/";
-                    }
+            axios.post("/med-take/create", this.dataMeds).then((r) => {
+                if (r.data.adds) {
+                    // window.location = '/';
+                }
+            }).catch(err => {
+                Swal.fire({
+                    title: "Помилка збереження",
+                    html: err.toString(),
+                    icon: 'error',
                 })
-                .catch((err) => {
-                    Swal.fire({
-                        title: "Помилка збереження",
-                        html: err.toString(),
-                        icon: "error",
-                    });
-                });
+            });
         },
         onChecked(ev, med) {
             if (ev.target.checked) {
                 med.dose_med = med.dose;
-                med.med_id = med.id;
+                med.med_id = med.id
                 med.dose = this.$refs[`med${med.id}`][0].value;
                 med.note = this.note;
                 med.created_at = this.createAt;

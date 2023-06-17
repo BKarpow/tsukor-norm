@@ -1,11 +1,10 @@
-<?
+<?php
 
 namespace App\Lib;
 
 use Fresh\Transliteration\UkrainianToLatin;
 
-class Tool
-{
+trait ToolTrait {
     /**
      * Метод для транслітерації українських текстів.
      * @param string $textUkr
@@ -29,5 +28,20 @@ class Tool
         // $textLatin = preg_replace("#[^\w\d\_]+#si", "", $textLatin);
         $textLatin = preg_replace("#[^\w\d\_]+#si", "", $textLatin);
         return $textLatin;
+    }
+
+    /**
+     * Метод перетворює рядок із не цілим числовим
+     * коректне значення для запису в бд.
+     * @param string  $floatString - вхідний рядок із нецілим числом.
+     * @param int  $round - округлення, за замовчування 2-ві цифри після коми.
+     * @return float - неціле число
+     */
+    public function getCorrectFloatFromString(string $floatString, int $round = 2): float
+    {
+        $floatString = preg_replace('#[\,]#si', '.', $floatString);
+        $floatString = preg_replace('#[^\d\.]#si', '', $floatString);
+        $floatString = (float)$floatString;
+        return round($floatString, $round);
     }
 }

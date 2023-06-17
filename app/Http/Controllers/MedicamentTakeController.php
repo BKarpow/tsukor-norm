@@ -9,9 +9,12 @@ use App\Models\UserWriteHistory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Lib\ToolTrait;
 
 class MedicamentTakeController extends Controller
 {
+    use ToolTrait;
+
     private Collection $meds;
 
     public function __construct()
@@ -80,8 +83,8 @@ class MedicamentTakeController extends Controller
         $this->verifyMedicaments((int)$data['med_id']);
         $m = new MedicamentTake();
         $m->user_id = Auth::id();
-        $m->med_id = $data['med_id'];
-        $m->dose = $data['dose'];
+        $m->med_id = (int)$data['med_id'];
+        $m->dose = $this->getCorrectFloatFromString($data['dose']);
         $m->note = $data['note'] ?? "";
         $m->created_at = $data['created_at'];
         $m->save();
@@ -111,7 +114,7 @@ class MedicamentTakeController extends Controller
             // dd($item);
             $this->storeOne($item);
         }
-        
+
         return response()->json([
             'adds' => true,
         ]);
