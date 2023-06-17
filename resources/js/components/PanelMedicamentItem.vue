@@ -1,11 +1,7 @@
 <template>
-    <li @click="showModal = true" class="list-group-item list-group-item-info">
-        <p>
-            <strong>{{ medData.name }}</strong> {{ medData.dose }}x({{
-                medData.tabletDose
-            }})
+    <li @click="showModal = true">
+            <strong>{{ medData.name }}</strong>{{ ` x${medData.dose}` }} &nbsp;
             <small>{{ medData.time }}</small>
-        </p>
     </li>
     <!-- /.list-group-item -->
     <Modal :width="320" title="Прийом ліків" v-model:visible="showModal">
@@ -25,7 +21,7 @@
             <!-- /.btn btn-dark -->
             <!-- /.btn btn-dark -->
         </div>
-        <p>{{ medData.dose }} ({{ medData.tabletDose }})</p>
+        <p>{{ medData.dose }} x ({{ medData.tabletDose }})</p>
         <p>{{ medData.note }}</p>
         <p>{{ medData.time }}</p>
     </Modal>
@@ -55,19 +51,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.glucose-item {
-    border: 1px solid #ccc;
+li {
+    display: block;
+    padding: 0.3rem;
     border-radius: 6px;
-    padding: 0.45rem;
-    margin-right: 0.35rem;
-    margin-bottom: 0.35rem;
-    background: #5cb874;
-    color: #f9f9e9;
-    h3 {
-        text-align: center;
-    }
-    h5 {
-        color: #1f1f1f !important;
-    }
+    background: #5CB874;
+    color: #FFF3CA;
+    margin-bottom: 0.25rem;
+    margin-left: 0.25rem;
 }
 </style>
