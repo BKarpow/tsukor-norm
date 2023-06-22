@@ -25,7 +25,7 @@ class StoreMedicamentTakeRequest extends FormRequest
     {
         return [
             'med_id' => 'required|numeric|exists:medicaments,id',
-            'dose' => 'required|numeric|max:30|min:1',
+            'dose' => 'required|numeric',
             'note' => 'max:250',
             'created_at' => 'required|max:250|date_format:Y-m-d H:i:s',
         ];

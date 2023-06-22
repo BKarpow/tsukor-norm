@@ -2,12 +2,14 @@
 
 namespace App\Providers;
 
+use App\Events\LoginUser;
 use App\Events\RegisterUser;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 use App\Events\RussianUserVisit;
+use App\Listeners\LoginUserSendEmail;
 use App\Listeners\NewRusVisitTelegramNot;
 use App\Listeners\TelegramNoRegisterUser;
 
@@ -27,7 +29,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         RegisterUser::class => [
             TelegramNoRegisterUser::class,
-        ]
+        ],
+        LoginUser::class => [
+            LoginUserSendEmail::class,
+        ],
     ];
 
     /**

@@ -24,7 +24,7 @@ class UpdateMedicamentTakeRequest extends FormRequest
     public function rules()
     {
         return [
-            'dose' => 'required|numeric|max:30|min:1',
+            'dose' => 'required|numeric',
             'note' => 'max:250',
             'created_at' => 'required|max:250|date_format:Y-m-d H:i:s',
         ];

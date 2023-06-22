@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\LoginUser;
 use App\Events\RegisterUser;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -85,6 +86,7 @@ class LoginController extends Controller
             'password' => $request->password,
 
         ];
+        event(new LoginUser($request->ip(), $request->userAgent(), $user));
         return redirect()->to('/');
     }
 
