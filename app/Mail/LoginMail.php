@@ -15,15 +15,17 @@ class LoginMail extends Mailable
 
     protected string $ip;
     protected string $userAgent;
+    protected bool $isSoc;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(string $ip, string $userAgent)
+    public function __construct(string $ip, string $userAgent, bool $isSoc)
     {
         $this->ip = $ip;
         $this->userAgent = $userAgent;
+        $this->isSoc = $isSoc;
     }
 
     /**
@@ -51,6 +53,7 @@ class LoginMail extends Mailable
                 'ip' => $this->ip,
                 'userAgent' => $this->userAgent,
                 'date' => date('d-m-Y H:i:s'),
+                'isSoc' => $this->isSoc,
             ],
         );
     }

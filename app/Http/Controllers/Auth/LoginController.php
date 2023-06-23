@@ -139,6 +139,11 @@ class LoginController extends Controller
                 $existingUser->avatar_original = $user->avatar_original;
                 $existingUser->save();
             }
+            event(new LoginUser($_SERVER['REMOTE_ADDR'],
+                        $_SERVER['HTTP_USER_AGENT'],
+                        $existingUser,
+                        true
+                    ));
             auth()->login($existingUser, true);
         } else {
             // create a new user

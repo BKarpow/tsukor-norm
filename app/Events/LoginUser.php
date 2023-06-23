@@ -18,17 +18,20 @@ class LoginUser
     public string $ip;
     public string $ua;
     public User $user;
+    public bool $isSocLogin;
+
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(string $ip, string $ua, User $user)
+    public function __construct(string $ip, string $ua, User $user, bool $isSocLogin = false)
     {
         $this->ip = $ip;
         $this->ua = $ua;
         $this->user = $user;
+        $this->isSocLogin =$isSocLogin;
     }
 
     /**

@@ -1,7 +1,10 @@
-<h2>Новий вхід на сайт.</h2>
+<h2>Новий вхід на сайт TsukorNorm.</h2>
 
-<h3>IP: {{$ip}}</h3>
-<h3>User Agent: {{$userAgent}} </h3>
-<h3>Дата: {{$date}} </h3>
+@if ($isSoc)
+<p>Вхід через соціальну мережу.</p>
+@endif
+<p>IP: {{$ip}}</p>
+<p>User Agent: {{$userAgent}} </p>
+<p>Час входу: {{$date}} </p>
 
-<p>Відправлено із сайту <a href="{{url('/')}}">TsukorNorm</a></p>
+<small>Відправлено із сайту <a href="{{url('/')}}">TsukorNorm</a></small>

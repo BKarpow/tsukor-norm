@@ -31,7 +31,8 @@ class LoginUserSendEmail
         Mail::to($loginUser->user->email)
         ->send(new LoginMail(
             $loginUser->ip,
-            $loginUser->ua
+            $loginUser->ua,
+            $loginUser->isSocLogin
             )
         );
     }
