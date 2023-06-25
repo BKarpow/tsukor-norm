@@ -7,11 +7,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Lib\PdfExportTrait;
 use App\Lib\BridgeWordPressAuthTrait;
+use App\Lib\SugarServicesTrait;
 
 class HomeController extends Controller
 {
     use PdfExportTrait;
     use BridgeWordPressAuthTrait;
+    use SugarServicesTrait;
     /**
      * Create a new controller instance.
      *
@@ -71,6 +73,7 @@ class HomeController extends Controller
             'last90Day' => round( $last90Day, 1),
             'sugarAvg' => $sugarAvg,
             'sugarCount' => $sugarCount,
+            'sugarCountMonth' => $this->getCountSugarFromCurentMonth(),
             'sugars' => $allItemsDate,
             'medicaments' => Auth::user()->medicaments()
                                          ->orderBy('name', 'asc')

@@ -38,6 +38,10 @@
                 </li>
                 <!-- /.list-group-item -->
                 <li class="list-group-item">
+                    За поточний місяць: {{$sugarCountMonth}}.
+                </li>
+                <!-- /.list-group-item -->
+                <li class="list-group-item">
                     Середня кількість вимірів в день за останній тиждень: {{$avgPerDay}}.
                 </li>
                 <!-- /.list-group-item -->
