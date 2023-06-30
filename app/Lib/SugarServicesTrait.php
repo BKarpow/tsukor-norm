@@ -61,6 +61,18 @@ trait SugarServicesTrait {
     }
 
     /**
+     * Метод поверне середній рівень цукру для користувача за сьогодні.
+     * @return float
+     */
+    protected function getAvgFromToDay(): float
+    {
+        $d = Auth::user()->mySugar()
+        ->where(DB::raw('DATE(created_at)'), DB::raw(' DATE(NOW())'))
+        ->avg('glucose');
+        return $this->getRoundFloat($d);
+    }
+
+    /**
      * Метод поверне серенє значення рівня цукру для всіх записів про цукор.
      * @return float
      */
@@ -86,4 +98,14 @@ trait SugarServicesTrait {
             ->avg('glucose');
         return $this->getRoundFloat($d);
     }
+
+    /**
+     * Метод поверне рівні норм цукру крові для користувача, або нуль.
+     * @return App\Models\SugarTarrgetRange|null
+     */
+    protected function getSuagarTarrgetRange()
+    {
+        return Auth::user()->sugarTargetRange()->first();
+    }
+
 }

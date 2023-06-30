@@ -7,13 +7,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Lib\PdfExportTrait;
 use App\Lib\BridgeWordPressAuthTrait;
+use App\Lib\HistoryServicesTrait;
 use App\Lib\SugarServicesTrait;
 
 class HomeController extends Controller
 {
     use PdfExportTrait;
     use BridgeWordPressAuthTrait;
-    use SugarServicesTrait;
+    use SugarServicesTrait, HistoryServicesTrait;
     /**
      * Create a new controller instance.
      *
@@ -31,24 +32,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $allItemsDate =   Auth::user()->history()
-                            ->selectRaw('DATE(created_at) as created_at')
-                            ->groupBYRaw('DATE(created_at)')
-                            ->orderByRaw('DATE(created_at) desc')
-                            ->paginate(20);
-        $sugarTargetRange = Auth::user()->sugarTargetRange()->first();
         return view('home', [
             'avgPerDay' => $this->getAvgCountLevelsSugarFrom7Days(),
-            'sugarTargetRange' => $sugarTargetRange,
+            'sugarTargetRange' => $this->getSuagarTarrgetRange(),
             'last7Day' => $this->getAvgFromIntervalDays(7),
-            'avgGluToDay' => round(  Auth::user()->mySugar()->where(DB::raw('DATE(created_at)'), DB::raw(' DATE(NOW())'))->avg('glucose'), 1),
+            'avgGluToDay' => $this->getAvgFromToDay(),
             'last14Day' => $this->getAvgFromIntervalDays(14),
             'last30Day' => $this->getAvgFromIntervalDays(30),
             'last90Day' => $this->getAvgFromIntervalDays(90),
             'sugarAvg' => $this->getAvgFromAllLevelsSugar(),
             'sugarCount' => $this->getCountAllSugar(),
             'sugarCountMonth' => $this->getCountSugarFromCurentMonth(),
-            'sugars' => $allItemsDate,
+            'sugars' => $this->getAllDatesFromHistory(),
             'medicaments' => Auth::user()->medicaments()
                                          ->orderBy('name', 'asc')
                                          ->get(),

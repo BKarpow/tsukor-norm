@@ -10,7 +10,6 @@
         <li class="list-group-item">
             <med-item :med-id="{{$med->id}}" :is-active="{{$med->active}}">
                 <strong>{{$med->name}}</strong>, &nbsp;
-                <a href="{{$med->url_shop}}" target="_blank">(Купити)</a>
                  №{{$med->number}}, <i>{{$med->dose}}</i> &nbsp;
                 <a title="Редагувати" href="{{route('med.edit', ['medicament'=>$med])}}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
