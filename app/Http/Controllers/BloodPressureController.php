@@ -70,17 +70,19 @@ class BloodPressureController extends Controller
         $bp->dis = $request->dis;
         $bp->pulse = $request->pulse;
         $bp->note = $request->input('note', "Вимір АТ");
-        $bp->created_at = $request->created_at;
+        $bp->created_at = $request->createdAt;
         $bp->save();
         UserWriteHistory::insert([
             'user_id' => Auth::id(),
             'write_id' => $bp->id,
             'type' => UserWriteHistory::TYPE_BLOOD_PRESSURE,
             'note' => 'Controller store',
-            'created_at' => $request->created_at,
+            'created_at' => $request->createdAt,
             'updated_at' => now(),
         ]);
-        return redirect()->route('home')->withStatus('Додано новий показник артеріального тиску');
+        return response()->json([
+            'storeStatus' => true
+        ]);
     }
 
     /**

@@ -11,7 +11,8 @@
 
                 <div class="card-body">
                     @include('cabinet.buttons')
-                    <form method="POST" action="{{ route('bloodPressure.create') }}">
+                    <create-bp></create-bp>
+                    {{-- <form method="POST" action="{{ route('bloodPressure.create') }}">
                         @csrf
                         <div class="container">
                             <div class="row">
@@ -119,7 +120,7 @@
                             </button>
                         </div>
                         <!-- /.form-group.col-7 -->
-                    </form>
+                    </form> --}}
                 </div>
             </div>
         </div>
