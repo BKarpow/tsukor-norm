@@ -41,3 +41,16 @@ window.getNumberTimeHM = () => {
     var minutes = now.getMinutes();
     return Number(hours.toString() + minutes.toString());
 };
+
+Date.prototype.getDayOfYear = function() {
+    var start = new Date(this.getFullYear(), 0, 0);
+    var diff = this - start;
+    var oneDay = 1000 * 60 * 60 * 24;
+    var dayOfYear = Math.floor(diff / oneDay);
+    return dayOfYear;
+  };
+
+  Date.prototype.getShortDayOfWeek = function() {
+    var options = { weekday: 'short' };
+    return this.toLocaleString('uk-UA', options);
+  }

@@ -117,9 +117,18 @@ export default {
                 "Грудня",
             ];
             const dt = new Date(this.date);
-            return `${dt.getDate()} ${
+            const toDay = new Date();
+            const nameDayOfWeek = dt.getShortDayOfWeek()
+            let dateName = `${nameDayOfWeek}, ${dt.getDate()} ${
                 months[dt.getMonth()]
-            } ${dt.getFullYear()}`;
+            }, ${dt.getFullYear()}`;
+            if (dt.getDayOfYear() === toDay.getDayOfYear()) {
+                return `Сьогодні (${dateName})`;
+            }
+            if (dt.getDayOfYear() === (toDay.getDayOfYear() - 1 )) {
+                return `Вчора (${dateName})`;
+            }
+            return dateName;
         },
     },
     data() {

@@ -6,11 +6,13 @@ use App\Models\BloodPressure;
 use App\Http\Requests\StoreBloodPressureRequest;
 use App\Http\Requests\UpdateBloodPressureRequest;
 use App\Http\Resources\BloodPressureResource;
+use App\Lib\HistoryServicesTrait;
 use App\Models\UserWriteHistory;
 use Illuminate\Support\Facades\Auth;
 
 class BloodPressureController extends Controller
 {
+    use HistoryServicesTrait;
 
     public function __construct()
     {
@@ -140,6 +142,7 @@ class BloodPressureController extends Controller
     {
         $this->authorize('delete', $bloodPressure);
         $bpId = (int)$bloodPressure->id;
+        $this->deleteUserHistryFromWriteId(UserWriteHistory::TYPE_BLOOD_PRESSURE, $bpId);
         $bloodPressure->delete();
         return response()->json([
             'status' => true,
