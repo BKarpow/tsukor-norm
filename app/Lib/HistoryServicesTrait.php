@@ -41,4 +41,25 @@ trait HistoryServicesTrait {
             log::debug("Write histiry (type: {$typeWrite}, wrute id: {$idWrite}) - not exists!");
         }
     }
+
+    /**
+     * Метод для додавання нового запису в історію користувача.
+     * Обов'язково користувач має бути авторизованим, дпний метод
+     * використовує Auth::id() - користувача!
+     * @param int $typeWrite - тип запису (ат, рівень глюкози, прийом ліків ...).
+     * @param int $idWrite - ід запиму.
+     * @param string $createdAtWrite - часова мітка запису.
+     * @return void
+     */
+    protected function newUserHistryWrite(int $typeWrite, int $idWrite, string $createdAtWrite): void
+    {
+        UserWriteHistory::insert([
+            'user_id' => Auth::id(),
+            'write_id' => $idWrite,
+            'type' => $typeWrite,
+            'note' => 'Controller store',
+            'created_at' => $createdAtWrite,
+            'updated_at' => now(),
+        ]);
+    }
 }

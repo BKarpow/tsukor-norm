@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MedicamentTake;
 use App\Http\Requests\StoreMedicamentTakeRequest;
 use App\Http\Requests\UpdateMedicamentTakeRequest;
+use App\Lib\HistoryServicesTrait;
 use App\Models\UserWriteHistory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +15,7 @@ use App\Lib\ToolTrait;
 class MedicamentTakeController extends Controller
 {
     use ToolTrait;
+    use HistoryServicesTrait;
 
     private Collection $meds;
 
@@ -79,23 +81,24 @@ class MedicamentTakeController extends Controller
 
     private function storeOne(array $data): MedicamentTake
     {
-        // dd($data);
+
         $this->verifyMedicaments((int)$data['med_id']);
+        if ($this->isPastDate($data['created_at'])) {
+            return redirect()->route('home')->withStatus("Ви не можете додавати показник в майбутньому :(, вибачте!");
+        }
         $m = new MedicamentTake();
         $m->user_id = Auth::id();
         $m->med_id = (int)$data['med_id'];
         $m->dose = $this->getCorrectFloatFromString($data['dose']);
         $m->note = $data['note'] ?? "";
         $m->created_at = $data['created_at'];
+
         $m->save();
-        UserWriteHistory::insert([
-            'user_id' => Auth::id(),
-            'write_id' => $m->id,
-            'type' => UserWriteHistory::TYPE_MEDICAMENT_TAKE,
-            'note' => 'Controller store',
-            'created_at' => $data['created_at'],
-            'updated_at' => now(),
-        ]);
+        $this->newUserHistryWrite(
+            UserWriteHistory::TYPE_MEDICAMENT_TAKE,
+            (int)$m->id,
+            $data['created_at']
+        );
         return $m;
     }
 
@@ -109,9 +112,7 @@ class MedicamentTakeController extends Controller
     {
         $this->initMeds();
         $data = $request->toArray();
-        // dd($data);
         foreach ($data as $item) {
-            // dd($item);
             $this->storeOne($item);
         }
 
@@ -173,8 +174,12 @@ class MedicamentTakeController extends Controller
     public function destroy(MedicamentTake $medicamentTake)
     {
         $this->authorize('update', $medicamentTake);
-        $id = $medicamentTake->id;
+        $id = (int)$medicamentTake->id;
         $medicamentTake->delete();
+        $this->deleteUserHistryFromWriteId(
+            UserWriteHistory::TYPE_MEDICAMENT_TAKE,
+            $id,
+        );
         return response()->json([
             'status' => true,
             'deletedId' => $id

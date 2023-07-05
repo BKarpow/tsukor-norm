@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\HbA1c;
 use App\Http\Requests\StoreHbA1cRequest;
 use App\Http\Requests\UpdateHbA1cRequest;
+use App\Lib\ToolTrait;
 use Illuminate\Support\Facades\Auth;
 
 class HbA1cController extends Controller
 {
+    use ToolTrait;
     /**
      * Display a listing of the resource.
      *
@@ -39,6 +41,9 @@ class HbA1cController extends Controller
      */
     public function store(StoreHbA1cRequest $request)
     {
+        if ($this->isPastDate($request->created_at)) {
+            return redirect()->route('home')->withStatus("Ви не можете додавати показник в майбутньому :(, вибачте!");
+        }
         HbA1c::insert([
             'user_id' => Auth::id(),
             'percentage' => $request->percentage,

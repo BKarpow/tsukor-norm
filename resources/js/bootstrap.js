@@ -54,3 +54,20 @@ Date.prototype.getDayOfYear = function() {
     var options = { weekday: 'short' };
     return this.toLocaleString('uk-UA', options);
   }
+
+  Date.prototype.getDaysInCurrentMonth = function () {
+    // Поверне кількість днів для поточного місяця.
+    var year = this.getFullYear(); // Рік
+    var month = this.getMonth(); // Місяць (0-11)
+
+    // Отримання дати першого дня наступного місяця
+    var firstDayOfNextMonth = new Date(year, month + 1, 1);
+
+    // Отримання дати останнього дня поточного місяця
+    var lastDayOfCurrentMonth = new Date(firstDayOfNextMonth - 1);
+
+    // Отримання числа останнього дня поточного місяця
+    var daysInCurrentMonth = lastDayOfCurrentMonth.getDate();
+
+    return daysInCurrentMonth;
+  }

@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "cesargb/laravel-logs-rotate": "^2.4",
         "davefx/phplot": "^6.2",
         "doctrine/dbal": "^3.6",
         "eleirbag89/telegrambotphp": "^1.4",

@@ -10,6 +10,8 @@ use App\Http\Resources\AllDatesResource;
 use App\Http\Resources\EmptyStomachResource;
 use App\Http\Resources\GluProfileResource;
 use App\Http\Resources\SugarAnalyticApiResource;
+use App\Lib\HistoryServicesTrait;
+use App\Lib\ToolTrait;
 use App\Models\UserWriteHistory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +19,8 @@ use Illuminate\Http\Request;
 
 class MySugarController extends Controller
 {
+    use HistoryServicesTrait;
+    use ToolTrait;
     /**
      * Display a listing of the resource.
      *
@@ -54,17 +58,17 @@ class MySugarController extends Controller
     {
         $name = $request->file('file')->getClientOriginalName();
         $path = $request->file('file')->store('public/files');
-        $importData = json_decode(file_get_contents(storage_path("/app/".$path)), true);
+        $importData = json_decode(file_get_contents(storage_path("/app/" . $path)), true);
         $startTime = microtime(true);
         $infDelOld = ".";
-        if((bool)$request->clear_old){
+        if ((bool)$request->clear_old) {
             $countOld = MySugar::whereUserId(Auth::id())->count();
             MySugar::whereUserId(Auth::id())->delete();
             $infDelOld = ". Видалено {$countOld} попередніх записів виміру.";
         }
-        foreach($importData['apLogs'] as $item ) {
+        foreach ($importData['apLogs'] as $item) {
             $date = date("Y-m-d H:i:s", strtotime($item['dateTime']));
-            if (!Auth::user()->bloodPressure()->whereCreatedAt($date)->first()){
+            if (!Auth::user()->bloodPressure()->whereCreatedAt($date)->first()) {
                 Auth::user()->bloodPressure()->insert([
                     "user_id" => Auth::id(),
                     "sis" => $item['systolic'],
@@ -77,14 +81,14 @@ class MySugarController extends Controller
             }
         }
         $iter = 0;
-        foreach($importData['glucoseLogs'] as $item ) {
+        foreach ($importData['glucoseLogs'] as $item) {
             $date = date("Y-m-d H:i:s", strtotime($item['dateTime']));
             $beforeFood = false;
             $afterFood = false;
-            if ($item['measured'] == 0 || $item['measured'] == 2 || $item['measured'] == 4){
+            if ($item['measured'] == 0 || $item['measured'] == 2 || $item['measured'] == 4) {
                 $beforeFood = true;
                 $afterFood = false;
-            }elseif($item['measured'] == 1 || $item['measured'] == 3 || $item['measured'] == 5){
+            } elseif ($item['measured'] == 1 || $item['measured'] == 3 || $item['measured'] == 5) {
                 $beforeFood = false;
                 $afterFood = true;
             }
@@ -97,23 +101,25 @@ class MySugarController extends Controller
                 'created_at' => $date,
                 "updated_at" => now()
             ];
-            if ((bool)$request->uniq_glu &&
-                 !Auth::user()->mySugar()->whereCreatedAt($date)->first()){
-                    $iter++;
-                    MySugar::insert($data);
-                 } elseif(!(bool)$request->uniq_glu) {
-                    $iter++;
-                    MySugar::insert($data);
-                 }
+            if (
+                (bool)$request->uniq_glu &&
+                !Auth::user()->mySugar()->whereCreatedAt($date)->first()
+            ) {
+                $iter++;
+                MySugar::insert($data);
+            } elseif (!(bool)$request->uniq_glu) {
+                $iter++;
+                MySugar::insert($data);
+            }
         }
-        $importTime = round(( microtime(true) - $startTime) , 2);
+        $importTime = round((microtime(true) - $startTime), 2);
         // Delete file import
-        unlink(storage_path("/app/".$path));
+        unlink(storage_path("/app/" . $path));
         return redirect()
-                    ->route('home')
-                    ->withStatus(
-                        "Імпортовано {$iter} показників за {$importTime}сек".$infDelOld
-                    );
+            ->route('home')
+            ->withStatus(
+                "Імпортовано {$iter} показників за {$importTime}сек" . $infDelOld
+            );
     }
 
     /**
@@ -125,20 +131,9 @@ class MySugarController extends Controller
     public function store(StoreMySugarRequest $request)
     {
         $comment = ($request->comment) ? $request->comment : "Sugar in blood";
-        // $g = MySugar::insert([
-        //     "user_id" => Auth::id(),
-        //     "glucose" => (float)$request->glucose,
-        //     "before_food" => (bool)$request->before_food,
-        //     "after_food" => (bool)$request->after_food,
-        //     "before_exercise" => (bool)$request->before_exercise,
-        //     "exercise" => (bool)$request->exercise,
-        //     "after_exercise" => (bool)$request->after_exercise,
-        //     "stress" => (bool)$request->stress,
-        //     "disease" => (bool)$request->disease,
-        //     "comment" => $comment,
-        //     "created_at" => $request->created_at,
-        //     "updated_at" => now()
-        // ]);
+        if ($this->isPastDate($request->created_at)) {
+            return redirect()->route('home')->withStatus("Ви не можете додавати показник в майбутньому :(, вибачте!");
+        }
         $g = new MySugar();
         $g->user_id = Auth::id();
         $g->glucose = (float)$request->glucose;
@@ -152,14 +147,11 @@ class MySugarController extends Controller
         $g->comment = $comment;
         $g->created_at = $request->created_at;
         $g->save();
-        UserWriteHistory::insert([
-            'user_id' => Auth::id(),
-            'write_id' => $g->id,
-            'type' => UserWriteHistory::TYPE_GLUCOSE,
-            'note' => 'Controller store',
-            'created_at' => $request->created_at,
-            'updated_at' => now(),
-        ]);
+        $this->newUserHistryWrite(
+            UserWriteHistory::TYPE_GLUCOSE,
+            (int)$g->id,
+            $request->created_at
+        );
 
         return redirect()->route('home')->withStatus("Показник цукру збережено");
     }
@@ -187,7 +179,7 @@ class MySugarController extends Controller
         header("Pragma: no-cache");
         header("Expires: 0");
         $this->authorize('delete', $mySugar);
-        return view('sugar.edit', ['s'=>$mySugar]);
+        return view('sugar.edit', ['s' => $mySugar]);
     }
 
     /**
@@ -226,6 +218,10 @@ class MySugarController extends Controller
         $cr = $mySugar->dateCreate();
         $info = "Видалено показник глюкози {$mySugar->glucose}ммол/л, який створено {$cr}";
         $mySugar->delete();
+        $this->deleteUserHistryFromWriteId(
+            UserWriteHistory::TYPE_GLUCOSE,
+            (int)$mySugar->id,
+        );
         return response()->json([
             'info' => $info
         ]);
@@ -238,13 +234,12 @@ class MySugarController extends Controller
         ]);
         $intervalDays = (int)$data['range'];
         $avgSugar = Auth::user()->mySugar()
-                            ->select(DB::raw(' AVG(`glucose`) as glucose, DATE(`created_at`) as created_at'))
-                            ->groupBy(DB::raw('DATE(`created_at`)'))
-                            ->where('created_at', '>=', DB::raw("DATE_SUB(NOW(), INTERVAL {$intervalDays} DAY)"))
-                            ->orderBy('created_at', 'asc')
-                            ->get();
+            ->select(DB::raw(' AVG(`glucose`) as glucose, DATE(`created_at`) as created_at'))
+            ->groupBy(DB::raw('DATE(`created_at`)'))
+            ->where('created_at', '>=', DB::raw("DATE_SUB(NOW(), INTERVAL {$intervalDays} DAY)"))
+            ->orderBy('created_at', 'asc')
+            ->get();
         return SugarAnalyticApiResource::collection($avgSugar);
-
     }
 
     public function getLevelsPercentageApi()
@@ -252,19 +247,19 @@ class MySugarController extends Controller
         $tr = Auth::user()->sugarTargetRange()->first();
         $cgAll = Auth::user()->mySugar()->count();
         $cgAllMin = Auth::user()
-                        ->mySugar()
-                        ->where('glucose', '<=', $tr->min_glu)
-                        ->count();
+            ->mySugar()
+            ->where('glucose', '<=', $tr->min_glu)
+            ->count();
         $cgAllNorm = Auth::user()
-                        ->mySugar()
-                        ->where('glucose', '<=', $tr->max_glu)
-                        ->where('glucose', '>=', $tr->min_glu)
-                        ->count();
+            ->mySugar()
+            ->where('glucose', '<=', $tr->max_glu)
+            ->where('glucose', '>=', $tr->min_glu)
+            ->count();
         $cgAllMax = Auth::user()
-                        ->mySugar()
-                        ->where('glucose', '>=', $tr->max_glu)
-                        ->count();
-        $perOne = ($cgAll != 0) ? ($cgAll / 100) : 0 ;
+            ->mySugar()
+            ->where('glucose', '>=', $tr->max_glu)
+            ->count();
+        $perOne = ($cgAll != 0) ? ($cgAll / 100) : 0;
         $rd = 1;
         return response()->json([
             'c' => $cgAll,
@@ -285,15 +280,15 @@ class MySugarController extends Controller
         ]);
         $intervalDays = (int)$data['range'];
         $eq = Auth::user()->mySugar()
-                ->selectRaw('MIN(UNIX_TIMESTAMP(created_at)) as mn_date, AVG(glucose) as glu, DATE(created_at) as date')
-                ->where([
-                    [DB::raw('TIME(created_at)'), '>=', '04:00:00'],
-                    [DB::raw('TIME(created_at)'), '<=', '07:45:00'],
-                    ['before_food', 1],
-                    ['created_at', '>=', DB::raw("DATE_SUB(NOW(), INTERVAL {$intervalDays} DAY)")]
-                ])
-                ->orderByRaw('DATE(created_at) ASC')
-                ->groupByRaw('DATE(created_at)');
+            ->selectRaw('MIN(UNIX_TIMESTAMP(created_at)) as mn_date, AVG(glucose) as glu, DATE(created_at) as date')
+            ->where([
+                [DB::raw('TIME(created_at)'), '>=', '04:00:00'],
+                [DB::raw('TIME(created_at)'), '<=', '07:45:00'],
+                ['before_food', 1],
+                ['created_at', '>=', DB::raw("DATE_SUB(NOW(), INTERVAL {$intervalDays} DAY)")]
+            ])
+            ->orderByRaw('DATE(created_at) ASC')
+            ->groupByRaw('DATE(created_at)');
         return response()->json([
             'sugars' => EmptyStomachResource::collection($eq->get()),
         ]);
@@ -311,22 +306,22 @@ class MySugarController extends Controller
         // dd($queries);
         return GluProfileResource::collection(
             Auth::user()
-            ->mySugar()
-            ->select(DB::raw('DATE(created_at) as created_at'))
-            ->groupBy(DB::raw('DATE(created_at)'))
-            ->orderByRaw('DATE(created_at) DESC')
-            ->where('created_at', '>=', DB::raw("DATE_SUB(NOW(), INTERVAL {$interval} DAY)"))
-            ->get()
+                ->mySugar()
+                ->select(DB::raw('DATE(created_at) as created_at'))
+                ->groupBy(DB::raw('DATE(created_at)'))
+                ->orderByRaw('DATE(created_at) DESC')
+                ->where('created_at', '>=', DB::raw("DATE_SUB(NOW(), INTERVAL {$interval} DAY)"))
+                ->get()
         );
     }
 
     public function getAllDatesSugar()
     {
         $res = Auth::user()->mySugar()
-        ->select(DB::raw('DATE(created_at) as `date`, COUNT(created_at) as count'))
-        ->groupBy(DB::raw('DATE(created_at)'))
-        ->orderBy('created_at', 'desc')
-        ->get();
+            ->select(DB::raw('DATE(created_at) as `date`, COUNT(created_at) as count'))
+            ->groupBy(DB::raw('DATE(created_at)'))
+            ->orderBy('created_at', 'desc')
+            ->get();
         return AllDatesResource::collection($res);
     }
 }

@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\InsulinTake;
 use App\Http\Requests\StoreInsulinTakeRequest;
 use App\Http\Requests\UpdateInsulinTakeRequest;
+use App\Lib\HistoryServicesTrait;
+use App\Lib\ToolTrait;
 use App\Models\Insulin;
 use App\Models\UserWriteHistory;
 use Illuminate\Support\Facades\Auth;
 
 class InsulinTakeController extends Controller
 {
+    use HistoryServicesTrait;
+    use ToolTrait;
     /**
      * Checks whether the insulin added by the user is in their list of insulin products.
      */
@@ -60,6 +64,9 @@ class InsulinTakeController extends Controller
     public function store(StoreInsulinTakeRequest $request)
     {
         $this->isThisUserInsulin($request);
+        if ($this->isPastDate($request->created_at)) {
+            return redirect()->route('home')->withStatus("Ви не можете додавати показник в майбутньому :(, вибачте!");
+        }
         $it = new InsulinTake();
         $it->user_id = Auth::id();
         $it->insulin_id = $request->insulin_id;
@@ -67,14 +74,12 @@ class InsulinTakeController extends Controller
         $it->note = $request->input('note', "");
         $it->created_at = $request->created_at;
         $it->save();
-        UserWriteHistory::insert([
-            'user_id' => Auth::id(),
-            'write_id' => $it->id,
-            'type' => UserWriteHistory::TYPE_INSULIN_TAKE,
-            'note' => 'Controller store',
-            'created_at' => $request->created_at,
-            'updated_at' => now(),
-        ]);
+        $this->newUserHistryWrite(
+            UserWriteHistory::TYPE_INSULIN_TAKE,
+            (int)$it->id,
+            $request->created_at
+        );
+
         return redirect()->route('insulinLog.index')->withStatus('Прийом інсуліну записано');
     }
 
@@ -131,8 +136,12 @@ class InsulinTakeController extends Controller
     public function destroy(InsulinTake $insulinTake)
     {
         $this->authorize('update', $insulinTake);
-        $id = $insulinTake->id;
+        $id = (int)$insulinTake->id;
         $insulinTake->delete();
+        $this->deleteUserHistryFromWriteId(
+            UserWriteHistory::TYPE_INSULIN_TAKE,
+            $id
+        );
         return response()->json([
             'status' => true,
             'deletedId' => $id

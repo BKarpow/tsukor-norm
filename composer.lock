@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c2af9930ff3bcfdb7b3fcc9813668443",
+    "content-hash": "56280dac89c004da7106ebb9c939d5fa",
     "packages": [
         {
             "name": "brick/math",
@@ -61,6 +61,124 @@
                 }
             ],
             "time": "2022-08-10T22:54:19+00:00"
+        },
+        {
+            "name": "cesargb/laravel-logs-rotate",
+            "version": "2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cesargb/laravel-logs-rotate.git",
+                "reference": "bbcde2ef144fb3a66afc6425c0ab9d19134bed60"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cesargb/laravel-logs-rotate/zipball/bbcde2ef144fb3a66afc6425c0ab9d19134bed60",
+                "reference": "bbcde2ef144fb3a66afc6425c0ab9d19134bed60",
+                "shasum": ""
+            },
+            "require": {
+                "cesargb/php-log-rotation": "^2.7",
+                "illuminate/config": "^9.0|^10.0",
+                "illuminate/console": "^9.0|^10.0",
+                "illuminate/log": "^9.0|^10.0",
+                "illuminate/support": "^9.0|^10.0",
+                "monolog/monolog": "^2.0|^3.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.13",
+                "nunomaduro/larastan": "^2.3",
+                "orchestra/testbench": "^7.0|^8.0",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Cesargb\\LaravelLog\\RotateServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Cesargb\\LaravelLog\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Cesar Garcia",
+                    "email": "cesargb@gmail.com",
+                    "homepage": "https://github.com/cesargb",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Rotate files log with compression",
+            "homepage": "https://github.com/cesargb/laravel-logs-rotate",
+            "keywords": [
+                "compression",
+                "laravel",
+                "logs",
+                "rotate"
+            ],
+            "support": {
+                "issues": "https://github.com/cesargb/laravel-logs-rotate/issues",
+                "source": "https://github.com/cesargb/laravel-logs-rotate/tree/2.4.0"
+            },
+            "time": "2023-01-31T18:38:14+00:00"
+        },
+        {
+            "name": "cesargb/php-log-rotation",
+            "version": "2.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cesargb/php-log-rotation.git",
+                "reference": "bb54f44bba4c4d1b31f8621701595797f2d1b1cf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cesargb/php-log-rotation/zipball/bb54f44bba4c4d1b31f8621701595797f2d1b1cf",
+                "reference": "bb54f44bba4c4d1b31f8621701595797f2d1b1cf",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.9",
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Cesargb\\Log\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Cesar Garcia",
+                    "email": "cesargb@gmail.com"
+                }
+            ],
+            "description": "PHP Class to rotate log files",
+            "homepage": "https://github.com/cesargb/php-log-rotation",
+            "keywords": [
+                "log",
+                "php",
+                "rotation"
+            ],
+            "support": {
+                "issues": "https://github.com/cesargb/php-log-rotation/issues",
+                "source": "https://github.com/cesargb/php-log-rotation/tree/2.7.1"
+            },
+            "time": "2023-01-15T14:07:52+00:00"
         },
         {
             "name": "davefx/phplot",

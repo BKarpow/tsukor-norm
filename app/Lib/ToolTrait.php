@@ -5,6 +5,7 @@ namespace App\Lib;
 use Fresh\Transliteration\UkrainianToLatin;
 
 trait ToolTrait {
+
     /**
      * Метод для транслітерації українських текстів.
      * @param string $textUkr
@@ -43,5 +44,18 @@ trait ToolTrait {
         $floatString = preg_replace('#[^\d\.]#si', '', $floatString);
         $floatString = (float)$floatString;
         return round($floatString, $round);
+    }
+
+    /**
+     * Метод для перевірки дати яка передаєтся аргументо, перевіряє чи дата
+     * не більше ніж поточна, перевірка по днях!
+     * @param string $dateString - рядок дати коректни для функції strtotime()
+     * @return bool
+     */
+    public function isPastDate(string $dateString):bool
+    {
+        $a = (int)date('Ymd');
+        $b = (int)date('Ymd', strtotime($dateString));
+        return $b > $a;
     }
 }

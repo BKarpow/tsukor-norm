@@ -7,12 +7,14 @@ use App\Http\Requests\StoreBloodPressureRequest;
 use App\Http\Requests\UpdateBloodPressureRequest;
 use App\Http\Resources\BloodPressureResource;
 use App\Lib\HistoryServicesTrait;
+use App\Lib\ToolTrait;
 use App\Models\UserWriteHistory;
 use Illuminate\Support\Facades\Auth;
 
 class BloodPressureController extends Controller
 {
     use HistoryServicesTrait;
+    use ToolTrait;
 
     public function __construct()
     {
@@ -66,6 +68,9 @@ class BloodPressureController extends Controller
      */
     public function store(StoreBloodPressureRequest $request)
     {
+        if ($this->isPastDate($request->createdAt)) {
+            return redirect()->route('home')->withStatus("Ви не можете додавати показник в майбутньому :(, вибачте!");
+        }
         $bp = new BloodPressure();
         $bp->user_id = Auth::id();
         $bp->sis = $request->sis;
@@ -74,14 +79,12 @@ class BloodPressureController extends Controller
         $bp->note = $request->input('note', "Вимір АТ");
         $bp->created_at = $request->createdAt;
         $bp->save();
-        UserWriteHistory::insert([
-            'user_id' => Auth::id(),
-            'write_id' => $bp->id,
-            'type' => UserWriteHistory::TYPE_BLOOD_PRESSURE,
-            'note' => 'Controller store',
-            'created_at' => $request->createdAt,
-            'updated_at' => now(),
-        ]);
+        $this->newUserHistryWrite(
+            UserWriteHistory::TYPE_BLOOD_PRESSURE,
+            (int)$bp->id,
+            $request->createdAt
+        );
+
         return response()->json([
             'storeStatus' => true
         ]);
@@ -142,7 +145,10 @@ class BloodPressureController extends Controller
     {
         $this->authorize('delete', $bloodPressure);
         $bpId = (int)$bloodPressure->id;
-        $this->deleteUserHistryFromWriteId(UserWriteHistory::TYPE_BLOOD_PRESSURE, $bpId);
+        $this->deleteUserHistryFromWriteId(
+            UserWriteHistory::TYPE_BLOOD_PRESSURE,
+            $bpId
+        );
         $bloodPressure->delete();
         return response()->json([
             'status' => true,
