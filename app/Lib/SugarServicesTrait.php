@@ -41,10 +41,11 @@ trait SugarServicesTrait {
         $d = DB::table('my_sugar')
                 ->select(DB::raw('AVG(count_per_day)'))
                 ->from(function ($query) {
+                            $now = (string)now();
                             $query->select(DB::raw('COUNT(*) as count_per_day'))
                                 ->from('my_sugar')
                                 ->whereUserId(Auth::id())
-                                ->where('created_at', '>', DB::raw('DATE_SUB(NOW(), INTERVAL 7 DAY)'))
+                                ->where('created_at', '>', DB::raw("DATE_SUB('{$now}', INTERVAL 7 DAY)"))
                                 ->groupBy(DB::raw('DATE(created_at)'));
                         }, 'daily_counts')
                 ->value('AVG(count_per_day)');
