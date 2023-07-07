@@ -1,3 +1,4 @@
+<m-app></m-app>
 <h2 class="mt-2">Мої ліки</h2>
 <div class="px-2 mt-1">
     <a href="{{route('med.create')}}" class="btn btn-primary">

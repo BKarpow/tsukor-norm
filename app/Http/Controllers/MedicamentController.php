@@ -145,4 +145,20 @@ class MedicamentController extends Controller
                 ->get()
         );
     }
+
+    /**
+     * Метод поверне колекцію всіх медикаментів користуча.
+     * Працює через API в json форматі.
+     * @return MedicamentResource
+     */
+    public function getAllMedicaments()
+    {
+        return MedicamentResource::collection(
+            Auth::user()
+                ->medicaments()
+                ->orderBy('active', 'desc')
+                ->orderBy('name', 'asc')
+                ->get()
+        );
+    }
 }

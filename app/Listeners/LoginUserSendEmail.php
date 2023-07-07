@@ -6,6 +6,7 @@ use App\Events\LoginUser;
 use App\Mail\LoginMail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class LoginUserSendEmail
@@ -28,12 +29,17 @@ class LoginUserSendEmail
      */
     public function handle(LoginUser $loginUser)
     {
-        Mail::to($loginUser->user->email)
-        ->send(new LoginMail(
-            $loginUser->ip,
-            $loginUser->ua,
-            $loginUser->isSocLogin
-            )
-        );
+        if (!env('APP_DEBUG')) {
+            Mail::to($loginUser->user->email)
+                ->send(
+                    new LoginMail(
+                        $loginUser->ip,
+                        $loginUser->ua,
+                        $loginUser->isSocLogin
+                    )
+                );
+        } else {
+            Log::info('Lpgin user log, ip: '.$loginUser->ip);
+        }
     }
 }

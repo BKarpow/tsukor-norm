@@ -17,6 +17,7 @@ class MedicamentResource extends JsonResource
         return [
 
             'id' => intval($this->id),
+            'active' => (bool)$this->active,
             'name' => htmlspecialchars($this->name),
             'dose' => htmlspecialchars($this->dose),
             'note' => htmlspecialchars($this->note),
