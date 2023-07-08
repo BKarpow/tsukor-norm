@@ -109,4 +109,23 @@ trait SugarServicesTrait {
         return Auth::user()->sugarTargetRange()->first();
     }
 
+    /**
+     * Метод який поверне масив із змінними для сторінки аналітики цукру.
+     * @return array
+     */
+    protected function getArrayCollectionVarsFromAnalytic():array
+    {
+        return [
+            'avgPerDay' => $this->getAvgCountLevelsSugarFrom7Days(), //
+            'last7Day' => $this->getAvgFromIntervalDays(7), //
+            'avgGluToDay' => $this->getAvgFromToDay(), //
+            'last14Day' => $this->getAvgFromIntervalDays(14), //
+            'last30Day' => $this->getAvgFromIntervalDays(30), //
+            'last90Day' => $this->getAvgFromIntervalDays(90), //
+            'sugarAvg' => $this->getAvgFromAllLevelsSugar(), //
+            'sugarCount' => $this->getCountAllSugar(), //
+            'sugarCountMonth' => $this->getCountSugarFromCurentMonth(), //
+        ];
+    }
+
 }

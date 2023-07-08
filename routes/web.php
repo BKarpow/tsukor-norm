@@ -98,21 +98,24 @@ Route::group(['prefix'=>'/api/ig'], function(){
 
 Route::group([
     'prefix'=>'/my-sugar',
+    'controller' => MySugarController::class,
     'middleware' => "auth"
 ], function(){
-    Route::get('/import', [MySugarController::class, 'import'])->name('sugar.import');
-    Route::get('/api/analytic', [MySugarController::class, 'getAnalyticsDataSugarApi'])->name('sugar.api.analytic');
-    Route::get('/api/profile', [MySugarController::class, 'gluProfileApi'])->name('sugar.api.profile');
-    Route::get('/api/percentage', [MySugarController::class, 'getLevelsPercentageApi']);
-    Route::get('/api/empty-stomach', [MySugarController::class, 'getEmptyStomachApi']);
-    Route::get('/api/all-dates', [MySugarController::class, 'getAllDatesSugar']);
+    Route::get('/', 'index')->name('sugar.index');
+    Route::get('/analytic', 'analytic')->name('sugar.analytic');
+    Route::get('/import', 'import')->name('sugar.import');
+    Route::get('/api/analytic', 'getAnalyticsDataSugarApi')->name('sugar.api.analytic');
+    Route::get('/api/profile', 'gluProfileApi')->name('sugar.api.profile');
+    Route::get('/api/percentage', 'getLevelsPercentageApi');
+    Route::get('/api/empty-stomach', 'getEmptyStomachApi');
+    Route::get('/api/all-dates', 'getAllDatesSugar');
 
-    Route::post('/import', [MySugarController::class, 'importStore'])->name('sugar.import.file.store');
-    Route::get('/add', [MySugarController::class, 'create'])->name('sugar.add');
-    Route::post('/add', [MySugarController::class, 'store'])->name('sugar.add.store');
-    Route::delete('/delete/{mySugar}', [MySugarController::class, 'destroy'])->name('sugar.delete');
-    Route::get('/edit/{mySugar}', [MySugarController::class, 'edit'])->name('sugar.edit');
-    Route::post('/edit/{mySugar}', [MySugarController::class, 'update'])->name('sugar.edit');
+    Route::post('/import', 'importStore')->name('sugar.import.file.store');
+    Route::get('/add', 'create')->name('sugar.add');
+    Route::post('/add', 'store')->name('sugar.add.store');
+    Route::delete('/delete/{mySugar}', 'destroy')->name('sugar.delete');
+    Route::get('/edit/{mySugar}', 'edit')->name('sugar.edit');
+    Route::post('/edit/{mySugar}', 'update')->name('sugar.edit');
 });
 
 Route::group([
@@ -241,6 +244,7 @@ Route::group([
     'middleware' => 'auth',
     'controller' => App\Http\Controllers\UserController::class,
 ], function() {
+    Route::get('/', 'userIndex')->name('user.index');
     Route::get('/delete', 'deleteUserAndData')->name('user.delete');
     Route::post('/delete', 'deleteUserAndDataStore');
     Route::post('/create', 'saveSetupType')->name('user.saveSetup');

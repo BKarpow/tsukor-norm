@@ -33,20 +33,9 @@ class HomeController extends Controller
     public function index()
     {
         return view('home', [
-            'avgPerDay' => $this->getAvgCountLevelsSugarFrom7Days(),
             'sugarTargetRange' => $this->getSuagarTarrgetRange(),
-            'last7Day' => $this->getAvgFromIntervalDays(7),
-            'avgGluToDay' => $this->getAvgFromToDay(),
-            'last14Day' => $this->getAvgFromIntervalDays(14),
-            'last30Day' => $this->getAvgFromIntervalDays(30),
-            'last90Day' => $this->getAvgFromIntervalDays(90),
-            'sugarAvg' => $this->getAvgFromAllLevelsSugar(),
-            'sugarCount' => $this->getCountAllSugar(),
-            'sugarCountMonth' => $this->getCountSugarFromCurentMonth(),
+            'avgPerDay' => $this->getAvgCountLevelsSugarFrom7Days(),
             'sugars' => $this->getAllDatesFromHistory(),
-            // 'medicaments' => Auth::user()->medicaments()
-            //                              ->orderBy('name', 'asc')
-            //                              ->get(),
             'hba1c' => Auth::user()->hba1c()->orderBy('created_at','desc')->first()
         ]);
     }

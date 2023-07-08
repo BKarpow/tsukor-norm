@@ -9,7 +9,7 @@
         {{-- <a href="index.html" class="logo me-auto">
         <img src="assets/img/logo.png" alt="" class="img-fluid"></a> --}}
 
-        <nav id="navbar" class="navbar">
+        <nav id="navbar" class="navbar me-auto">
             <ul>
                 <li><a class="nav-link scrollto active" href="/">Головна</a></li>
                 {{-- <li><a class="nav-link scrollto" href="{{ route('home') }}">Трекер діабету</a></li> --}}
@@ -20,6 +20,7 @@
                 {{-- <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li> --}}
                 {{-- <li><a class="nav-link scrollto" href="#team">Team</a></li> --}}
                 @auth
+
                     @if (auth()->user()->use_tablet)
                         <li class="dropdown"><a title="Меню користувача" href="#">
                             Ліки
@@ -35,14 +36,27 @@
 
                 <li class="dropdown"><a title="Меню користувача" href="#">
                         @auth
-                            {{ auth()->user()->name }}
+                        <i class="fa-solid fa-user fa-xl"></i> &nbsp;{{ auth()->user()->name }}
                         @else
-                            Меню користувача
+                        <i class="fa-solid fa-user fa-xl"></i>
                         @endauth
                         <i class="bi bi-chevron-down"></i></a>
                     <ul>
                         @auth
                             <li><a href="{{ route('sugar.add') }}">+ Глюкоза крові</a></li>
+                            <li><a href="{{ route('sugar.analytic') }}"><i class="fa-solid fa-chart-line"></i>  Аналітика цукру</a></li>
+                            <li><a href="{{ route('hba1c.index') }}">
+                                <i class="fa-solid fa-microscope fa-xl"></i> &nbsp;
+                                HbA1c показники
+                            </a></li>
+                            <li><a href="{{ route('bloodPressure.index') }}">
+                                <i class="fa-solid fa-stethoscope fa-xl"></i> &nbsp;
+                                АТ та пульс
+                            </a></li>
+                            <li><a href="{{ route('user.index') }}">
+                                <i class="fa-solid fa-gear fa-xl"></i> &nbsp;
+                                Налаштування
+                            </a></li>
                             @if (auth()->user()->isAdmin())
                             <li><a href="{{ route('admin.product') }}">Керування прродуктами</a></li>
                             <li>

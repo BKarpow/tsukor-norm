@@ -11,6 +11,7 @@ use App\Http\Resources\EmptyStomachResource;
 use App\Http\Resources\GluProfileResource;
 use App\Http\Resources\SugarAnalyticApiResource;
 use App\Lib\HistoryServicesTrait;
+use App\Lib\SugarServicesTrait;
 use App\Lib\ToolTrait;
 use App\Models\UserWriteHistory;
 use Illuminate\Support\Facades\Auth;
@@ -21,6 +22,7 @@ class MySugarController extends Controller
 {
     use HistoryServicesTrait;
     use ToolTrait;
+    use SugarServicesTrait;
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +30,17 @@ class MySugarController extends Controller
      */
     public function index()
     {
-        //
+        return redirect()->route('home');
+    }
+
+    /**
+     * Сторінка аналітики цукру.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function analytic()
+    {
+        return view('sugar.analytic', $this->getArrayCollectionVarsFromAnalytic());
     }
 
     /**

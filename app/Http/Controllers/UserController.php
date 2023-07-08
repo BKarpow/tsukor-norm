@@ -61,4 +61,12 @@ class UserController extends Controller
             return redirect()->route('home')->withStatus("Некоректний пароль, спробуйте ше раз!");
         }
     }
+
+    /**
+     * Сторінка користувача, профіль та налаштування
+     */
+    public function userIndex()
+    {
+        return view('userProfile');
+    }
 }
