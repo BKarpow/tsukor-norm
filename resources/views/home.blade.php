@@ -8,17 +8,12 @@
     <div class="container my-4">
         <div class="row justify-content-center">
             <div class="col-md-11">
-                @if (session('status'))
-                    <div class="alert alert-success mb-2">
-                        {{ session('status') }}
-                    </div>
-                    <!-- /.alert alert-success -->
-                @endif
+                
                 <div class="card">
                     <div class="card-header">Моя карта</div>
                     <!-- home-analytics -->
                     <div class="card-body">
-                        
+
                         @if (auth()->user()->type_diabet != null)
                             @include('cabinet.buttons')
                             @include('cabinet.controlDiabet')
@@ -57,21 +52,7 @@
                                         </a>
                                     </li>
                                 @endif
-                                @if (auth()->user()->use_tablet)
-                                    <li class="nav-item" role="presentation">
-                                        <a href="{{ route('medicamentTake.index') }}" class="nav-link" role="tab"
-                                            aria-selected="false">
-                                            Прийом ліків
-                                        </a>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="med" data-bs-toggle="tab"
-                                            data-bs-target="#med-pane" type="button" role="tab"
-                                            aria-controls="med-pane" aria-selected="false">
-                                            Мої ліки
-                                        </button>
-                                    </li>
-                                @endif
+
                                 <li class="nav-item" role="presentation">
                                     <a href="{{ route('bloodPressure.index') }}" class="nav-link" role="tab"
                                         aria-selected="false">
@@ -101,12 +82,7 @@
                                     @include('cabinet.setup')
                                 </div> <!-- End tab setting -->
 
-                                @if (auth()->user()->use_tablet)
-                                    <div class="tab-pane fade" id="med-pane" role="tabpanel" aria-labelledby="med"
-                                        tabindex="0">
-                                        @include('cabinet.medicament')
-                                    </div> <!-- End tab bp -->
-                                @endif
+
 
                             </div>
                         @else

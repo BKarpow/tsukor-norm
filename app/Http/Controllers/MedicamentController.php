@@ -18,7 +18,7 @@ class MedicamentController extends Controller
      */
     public function index()
     {
-        //
+        return view('medicament.index');
     }
 
     /**
@@ -107,9 +107,12 @@ class MedicamentController extends Controller
     public function destroy(Medicament $medicament)
     {
         $this->authorize('update', $medicament);
-        $n = $medicament->name;
-        $medicament->delete();
-        return redirect()->route('home')->withStatus("Ліки {$n} видалено!");
+        $medicament->trash = true;
+        $medicament->active = false;
+        $medicament->save();
+        return redirect()
+                ->route('med.index')
+                ->withStatus("Ліки {$medicament->name} переміщено в корзину !");
     }
 
     public function triggerActive(Medicament $medicament)
@@ -123,6 +126,23 @@ class MedicamentController extends Controller
         ]);
     }
 
+    /**
+     * Метод для відновлення ліків із корзини.
+     *
+     */
+    public function restoreMed(Medicament $medicament)
+    {
+        $this->authorize('update', $medicament);
+        if ($medicament->trash) {
+            $medicament->trash = false;
+            $medicament->active = true;
+            $medicament->save();
+        }
+        return redirect()
+                ->route('med.index')
+                ->withStatus("Ліки {$medicament->name} відновлкно з корзини та активовано!");
+    }
+
     public function getActiveMedSugar()
     {
         return MedicamentResource::collection(
@@ -130,6 +150,8 @@ class MedicamentController extends Controller
                 ->medicaments()
                 ->whereActive(true)
                 ->whereSugarLower(true)
+                ->whereTrash(false)
+
                 ->orderBy('name', 'asc')
                 ->get()
         );
@@ -141,6 +163,7 @@ class MedicamentController extends Controller
             Auth::user()
                 ->medicaments()
                 ->whereActive(true)
+                ->whereTrash(false)
                 ->orderBy('name', 'asc')
                 ->get()
         );
@@ -158,6 +181,23 @@ class MedicamentController extends Controller
                 ->medicaments()
                 ->orderBy('active', 'desc')
                 ->orderBy('name', 'asc')
+                ->whereTrash(false)
+                ->get()
+        );
+    }
+
+    /**
+     * Метод поверне колекцію всіх медикаментів що в корзині для сміття.
+     * Працює через API в json форматі.
+     * @return MedicamentResource
+     */
+    public function getTrashMedicaments()
+    {
+        return MedicamentResource::collection(
+            Auth::user()
+                ->medicaments()
+                ->orderBy('name', 'asc')
+                ->whereTrash(true)
                 ->get()
         );
     }

@@ -18,6 +18,7 @@ class MedicamentResource extends JsonResource
 
             'id' => intval($this->id),
             'active' => (bool)$this->active,
+            'trash' => (bool)$this->trash,
             'name' => htmlspecialchars($this->name),
             'dose' => htmlspecialchars($this->dose),
             'note' => htmlspecialchars($this->note),

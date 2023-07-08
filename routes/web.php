@@ -164,14 +164,17 @@ Route::group([
     'prefix' => '/medicament',
     'middleware' => 'auth'
 ], function() {
+    Route::get('/', [MedicamentController::class, 'index'])->name('med.index');
     Route::get('/api/list/sugar-lower', [MedicamentController::class, 'getActiveMedSugar']);
     Route::get('/api/list', [MedicamentController::class, 'getActiveMed']);
     Route::get('/api/list/all', [MedicamentController::class, 'getAllMedicaments']);
+    Route::get('/api/list/trash', [MedicamentController::class, 'getTrashMedicaments']);
     Route::get('/api/triggerActive/{medicament}', [MedicamentController::class, 'triggerActive'])
             ->name('med.api.triggerActive');
     Route::get('/create', [MedicamentController::class, 'create'])->name('med.create');
     Route::get('/edit/{medicament}', [MedicamentController::class, 'edit'])->name('med.edit');
     Route::get('/delete/{medicament}', [MedicamentController::class, 'destroy'])->name('med.delete');
+    Route::get('/restore/{medicament}', [MedicamentController::class, 'restoreMed'])->name('med.restore');
     Route::post('/edit/{medicament}', [MedicamentController::class, 'update'])->name('med.edit');
     Route::post('/create', [MedicamentController::class, 'store'])->name('med.create');
 });

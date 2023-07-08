@@ -44,9 +44,9 @@ class HomeController extends Controller
             'sugarCount' => $this->getCountAllSugar(),
             'sugarCountMonth' => $this->getCountSugarFromCurentMonth(),
             'sugars' => $this->getAllDatesFromHistory(),
-            'medicaments' => Auth::user()->medicaments()
-                                         ->orderBy('name', 'asc')
-                                         ->get(),
+            // 'medicaments' => Auth::user()->medicaments()
+            //                              ->orderBy('name', 'asc')
+            //                              ->get(),
             'hba1c' => Auth::user()->hba1c()->orderBy('created_at','desc')->first()
         ]);
     }

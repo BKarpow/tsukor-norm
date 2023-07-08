@@ -12,13 +12,26 @@
         <nav id="navbar" class="navbar">
             <ul>
                 <li><a class="nav-link scrollto active" href="/">Головна</a></li>
-                <li><a class="nav-link scrollto" href="{{ route('home') }}">Трекер діабету</a></li>
+                {{-- <li><a class="nav-link scrollto" href="{{ route('home') }}">Трекер діабету</a></li> --}}
                 <li><a class="nav-link scrollto" href="{{ route('ig.index') }}">Таблиця ГІ</a></li>
                 <li><a class="nav-link scrollto" href="https://blog.tsukor-norm.pp.ua">Блог</a></li>
                 <li><a class="nav-link scrollto" href="{{ route('about') }}">Про сайт</a></li>
                 {{-- <li><a class="nav-link scrollto" href="#services">Services</a></li> --}}
                 {{-- <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li> --}}
                 {{-- <li><a class="nav-link scrollto" href="#team">Team</a></li> --}}
+                @auth
+                    @if (auth()->user()->use_tablet)
+                        <li class="dropdown"><a title="Меню користувача" href="#">
+                            Ліки
+                            <i class="bi bi-chevron-down"></i></a>
+                            <ul>
+                                <li><a href="{{route('med.index')}}">Моя аптечка</a></li>
+                                <li><a href="{{route('medicamentTake.index')}}">Журнал прийому</a></li>
+                            </ul>
+                        </li>
+                    @endif  {{-- End medicament construct --}}
+
+                @endauth
 
                 <li class="dropdown"><a title="Меню користувача" href="#">
                         @auth
@@ -52,12 +65,6 @@
                             <li><a href="{{ route('register') }}">Створити акаунт</a></li>
                         @endauth
                     </ul>
-                </li>
-                <li>
-                    <a title="Запишіть показник глюкометра на сторінці за цим посиланням" class="getstarted scrollto"
-                        href="{{ route('sugar.add') }}">
-                        Записати цукор
-                    </a>
                 </li>
 
             </ul>
