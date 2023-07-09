@@ -60,7 +60,7 @@
     </div>
 
     <div class="form-group mb-2" v-if="dataMeds.length">
-        <button @click="saveMedTakes" type="button" class="btn btn-success">
+        <button v-if="showSubmit" @click="saveMedTakes" type="button" class="btn btn-success">
             <i class="fa-solid fa-square-plus"></i> Записати прийом ліків
         </button>
         <!-- /.btn btn-success -->
@@ -81,6 +81,7 @@ export default {
             dataMeds: new Array(),
             note: "Прийом ліків",
             createAt: "",
+            showSubmit: true,
         };
     },
     components: {
@@ -88,7 +89,6 @@ export default {
     },
     methods: {
         setCreateAt(ca) {
-            console.log("CreateAt", ca);
             this.createAt = ca;
         },
         getMeds() {
@@ -97,14 +97,18 @@ export default {
             });
         },
         saveMedTakes() {
+            this.showSubmit = false;
             axios
                 .post("/med-take/create", this.dataMeds)
                 .then((r) => {
                     if (r.data.adds) {
+                        Swal.fire("Записано в журнал прийому.", "", "success");
                         window.location = "/";
+
                     }
                 })
                 .catch((err) => {
+                    this.showSubmit = true;
                     Swal.fire({
                         title: "Помилка збереження",
                         html: err.toString(),
