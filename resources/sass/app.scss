@@ -209,3 +209,7 @@ $navbar-light-brand-hover-color: $navbar-light-active-color;
     color: #333;
     }
 }
+
+[v-cloak]{
+    display: none;
+  }

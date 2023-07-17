@@ -71,3 +71,12 @@ Date.prototype.getDayOfYear = function() {
 
     return daysInCurrentMonth;
   }
+
+  Date.prototype.getTodaysDate = function () {
+    // Метод поверне дату у форматі рік-місяць-день
+    const year = this.getFullYear();
+    const month = this.getMonth() + 1; // 0-indexed, so add 1
+    const day = this.getDate();
+
+    return `${year}-${month}-${day}`;
+  }

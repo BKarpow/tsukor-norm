@@ -66,6 +66,8 @@ import CreateMedTake from "./components/CreateMedTake.vue";
 import InfoArea from "./components/InfoArea.vue";
 import CreateBloodPressure from "./components/CreateBloodPressure.vue";
 import NewMedicamentsApp from "./components/NewMedicamentsApp.vue";
+import AlertWarning from "./components/AlertWarning.vue";
+import AlertSuccess from "./components/AlertSuccess.vue";
 
 
 app.component("ig-list", IGList);
@@ -94,6 +96,8 @@ app.component("create-bp", CreateBloodPressure);
 app.component('VSpoiler', VSpoiler);
 app.component('info', InfoArea);
 app.component('m-app', NewMedicamentsApp);
+app.component('alert-w', AlertWarning);
+app.component('alert-s', AlertSuccess);
 
 /**
  * The following block of code may be used to automatically register your

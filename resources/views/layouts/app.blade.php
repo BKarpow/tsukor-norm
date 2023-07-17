@@ -79,10 +79,7 @@
                 <div class="container my-2">
                     <div class="row">
                         <div class="col-md-11">
-                            <div class="alert alert-success ">
-                                {{ session('status') }}
-                            </div>
-                            <!-- /.alert alert-success -->
+                            <alert-s title="{{session('status')}}"></alert-s>
                         </div>
                         <!-- /.col-md-11 -->
                     </div>

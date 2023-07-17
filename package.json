@@ -22,6 +22,8 @@
         "chart.js": "^4.2.0",
         "glightbox": "^3.2.0",
         "isotope": "^1.0.0-alpha.3",
+        "md5": "^2.3.0",
+        "md5-hex": "^4.0.0",
         "mdb-vue-ui-kit": "^3.2.0",
         "sweetalert2": "^11.7.1",
         "swiper": "^9.1.1",
