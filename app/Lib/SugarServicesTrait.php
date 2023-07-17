@@ -38,18 +38,11 @@ trait SugarServicesTrait {
      */
     protected function getAvgCountLevelsSugarFrom7Days(): float
     {
-        $d = DB::table('my_sugar')
-                ->select(DB::raw('AVG(count_per_day)'))
-                ->from(function ($query) {
-                            $now = date('Y-m-d');
-                            $query->select(DB::raw('COUNT(*) as count_per_day'))
-                                ->from('my_sugar')
-                                ->whereUserId(Auth::id())
-                                ->where('created_at', '>=', DB::raw("DATE_SUB('{$now}', INTERVAL 1 WEEK)"))
-                                ->groupBy(DB::raw('DATE(created_at)'));
-                        }, 'daily_counts')
-                ->value('AVG(count_per_day)');
-        return $this->getRoundFloat($d);
+        $now = date('Y-m-d');
+        $avg = Auth::user()->mySugar()
+                    ->where('created_at', '>=', DB::raw("DATE_SUB('{$now}', INTERVAL 1 WEEK)"))
+                    ->count();
+        return $this->getRoundFloat( ($avg) / 7 );
     }
 
     /**
