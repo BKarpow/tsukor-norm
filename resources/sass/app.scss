@@ -210,6 +210,14 @@ $navbar-light-brand-hover-color: $navbar-light-active-color;
     }
 }
 
+.notes {
+    // gap: .45rem;
+    .note {
+        border: 1px solid #111;
+        border-radius: 6px;
+    }
+}
+
 [v-cloak]{
     display: none;
   }

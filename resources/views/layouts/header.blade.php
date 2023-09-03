@@ -16,6 +16,9 @@
                 <li><a class="nav-link scrollto" href="{{ route('ig.index') }}">Таблиця ГІ</a></li>
                 <li><a class="nav-link scrollto" href="https://blog.tsukor-norm.pp.ua">Блог</a></li>
                 <li><a class="nav-link scrollto" href="{{ route('about') }}">Про сайт</a></li>
+                <li>
+                    <a class="nav-link scrollto" href="{{ route('note.index') }}">Нотатки</a>
+                </li>
                 {{-- <li><a class="nav-link scrollto" href="#services">Services</a></li> --}}
                 {{-- <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li> --}}
                 {{-- <li><a class="nav-link scrollto" href="#team">Team</a></li> --}}

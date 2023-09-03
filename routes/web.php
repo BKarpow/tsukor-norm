@@ -283,6 +283,22 @@ Route::group([
     Route::get('/', 'showList')->name('admin.product');
     Route::get('/trigger/{indexGlucose}', 'publicTrigger')->name('admin.product.public.trigger');
 });
+Route::group([
+    'prefix' => '/notes',
+    'controller' => \App\Http\Controllers\NoteController::class,
+    'middleware' => 'auth'
+], function() {
+    Route::get('/', 'index')->name('note.index');
+    Route::get('/arhive', 'indexArhive')->name('note.arhive');
+    Route::get('/view/{note}', 'show')->name('note.show');
+    Route::get('/edit/{note}', 'edit')->name('note.edit');
+    Route::post('/edit/{note}/action', 'update')->name('note.edit.action');
+    Route::get('/new', 'create')->name('note.create');
+    Route::post('/new/action', 'store')->name('note.create.store');
+    Route::delete('/delete/{note}', 'destroy')->name('note.delete');
+    Route::delete('/move-arhive/{note}', 'moveArhive')->name('note.moveArhive');
+});
+
 // Route::group([], function() {});
 
 Route::get('/redirect', [App\Http\Controllers\Auth\LoginController::class, 'redirectToProvider']);

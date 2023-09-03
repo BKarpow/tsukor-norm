@@ -33,7 +33,8 @@ class AuthServiceProvider extends ServiceProvider
         App\Policies\InsulinPolicy::class => App\Models\Insulin::class,
         App\Policies\InsulinTakePolicy::class => App\Models\InsulinTake::class,
         App\Policies\MedicamentTakePolicy::class => App\Models\MedicamentTake::class,
-        
+        App\Policies\NotePolicy::class => App\Models\Note::class,
+
     ];
 
     /**

@@ -30,7 +30,7 @@ class StopRussianUser
         $countryCode = $_SERVER["HTTP_CF_IPCOUNTRY"];
         if ($countryCode == "RU") {
             event(new RussianUserVisit($request->ip(), $request->userAgent(), strtotime(now())));
-            die("<h1 align='center'>Рускій воєнний корабль - іді на хуй!</h1>");
+            die("<h1 align='center'>Остановите войну!</h1>");
         }
         return $next($request);
     }
