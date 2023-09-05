@@ -63,6 +63,11 @@
                     <PanelBpItem  v-for="bp in bloodPressures" :key="bp.id" :bp-data="bp" />
                 </p>
                 <!-- /.blocks -->
+                <h5 v-if="show && notes.length != 0">Нотатки</h5>
+                <div class="notes-list">
+                    <PanelNotes v-for="note in notes" :note="note" :key="note.id" />
+                </div>
+                <!-- /.notes-list -->
             </div>
             <!-- /.panel__body-bp -->
 
@@ -84,6 +89,7 @@ import PanelGlucoseItem from "./PanelGlucoseItem.vue";
 import PanelMedicamentItem from "./PanelMedicamentItem.vue";
 import PanelBpItem from "./PanelBpItem.vue";
 import PanelinsulinItem from "./PanelinsulinItem.vue";
+import PanelNotes from "./PanelNotes.vue";
 export default {
     name: "NewGlucosePanel",
     props: {
@@ -95,7 +101,7 @@ export default {
     components: {
         PanelGlucoseItem,
         PanelMedicamentItem,
-        PanelBpItem, PanelinsulinItem
+        PanelBpItem, PanelinsulinItem, PanelNotes
     },
     computed: {
         medSwitchId() {
@@ -135,6 +141,7 @@ export default {
         return {
             show: false,
             glucoses: [],
+            notes: [],
             insulins: [],
             medicaments: [],
             medicamentsF: [],
@@ -167,6 +174,7 @@ export default {
                     if (this.ketonTest) {
                         this.keton = r.data.keton;
                     }
+                    this.notes = r.data.notes;
                     this.show = true;
                 });
         },

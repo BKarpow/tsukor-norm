@@ -25,6 +25,17 @@
                                     <h3>{{ $note->title }}</h3>
                                 @endif
                                 <p>{{ $note->shortText() }}</p>
+                                <div class="mt-1 d-flex justify-content-end p-1">
+                                    <small class="d-block">
+                                        @if ($note->dateCreate() != $note->dateUpdate())
+                                            Редаговано: {{$note->dateUpdate()}}
+                                        @else
+                                            Створено: {{$note->dateCreate()}}
+                                        @endif
+
+                                    </small>
+                                </div>
+                                <!-- /.mt-1 d-flex justify-content-end p-1 -->
                                 <div class="my-1 px-2">
                                     <div class="btn-group">
                                         <a href="{{ route('note.show', ['note' => $note]) }}" class="btn btn-dark">

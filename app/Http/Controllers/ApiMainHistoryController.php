@@ -11,6 +11,7 @@ use App\Http\Resources\SugarTargetRangeResource;
 use App\Models\UserWriteHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\NotePanelResource;
 
 class ApiMainHistoryController extends Controller
 {
@@ -59,6 +60,12 @@ class ApiMainHistoryController extends Controller
                 ->get()
             ),
             'keton' => $keton,
+            'notes' => NotePanelResource::collection( Auth::user()->notes()
+                                    ->orderBy('created_at', 'DESC')
+                                    ->whereRaw("DATE(`created_at`) = '{$request->date}'")
+                                    ->wherePublic(true)
+                                    ->whereShowMain(true)
+                                    ->get() ),
         ]);
     }
 

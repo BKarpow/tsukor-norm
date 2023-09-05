@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Lib\DateTimeTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Note extends Model
 {
     use HasFactory;
+    use DateTimeTrait;
 
     function shortText($leght = 50, $end = "...") : string
     {

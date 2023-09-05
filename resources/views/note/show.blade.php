@@ -17,6 +17,17 @@
                         <div style="height: 65vh;" class="note col-11 m-2 p-2">
 
                             {!! $note->text !!}
+                            <div class="mt-1 d-flex justify-content-end p-1">
+                                <small class="d-block">
+                                    @if ($note->dateCreate() != $note->dateUpdate())
+                                        Редаговано: {{$note->dateUpdate()}}
+                                    @else
+                                        Створено: {{$note->dateCreate()}}
+                                    @endif
+
+                                </small>
+                            </div>
+                            <!-- /.mt-1 d-flex justify-content-end p-1 -->
                         </div>
                         <!-- /.note -->
                     </div>

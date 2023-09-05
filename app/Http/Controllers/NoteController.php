@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Note;
 use App\Http\Requests\StoreNoteRequest;
 use App\Http\Requests\UpdateNoteRequest;
+use App\Http\Resources\NotePanelResource;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class NoteController extends Controller
@@ -152,5 +154,26 @@ class NoteController extends Controller
             'status' => true,
             'deletedId' => $note->id
         ]);
+    }
+
+    /**
+     * Метод для api повертає колекцію нотаток які дозволені на головні строрінці
+     * за вказаною датою.
+     * @param Request $request
+     * @return NotePanelResource
+     */
+    public function getNotesFromApi(Request $request)
+    {
+        $request->validate([
+            'date' => 'required|date_format:Y-m-d'
+        ]);
+        return NotePanelResource::collection(
+            Auth::user()->notes()
+                        ->orderBy('created_at', 'DESC')
+                        ->whereRaw("DATE(`created_at`) = '{$request->date}'")
+                        ->wherePublic(false)
+                        ->whereShowMain(true)
+                        ->get()
+        );
     }
 }

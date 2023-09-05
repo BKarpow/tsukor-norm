@@ -288,6 +288,7 @@ Route::group([
     'controller' => \App\Http\Controllers\NoteController::class,
     'middleware' => 'auth'
 ], function() {
+    Route::get('/api/panel/', 'getNotesFromApi');
     Route::get('/', 'index')->name('note.index');
     Route::get('/arhive', 'indexArhive')->name('note.arhive');
     Route::get('/view/{note}', 'show')->name('note.show');
@@ -297,6 +298,7 @@ Route::group([
     Route::post('/new/action', 'store')->name('note.create.store');
     Route::delete('/delete/{note}', 'destroy')->name('note.delete');
     Route::delete('/move-arhive/{note}', 'moveArhive')->name('note.moveArhive');
+
 });
 
 // Route::group([], function() {});
