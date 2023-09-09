@@ -29,9 +29,13 @@
         class="btn-tn m-1  scrollto">
             <i class="fa-solid fa-square-plus"></i> АТ та пульс
         </a><!-- /.btn btn-primary -->
+        <a href="{{ route('note.create') }}"
+        class="btn-tn m-1  scrollto">
+            <i class="fa-solid fa-square-plus"></i> Нотатка
+        </a><!-- /.btn btn-primary -->
 
         <btn-hb url="{{route('hba1c.create')}}"></btn-hb>
 
     @endauth
-    
+
 </div><!-- /.my-2 -->

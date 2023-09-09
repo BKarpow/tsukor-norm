@@ -6,11 +6,14 @@ use App\Models\Note;
 use App\Http\Requests\StoreNoteRequest;
 use App\Http\Requests\UpdateNoteRequest;
 use App\Http\Resources\NotePanelResource;
+use App\Lib\HistoryServicesTrait;
+use App\Models\UserWriteHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class NoteController extends Controller
 {
+    use HistoryServicesTrait;
     /**
      * Display a listing of the resource.
      *
@@ -66,6 +69,13 @@ class NoteController extends Controller
         $note->text = $request->text;
         $note->show_main = $showMain;
         $note->save();
+        if ($showMain) {
+            $this->newUserHistryWrite(
+                UserWriteHistory::TYPE_NOTE,
+                (int)$note->id,
+                now()
+            );
+        }
         return redirect()->route('note.index')
                         ->withStatus('Нотатка додана успішно!');
     }
@@ -131,8 +141,12 @@ class NoteController extends Controller
     public function destroy(Note $note)
     {
         $this->authorize('delete', $note);
-        $ntId = $note->id;
+        $ntId = (int)$note->id;
         $note->delete();
+        $this->deleteUserHistryFromWriteId(
+            UserWriteHistory::TYPE_NOTE,
+            $ntId
+        );
         return response()->json([
             'status' => true,
             'deletedId' => $ntId

@@ -52,13 +52,13 @@
                                         <a href="{{ route('note.edit', ['note' => $note]) }}" class="btn btn-dark"><i
                                                 class="fa-solid fa-pen-to-square"></i></a>
                                         <ask
-                                            delete-url="{{route('note.delete', ['note' => $note])}}"
+                                            delete-url="/notes/delete/{{$note->id}}"
                                             ask="Видалити нотатку назавжди?"
                                         >
                                             <i class="fa-solid fa-trash-can fa-xl"></i>
                                         </ask>
                                         <ask
-                                            delete-url="{{route('note.moveArhive', ['note' => $note])}}"
+                                            delete-url="/notes/move-arhive/{{$note->id}}"
                                             ask="Перенести в арзів?"
                                         >
                                             <i class="fa-solid fa-inbox fa-xl"></i>

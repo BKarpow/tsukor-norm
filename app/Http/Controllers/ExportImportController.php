@@ -37,6 +37,9 @@ class ExportImportController extends Controller
             'insulinTake' => Auth::user()->insulinLog()
                                 ->orderBy('created_at', 'desc')
                                 ->get(),
+            'notes' => Auth::user()->notes()
+                                ->orderBy('created_at', 'desc')
+                                ->get(),
         ];
     }
 
